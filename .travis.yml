@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-esri-webapp-builder' ]; then cd .. && eval "mv $currentfolder generator-esri-webapp-builder" && cd generator-esri-webapp-builder; fi
+
