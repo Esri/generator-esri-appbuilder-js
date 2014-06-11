@@ -1,13 +1,13 @@
 {
   "name": "generator-esri-webapp-builder",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "0.0.1",
+  "description": "Yeoman generator to help customize Esri's WebAppBuilder",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "tomwayson/generator-esri-webapp-builder",
   "author": {
     "name": "Tom Wayson",
-    "email": "",
+    "email": "twayson@esri.com",
     "url": "https://github.com/tomwayson"
   },
   "engines": {
@@ -17,10 +17,11 @@
     "test": "mocha"
   },
   "files": [
-    "app"
+    "app",
+    "widget"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator", "Esri", "WebApp Builder"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",

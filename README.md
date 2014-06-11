@@ -1,27 +1,22 @@
 # generator-esri-webapp-builder [![Build Status](https://secure.travis-ci.org/tomwayson/generator-esri-webapp-builder.png?branch=master)](https://travis-ci.org/tomwayson/generator-esri-webapp-builder)
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io) generator to help customize [Esri's WebApp Builder](http://video.esri.com/watch/3211/web-app-builder).
 
+## About
+
+This generator scaffolds out the boilerplate files that are needed when you are customizing the WebApp Builder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget
+
+![Screenshot](https://raw.githubusercontent.com/tomwayson/generator-esri-webapp-builder/master/docs/images/running-the-generators.png)
 
 ## Getting Started
 
-### What is Yeoman?
+### Installation
 
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+To install Yeoman from npm (if not already), run:
 
 ```bash
 $ npm install -g yo
 ```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
 To install generator-esri-webapp-builder from npm, run:
 
@@ -29,19 +24,88 @@ To install generator-esri-webapp-builder from npm, run:
 $ npm install -g generator-esri-webapp-builder
 ```
 
-Finally, initiate the generator:
+### Running the Generators
 
-```bash
-$ yo esri-webapp-builder
+The generators should be run in the root folder of either the stem app or an app that you've already created with the WebApp Builder.
+
+#### App (Default) Generator
+
+Currently the app generator doesn't do much other than install some project files (`package.json`, `.jshintrc`, etc) and ensure required subfolders (like `widgets`) exist. The subgenerators do most of the work.
+
+1. Navigate into either `stemapp` or `builder/apps/[appId]/widgets` under your local WebApp Builder installation
+2. Run the generator with `yo esri-webapp-builder`
+3. Answer the man's questions!
+
+|Prompt|Description|Default|
+|------|-----------|-------|
+|Author|Name of developers or organization for widget manifests|Your Name or Organization|
+
+#### Widget Generator
+
+Scaffolds out the files needed to create a new custom widget.
+
+1. Navigate into either `stemapp` or `builder/apps/[appId]/widgets` under your local WebApp Builder installation
+2. Run the generator with `yo esri-webapp-builder:widget`
+3. Answer the man's questions!
+
+|Prompt|Description|Default|
+|------|-----------|-------|
+|Widget Name|Folder name for output files and widget identifier|MyWidget|
+|Widget Title|Name users see in widget selector and panel title bar|My Widget|
+|Description|What does this widget do? (optional)|A custom WebApp Builder widget|
+|CSS Prefix|Prefix for the widget's base class (optional)|myapp-|
+|Will your widget run inside a panel?|Will your widget run inside a panel?|Yes|
+
+Taking the default values for the prompts will generate the following output under the `widgets` folder:
+
+```
+MyWidget
+│   config.json
+│   manifest.json
+│   Widget.html
+│   Widget.js
+│
+├───css
+│       style.css
+│
+├───images
+│       icon.png
+│
+└───nls
+        strings.js
 ```
 
-### Getting To Know Yeoman
+The next time you run the WebApp Builder, you will see something like the following on the widgets panel:
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+![Widget in the Builder](https://raw.githubusercontent.com/tomwayson/generator-esri-webapp-builder/master/docs/images/widget-in-builder.png)
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+## Issues
 
+Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/tomwayson/generator-esri-webapp-builder/issues).
 
-## License
+## Contributing
 
-MIT
+We welcome contributions from anyone and everyone. Please see Esri's [guidelines for contributing](https://github.com/esri/contributing).
+
+## Credit
+
+This generator was inspired by [@steveoh](https://github.com/steveoh) and [@stdavis](https://github.com/stdavis)'s [generator-dojo-widget](https://github.com/steveoh/generator-dojo-widget) as well as [@dbouwman](https://github.com/dbouwman)'s [generator-bootmap](https://github.com/dbouwman/generator-bootmap).
+
+## Licensing
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+A copy of the license is available in the repository's [license.txt]( https://raw.github.com/Esri/esri-leaflet/master/license.txt) file.
+
+[](Esri Tags: "WebApp Builder" yeoman generator)
+[](Esri Language: JavaScript)

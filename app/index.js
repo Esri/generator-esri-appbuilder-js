@@ -10,11 +10,12 @@ var EsriWebappBuilderGenerator = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
 
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies();
-      }
-    });
+    // no dependencies in package.json (yet)
+    // this.on('end', function () {
+    //   if (!this.options['skip-install']) {
+    //     this.installDependencies();
+    //   }
+    // });
   },
 
   askFor: function () {
