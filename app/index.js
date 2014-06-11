@@ -21,8 +21,8 @@ var EsriWebappBuilderGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the generator for Esri Webapp Builder!'));
-    console.log(chalk.yellow('This generator should be run in the stemapp root folder.'));
+    this.log(yosay('Welcome to the generator for Esri WebApp Builder!'));
+    console.log(chalk.yellow('This generator and its subgenerators should be run in the stemapp root folder.'));
 
     var prompts = [{
       name: 'author',
