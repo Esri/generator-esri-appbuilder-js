@@ -41,7 +41,6 @@ module.exports = yeoman.generators.Base.extend({
     this.mkdir('widgets');
 
     this.template('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
   },
 
   projectfiles: function () {
