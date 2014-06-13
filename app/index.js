@@ -1,12 +1,11 @@
 'use strict';
-// var util = require('util');
 // var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
 
 
-var EsriWebappBuilderGenerator = yeoman.generators.Base.extend({
+module.exports = yeoman.generators.Base.extend({
   init: function () {
     this.pkg = require('../package.json');
 
@@ -22,8 +21,8 @@ var EsriWebappBuilderGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the generator for Esri WebApp Builder!'));
-    console.log(chalk.yellow('This generator and its subgenerators should be run in the stemapp root folder.'));
+    this.log(yosay('Welcome to the ArcGIS Web AppBuilder generator!'));
+    console.log(chalk.yellow('The generators should be run in the root folder of either the stem app or an app that you\'ve already created with the Web AppBuilder.'));
 
     var prompts = [{
       name: 'author',
@@ -50,5 +49,3 @@ var EsriWebappBuilderGenerator = yeoman.generators.Base.extend({
     this.copy('jshintrc', '.jshintrc');
   }
 });
-
-module.exports = EsriWebappBuilderGenerator;

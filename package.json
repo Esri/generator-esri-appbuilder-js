@@ -1,8 +1,8 @@
 {
   "name": "generator-esri-webapp-builder",
   "version": "0.0.1",
-  "description": "Yeoman generator to help customize Esri's WebAppBuilder",
-  "license": "MIT",
+  "description": "Yeoman generator to help customize the ArcGIS Web AppBuilder",
+  "license": "Apache",
   "main": "app/index.js",
   "repository": "tomwayson/generator-esri-webapp-builder",
   "author": {
@@ -21,7 +21,7 @@
     "widget"
   ],
   "keywords": [
-    "yeoman-generator", "Esri", "WebApp Builder"
+    "yeoman-generator", "Esri", "ArcGIS", "Web", "AppBuilder"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",
