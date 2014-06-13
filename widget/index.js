@@ -7,7 +7,7 @@ var WidgetGenerator = yeoman.generators.Base.extend({
   askFor: function () {
     var done = this.async();
 
-    console.log(chalk.green('Welcome to the Esri WebApp Builder widget generator!'));
+    console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
 
     var prompts = [{
       name: 'widgetName',
@@ -20,7 +20,7 @@ var WidgetGenerator = yeoman.generators.Base.extend({
     }, {
       name: 'description',
       message: 'Description:',
-      'default': 'A custom WebApp Builder widget.'
+      'default': 'A custom Web AppBuilder widget.'
     },
     // TODO: checkbox prompt for 2D/3D once the WAB supports 3D
     {
