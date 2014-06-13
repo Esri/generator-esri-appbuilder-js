@@ -3,14 +3,14 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('esri-webapp-builder generator', function () {
+describe('arcgis-webappbuilder generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('esri-webapp-builder:app', [
+      this.app = helpers.createGenerator('arcgis-webappbuilder:app', [
         '../../app'
       ]);
       done();
@@ -19,7 +19,7 @@ describe('esri-webapp-builder generator', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      // add files you expect to exist here.
+      'package.json',
       '.jshintrc',
       '.editorconfig'
     ];
@@ -33,4 +33,6 @@ describe('esri-webapp-builder generator', function () {
       done();
     });
   });
+
+  // TODO: test if package.json has properties
 });
