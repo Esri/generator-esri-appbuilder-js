@@ -3,14 +3,14 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('arcgis-webappbuilder:widget subgenerator', function () {
+describe('esri-appbuilder-js:widget subgenerator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.widget = helpers.createGenerator('arcgis-webappbuilder:widget', [
+      this.widget = helpers.createGenerator('esri-appbuilder-js:widget', [
         '../../widget'
       ]);
       done();

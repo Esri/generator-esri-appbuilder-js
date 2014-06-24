@@ -3,14 +3,14 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('arcgis-webappbuilder generator', function () {
+describe('esri-appbuilder-js generator', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('arcgis-webappbuilder:app', [
+      this.app = helpers.createGenerator('esri-appbuilder-js:app', [
         '../../app'
       ]);
       done();

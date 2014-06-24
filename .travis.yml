@@ -3,5 +3,5 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-arcgis-webappbuilder' ]; then cd .. && eval "mv $currentfolder generator-arcgis-webappbuilder" && cd generator-arcgis-webappbuilder; fi
+  - if [ "$currentfolder" != 'generator-esri-appbuilder-js' ]; then cd .. && eval "mv $currentfolder generator-esri-appbuilder-js" && cd generator-esri-appbuilder-js; fi
 

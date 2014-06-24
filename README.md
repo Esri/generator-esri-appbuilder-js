@@ -1,4 +1,4 @@
-# generator-arcgis-webappbuilder [![Build Status](https://secure.travis-ci.org/tomwayson/generator-arcgis-webappbuilder.png?branch=master)](https://travis-ci.org/tomwayson/generator-arcgis-webappbuilder)
+# generator-esri-appbuilder-js [![Build Status](https://secure.travis-ci.org/tomwayson/generator-esri-appbuilder-js.png?branch=master)](https://travis-ci.org/tomwayson/generator-esri-appbuilder-js)
 
 > [Yeoman](http://yeoman.io) generator to help customize [the ArcGIS Web AppBuilder](http://video.esri.com/watch/3211/web-app-builder).
 
@@ -6,7 +6,7 @@
 
 This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget
 
-![Screenshot](https://raw.githubusercontent.com/tomwayson/generator-arcgis-webappbuilder/master/docs/images/running-the-generators.png)
+![Screenshot](https://raw.githubusercontent.com/tomwayson/generator-esri-appbuilder-js/master/docs/images/running-the-generators.png)
 
 ## Getting Started
 
@@ -18,10 +18,10 @@ To install Yeoman from npm (if not already), run:
 $ npm install -g yo
 ```
 
-To install generator-arcgis-webappbuilder from npm, run:
+To install generator-esri-appbuilder-js from npm, run:
 
 ```bash
-$ npm install -g generator-arcgis-webappbuilder
+$ npm install -g generator-esri-appbuilder-js
 ```
 
 ### Running the Generators
@@ -33,7 +33,7 @@ The generators should be run in the root folder of either the stem app or an app
 Currently the app generator doesn't do much other than install some project files (`package.json`, `.jshintrc`, etc) and ensure required subfolders (like `widgets`) exist. The subgenerators do most of the work.
 
 1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
-2. Run the generator with `yo arcgis-webappbuilder`
+2. Run the generator with `yo esri-appbuilder-js`
 3. Answer the man's questions!
 
 |Prompt|Description|Default|
@@ -45,7 +45,7 @@ Currently the app generator doesn't do much other than install some project file
 Scaffolds out the files needed to create a new custom widget.
 
 1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
-2. Run the generator with `yo arcgis-webappbuilder:widget`
+2. Run the generator with `yo esri-appbuilder-js:widget`
 3. Answer the man's questions!
 
 |Prompt|Description|Default|
@@ -77,11 +77,11 @@ MyWidget
 
 The next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
 
-![Widget in the Builder](https://raw.githubusercontent.com/tomwayson/generator-arcgis-webappbuilder/master/docs/images/widget-in-builder.png)
+![Widget in the Builder](https://raw.githubusercontent.com/tomwayson/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
 
 ## Issues
 
-Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/tomwayson/generator-arcgis-webappbuilder/issues).
+Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/tomwayson/generator-esri-appbuilder-js/issues).
 
 ## Contributing
 
