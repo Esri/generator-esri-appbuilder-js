@@ -8,5 +8,8 @@
   "author": "TODO: your name here",
   "description": "<%= description %>",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0"
+  "license": "http://www.apache.org/licenses/LICENSE-2.0"<% if (!inPanel) { %>,
+  "properties": {
+    "inPanel": false
+  }<% } %>
 }

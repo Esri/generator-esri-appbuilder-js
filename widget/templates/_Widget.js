@@ -52,8 +52,5 @@ define([
     }
   });
 
-<% if (!inPanel) { %>
-  clazz.inPanel = false;
-<% } %>
   return clazz;
 });
