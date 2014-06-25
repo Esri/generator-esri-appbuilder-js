@@ -1,4 +1,4 @@
-# generator-esri-appbuilder-js [![Build Status](https://secure.travis-ci.org/tomwayson/generator-esri-appbuilder-js.png?branch=master)](https://travis-ci.org/tomwayson/generator-esri-appbuilder-js)
+# generator-esri-appbuilder-js [![Build Status](https://secure.travis-ci.org/Esri/generator-esri-appbuilder-js.png?branch=master)](https://travis-ci.org/Esri/generator-esri-appbuilder-js)
 
 > [Yeoman](http://yeoman.io) generator to help customize [the ArcGIS Web AppBuilder](http://video.esri.com/watch/3211/web-app-builder).
 
@@ -6,7 +6,7 @@
 
 This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget
 
-![Screenshot](https://raw.githubusercontent.com/tomwayson/generator-esri-appbuilder-js/master/docs/images/running-the-generators.png)
+![Screenshot](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/running-the-generators.png)
 
 ## Getting Started
 
@@ -77,11 +77,11 @@ MyWidget
 
 The next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
 
-![Widget in the Builder](https://raw.githubusercontent.com/tomwayson/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
+![Widget in the Builder](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
 
 ## Issues
 
-Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/tomwayson/generator-esri-appbuilder-js/issues).
+Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/Esri/generator-esri-appbuilder-js/issues).
 
 ## Contributing
 
@@ -105,7 +105,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](https://raw.githubusercontent.com/tomwayson/generator-esri-appbuilder-js/master/license.txt) file.
+A copy of the license is available in the repository's [license.txt](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/license.txt) file.
 
 [](Esri Tags: "Web AppBuilder" yeoman generator node)
 [](Esri Language: JavaScript)
