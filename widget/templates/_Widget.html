@@ -1,4 +1,9 @@
 <div>
+<% if (hasLocale) { %>
   <h3>${nls.widgetTitle}</h3>
   <p>${nls.description}</p>
+<% } else { %>
+  <h3><%= widgetTitle %></h3>
+  <p><%= description %></p>
+<% } %>
 </div>

@@ -27,7 +27,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         cssPrefix: 'myapp-',
-        'inPanel': true
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -49,8 +49,12 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFile(expected);
     });
 
-    it('should not set inPanel to false', function() {
-      helpers.assertNoFileContent('widgets/TestWidget/manifest.json', /\"inPanel": false/);
+    it('should set inPanel to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
+    });
+
+    it('references nls in template', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.html', /\$\{nls\./);
     });
 
   });
@@ -64,7 +68,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         cssPrefix: 'myapp-',
-        'inPanel': false
+        features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -86,8 +90,53 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFile(expected);
     });
 
-    it('sets inPanel to false', function() {
-      helpers.assertFileContent('widgets/TestWidget/manifest.json', /\"inPanel": false/);
+    it('sets inPanel to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": false/);
+    });
+
+    it('references nls in template', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.html', /\$\{nls\./);
+    });
+
+  });
+
+  describe('when creating a widget w/o locale', function() {
+
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        cssPrefix: 'myapp-',
+        features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIfile' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/Widget.html',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json'
+        // TODO: settings
+      ];
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/nls/strings.js');
+    });
+
+    it('sets manifest hasLocale to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasLocale": false/);
+    });
+
+    it('does not reference nls in template', function() {
+      helpers.assertNoFileContent('widgets/TestWidget/Widget.html', /\$\{nls\./);
     });
 
   });

@@ -28,10 +28,32 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       message: 'CSS Prefix:',
       'default': 'myapp-'
     }, {
-      type: 'confirm',
-      name: 'inPanel',
-      message: 'Will your widget run inside a panel?',
-      'default': true
+      type: 'checkbox',
+      message: 'Which features would you like to include?',
+      name: 'features',
+      choices: [
+        {
+          value: 'inPanel',
+          name: 'Run inside a panel'
+        },
+        {
+          value: 'hasLocale',
+          name: 'Locale (i18n) file'
+        },
+        {
+          value: 'hasStyle',
+          name: 'Style (CSS) file'
+        },
+        {
+          value: 'hasConfig',
+          name: 'Config (JSON) file'
+        },
+        {
+          value: 'hasUIfile',
+          name: 'Template (HTML) file'
+        }
+      ],
+      'default': [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
     }];
 
     this.prompt(prompts, function (props) {
@@ -42,19 +64,28 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       this.is2d = true;
       this.is3d = false;
       this.baseClass = this._.dasherize(props.cssPrefix + this.widgetName).replace(/^-/,'');
-      this.inPanel = props.inPanel;
-
+      this.inPanel = props.features.indexOf('inPanel') > -1; // props.inPanel;
+      this.hasLocale = props.features.indexOf('hasLocale') > -1;
+      this.hasStyle = props.features.indexOf('hasStyle') > -1;
+      this.hasConfig = props.features.indexOf('hasConfig') > -1;
+      this.hasUIfile = props.features.indexOf('hasUIfile') > -1;
+      this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
   },
 
   files: function () {
+    // NOTE: this is needed b/c _Widget.html has ES6 style interpolation delimiters
+    // see: https://github.com/lodash/lodash/issues/399
+    this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
     var basePath = path.join('widgets', this.widgetName);
     this.template('_Widget.js', path.join(basePath, 'Widget.js'));
     this.template('_Widget.html', path.join(basePath, 'Widget.html'));
     this.template('_config.json', path.join(basePath, 'config.json'));
     this.template('css/_style.css', path.join(basePath, 'css/style.css'));
-    this.template('nls/_strings.js', path.join(basePath, 'nls/strings.js'));
+    if (this.hasLocale) {
+      this.template('nls/_strings.js', path.join(basePath, 'nls/strings.js'));
+    }
     this.copy('images/icon.png', path.join(basePath, 'images/icon.png'));
     this.template('_manifest.json', path.join(basePath, 'manifest.json'));
     // TODO: settings
