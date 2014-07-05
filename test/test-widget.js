@@ -26,7 +26,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         widgetTitle: 'Test Widget',
         description: 'A test widget.',
         path: 'widgets',
-        cssPrefix: 'myapp-',
+        baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
       });
       this.widget.run({}, function () {
@@ -46,11 +46,21 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         'widgets/TestWidget/manifest.json'
         // TODO: settings
       ];
+      // TODO: replace w/ assertFileContent(pairs)?
+      // see: http://yeoman.github.io/generator/assert.html
       helpers.assertFile(expected);
     });
 
     it('should set inPanel to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
+    });
+
+    it('has baseClass in widget', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
+    });
+
+    it('has baseClass in css', function() {
+      helpers.assertFileContent('widgets/TestWidget/css/style.css', /\.test-widget/);
     });
 
     it('references nls in template', function() {
@@ -67,7 +77,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         widgetTitle: 'Test Widget',
         description: 'A test widget.',
         path: 'widgets',
-        cssPrefix: 'myapp-',
+        baseClass: 'test-widget',
         features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
       });
       this.widget.run({}, function () {
@@ -94,6 +104,14 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": false/);
     });
 
+    it('has baseClass in widget', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
+    });
+
+    it('has baseClass in css', function() {
+      helpers.assertFileContent('widgets/TestWidget/css/style.css', /\.test-widget/);
+    });
+
     it('references nls in template', function() {
       helpers.assertFileContent('widgets/TestWidget/Widget.html', /\$\{nls\./);
     });
@@ -108,7 +126,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         widgetTitle: 'Test Widget',
         description: 'A test widget.',
         path: 'widgets',
-        cssPrefix: 'myapp-',
+        baseClass: 'test-widget',
         features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIfile' ]
       });
       this.widget.run({}, function () {
@@ -131,8 +149,20 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertNoFile('widgets/TestWidget/nls/strings.js');
     });
 
+    it('should set inPanel to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
+    });
+
     it('sets manifest hasLocale to false in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasLocale": false/);
+    });
+
+    it('has baseClass in widget', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
+    });
+
+    it('has baseClass in css', function() {
+      helpers.assertFileContent('widgets/TestWidget/css/style.css', /\.test-widget/);
     });
 
     it('does not reference nls in template', function() {
