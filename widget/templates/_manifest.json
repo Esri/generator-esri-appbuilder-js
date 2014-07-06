@@ -12,6 +12,7 @@
   "properties": {
     "inPanel": <%= inPanel %>,
     "hasLocale": <%= hasLocale %>,
-    "hasStyle": <%= hasStyle %>
+    "hasStyle": <%= hasStyle %>,
+    "hasConfig": <%= hasConfig %>
   }
 }

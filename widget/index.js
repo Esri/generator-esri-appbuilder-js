@@ -109,7 +109,9 @@ var WidgetGenerator = yeoman.generators.Base.extend({
     var basePath = path.join('widgets', this.widgetName);
     this.template('_Widget.js', path.join(basePath, 'Widget.js'));
     this.template('_Widget.html', path.join(basePath, 'Widget.html'));
-    this.template('_config.json', path.join(basePath, 'config.json'));
+    if (this.hasConfig) {
+      this.template('_config.json', path.join(basePath, 'config.json'));
+    }
     if (this.hasStyle) {
       this.template('css/_style.css', path.join(basePath, 'css/style.css'));
     }
