@@ -77,11 +77,11 @@ var WidgetGenerator = yeoman.generators.Base.extend({
           name: 'Config (JSON) file'
         },
         {
-          value: 'hasUIfile',
+          value: 'hasUIFile',
           name: 'Template (HTML) file'
         }
       ],
-      'default': [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
+      'default': [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
     }];
 
     this.prompt(prompts, function (props) {
@@ -96,7 +96,7 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       this.hasLocale = props.features.indexOf('hasLocale') > -1;
       this.hasStyle = props.features.indexOf('hasStyle') > -1;
       this.hasConfig = props.features.indexOf('hasConfig') > -1;
-      this.hasUIfile = props.features.indexOf('hasUIfile') > -1;
+      this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
       this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
@@ -108,7 +108,9 @@ var WidgetGenerator = yeoman.generators.Base.extend({
     this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
     var basePath = path.join('widgets', this.widgetName);
     this.template('_Widget.js', path.join(basePath, 'Widget.js'));
-    this.template('_Widget.html', path.join(basePath, 'Widget.html'));
+    if (this.hasUIFile) {
+      this.template('_Widget.html', path.join(basePath, 'Widget.html'));
+    }
     if (this.hasConfig) {
       this.template('_config.json', path.join(basePath, 'config.json'));
     }

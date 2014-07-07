@@ -13,6 +13,7 @@
     "inPanel": <%= inPanel %>,
     "hasLocale": <%= hasLocale %>,
     "hasStyle": <%= hasStyle %>,
-    "hasConfig": <%= hasConfig %>
+    "hasConfig": <%= hasConfig %>,
+    "hasUIFile": <%= hasUIFile %>
   }
 }

@@ -27,7 +27,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -67,6 +67,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": true/);
     });
 
+    it('sets manifest hasUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": true/);
+    });
+
     it('has baseClass in widget', function() {
       helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
     });
@@ -95,7 +99,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIfile' ]
+        features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -133,6 +137,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": true/);
     });
 
+    it('sets manifest hasUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": true/);
+    });
+
     it('has baseClass in widget', function() {
       helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
     });
@@ -161,7 +169,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIfile' ]
+        features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIFile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -199,6 +207,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": true/);
     });
 
+    it('sets manifest hasUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": true/);
+    });
+
     it('has baseClass in widget', function() {
       helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
     });
@@ -226,7 +238,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasConfig', 'hasUIfile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasConfig', 'hasUIFile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -260,6 +272,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": false/);
     });
 
+    it('sets manifest hasUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": true/);
+    });
+
     it('sets manifest hasConfig to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasConfig": true/);
     });
@@ -288,7 +304,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasUIfile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasUIFile' ]
       });
       this.widget.run({}, function () {
         done();
@@ -322,6 +338,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": true/);
     });
 
+    it('sets manifest hasUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": true/);
+    });
+
     it('sets manifest hasConfig to false in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasConfig": false/);
     });
@@ -332,6 +352,69 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
 
     it('references nls in template', function() {
       helpers.assertFileContent('widgets/TestWidget/Widget.html', /\$\{nls\./);
+    });
+
+    it('has title/description in nls', function() {
+      helpers.assertFileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
+      helpers.assertFileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+    });
+
+  });
+
+
+  describe('when creating a widget w/o template', function() {
+
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json'
+        // TODO: settings
+      ];
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/Widget.html');
+    });
+
+    it('should set inPanel to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
+    });
+
+    it('sets manifest hasLocale to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasLocale": true/);
+    });
+
+    it('sets manifest hasStyle to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasStyle": true/);
+    });
+
+    it('sets manifest hasConfig to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasConfig": true/);
+    });
+
+    it('sets manifest hasUIFile to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasUIFile": false/);
+    });
+
+    it('has baseClass in widget', function() {
+      helpers.assertFileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
     });
 
     it('has title/description in nls', function() {
