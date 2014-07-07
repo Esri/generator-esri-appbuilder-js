@@ -53,8 +53,12 @@ Scaffolds out the files needed to create a new custom widget.
 |Widget Name|Folder name for output files and widget identifier|MyWidget|
 |Widget Title|Name users see in widget selector and panel title bar|My Widget|
 |Description|What does this widget do? (optional)|A custom Web AppBuilder widget|
-|CSS Prefix|Prefix for the widget's base class (optional)|myapp-|
-|Will your widget run inside a panel?|Will your widget run inside a panel?|Yes|
+|Base Class|The widget's base class|my-widget|
+|Run inside a panel|Will your widget run inside a panel?|Yes|
+|Locale (i18n) file|Will your widget require a locale file?|Yes|
+|Style (CSS) file|Will your widget require a style file?|Yes|
+|Config (JSON) file|Will your widget require a configuration file?|Yes|
+|Template (HTML) file|Will your widget require a template file?|Yes|
 
 Taking the default values for the prompts will generate the following output under the `widgets` folder:
 
