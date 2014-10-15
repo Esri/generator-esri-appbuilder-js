@@ -6,15 +6,10 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 
 var ThemeGenerator = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.pkg = require('../package.json');
-  },
-
   prompting: function () {
     var done = this.async();
     var dasherize = this._.dasherize;
 
-    // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the ArcGIS Web AppBuilder theme generator!'
     ));
@@ -68,9 +63,6 @@ var ThemeGenerator = yeoman.generators.Base.extend({
       this.directory('_panels', path.join(basePath, 'panels'));
       this.directory('_styles', path.join(basePath, 'styles'));
       this.directory('_widgets', path.join(basePath, 'widgets'));      
-      //Dev dependencies
-      //this.src.copy('_package.json',this.themeNameClean + '/package.json');
-      //this.src.copy('_bower.json',this.themeNameClean + '/bower.json');
 
       var context = {
         themeName: this.themeName,
