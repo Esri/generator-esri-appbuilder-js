@@ -1,0 +1,22 @@
+<div>
+  <div class="header-section" data-dojo-attach-point="headerNode">
+    <img class="logo" data-dojo-attach-point="logoNode">
+    <div class="titles" data-dojo-attach-point="titlesNode">
+      <div class="title" data-dojo-attach-point="titleNode"></div>
+      <div class="subtitle" data-dojo-attach-point="subtitleNode"></div>
+    </div>
+    <div class="links" data-dojo-attach-point="linksNode">
+      <div class="dynamic-section" data-dojo-attach-point="dynamicLinksNode"></div>
+      <div class="about-section" data-dojo-attach-point="aboutSectionNode">
+        <a class="link" href="#" data-dojo-attach-point="aboutNode" data-dojo-attach-event="onclick:_onAboutClick">${nls.about}</a>
+      </div>
+      <div class="signin-section" data-dojo-attach-point="signInSectionNode">
+        <a href="#" class="link" data-dojo-attach-event="onclick:_onSigninClick"
+        data-dojo-attach-point="signinLinkNode">${nls.signin}</a>
+        <a href="" target="_blank" class="link" data-dojo-attach-event="onclick:_onUserNameClick" data-dojo-attach-point="userNameLinkNode"></a>
+        <a href="#" class="link" data-dojo-attach-event="onclick:_onSignoutClick" data-dojo-attach-point="signoutLinkNode">${nls.signout}</a>
+      </div>
+    </div>
+  </div>
+  <div class="container-section" data-dojo-attach-point="containerNode"></div>
+</div>
