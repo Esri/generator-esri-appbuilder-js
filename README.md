@@ -85,7 +85,7 @@ The next time you run the Web AppBuilder, you will see something like the follow
 
 ### Theme Generator
 
-Scaffolds out the files needed to create a new custom theme.
+Scaffolds out the files needed to create a new custom theme based on the default Foldable Theme by Esri.
 
 1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
 2. Run the generator with `yo esri-appbuilder-js:theme`
