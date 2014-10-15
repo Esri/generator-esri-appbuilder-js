@@ -4,7 +4,7 @@
 
 ## About
 
-This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget
+This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget and custom theme.
 
 ![Screenshot](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/running-the-generators.png)
 
@@ -82,6 +82,20 @@ MyWidget
 The next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
 
 ![Widget in the Builder](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
+
+### Theme Generator
+
+Scaffolds out the files needed to create a new custom theme.
+
+1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
+2. Run the generator with `yo esri-appbuilder-js:theme`
+3. Answer the man's questions!
+
+|Prompt|Description|Default|
+|------|-----------|-------|
+|Theme Name|Folder name for output files and theme identifier|DefaultThemeName|
+|Description|Give a description of your custom theme|A good description of my theme...|
+|Author|Your name or organization to be associated with the theme|My organization|
 
 ## Issues
 
