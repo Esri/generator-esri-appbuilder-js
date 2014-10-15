@@ -66,7 +66,9 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 
       var context = {
         themeName: this.themeName,
-        themeNameClean: this.themeNameClean
+        themeNameClean: this.themeNameClean,
+        author: this.author,
+        desc: this.description
       };
 
       this.template('_manifest.json', path.join(basePath, 'manifest.json'), context);

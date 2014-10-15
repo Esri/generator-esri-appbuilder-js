@@ -46,8 +46,8 @@
     }
   ],
   "version": "0.0.1",
-  "author": "<=% author %>",
-  "description": "<=% desc %>",
+  "author": "<%= author %>",
+  "description": "<%= desc %>",
   "copyright": "",
   "license": "http://www.apache.org/licenses/LICENSE-2.0"
 }
