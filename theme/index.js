@@ -42,8 +42,8 @@ var ThemeGenerator = yeoman.generators.Base.extend({
     ];
 
     this.prompt(prompts, function (props) {
+      this.themeNameClean =  this._.classify(props.themeName);
       this.themeName = props.themeName.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1).join(' ');
-      this.themeNameClean =  this._.classify(this.themeName);
       this.author = props.author;
       this.description = props.desc;
       done();
@@ -51,7 +51,7 @@ var ThemeGenerator = yeoman.generators.Base.extend({
   },
 
     app: function () {
-      this.dest.mkdir(this.themeName);
+      this.dest.mkdir(this.themeNameClean);
     },
 
     projectfiles: function () {
@@ -59,7 +59,7 @@ var ThemeGenerator = yeoman.generators.Base.extend({
     // see: https://github.com/lodash/lodash/issues/399
     this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
      
-      var basePath = path.join('themes', this.themeName);
+      var basePath = path.join('themes', this.themeNameClean);
       //css
       this.src.copy('_common.css', path.join(basePath, 'common.css'));
       //folders
