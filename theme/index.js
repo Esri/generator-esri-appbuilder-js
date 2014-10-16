@@ -45,10 +45,6 @@ var ThemeGenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-    app: function () {
-      this.dest.mkdir(this.themeNameClean);
-    },
-
     projectfiles: function () {
     // NOTE: this is needed b/c _Widget.html has ES6 style interpolation delimiters
     // see: https://github.com/lodash/lodash/issues/399
