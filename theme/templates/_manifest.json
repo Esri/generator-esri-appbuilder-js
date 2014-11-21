@@ -1,0 +1,53 @@
+{
+  "name": "<%= themeNameClean %>",
+  "label": "<%= themeName %>",
+  "panels": [
+    {
+      "name": "FoldablePanel",
+      "description": "This is foldable panel"
+    },
+    {
+      "name": "SimplePanel",
+      "description": "this is simple panel"
+    }
+  ],
+  "styles": [
+    {
+      "name": "default",
+      "description": "this is default style",
+      "styleColor": "#596679"
+    },
+    {
+      "name": "black",
+      "description": "this is black style",
+      "styleColor": "#000000"
+    },
+    {
+      "name": "green",
+      "description": "this is green style",
+      "styleColor": "#2aaa8a"
+    },
+    {
+      "name": "cyan",
+      "description": "this is cyan style",
+      "styleColor": "#b1d3d4"
+    }
+  ],
+  "layouts": [
+    {
+      "name": "default",
+      "description": "this is default layout"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "HeaderController",
+      "description": "this is theme widget controller"
+    }
+  ],
+  "version": "0.0.1",
+  "author": "<%= author %>",
+  "description": "<%= desc %>",
+  "copyright": "",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0"
+}

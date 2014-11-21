@@ -39,6 +39,7 @@ module.exports = yeoman.generators.Base.extend({
 
   app: function () {
     this.mkdir('widgets');
+    this.mkdir('themes');
 
     this.template('_package.json', 'package.json');
   },

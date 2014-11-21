@@ -18,7 +18,8 @@
   },
   "files": [
     "app",
-    "widget"
+    "widget",
+    "theme"
   ],
   "keywords": [
     "yeoman-generator", "Esri", "ArcGIS", "Web", "AppBuilder"

@@ -1,0 +1,305 @@
+.jimu-widget-header-controller{
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.4);
+}
+.jimu-widget-header-controller .header-section{
+  height: 100%;
+  float: left;
+  overflow: hidden;
+}
+.jimu-widget-header-controller .container-section{
+  height: 100%;
+  float: left;
+}
+.jimu-widget-header-controller .logo{
+  float: left;
+  margin-left: 14px;
+  cursor: pointer;
+}
+
+.jimu-widget-header-controller .titles{
+  margin-left: 14px;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+}
+
+.jimu-widget-header-controller .title{
+  float: left;
+  color:#fff;
+  text-align: center;
+  height: 100%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.jimu-widget-header-controller .subtitle{
+  float: left;
+  margin-left: 20px;
+  color:#6d7685;
+  font-size: 12px;
+  text-align: center;
+  height: 100%;
+  font-weight: bold;
+}
+.jimu-widget-header-controller .links{
+  float: left;
+  height: 100%;
+  margin-left: 40px;
+  overflow: hidden;
+}
+.jimu-widget-header-controller .dynamic-section,
+.jimu-widget-header-controller .about-section,
+.jimu-widget-header-controller .signin-section{
+  float: left;
+  height: 100%;
+}
+.jimu-widget-header-controller .links .link{
+  color:#6d7685;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 12px;
+  text-decoration: none;
+  height: 100%;
+}
+.jimu-widget-header-controller .signin-section .link{
+  color: #d9dde0;
+}
+
+.jimu-widget-header-controller .icon-node{
+  float: right;
+  cursor: pointer;
+  opacity: 0.6;
+  text-align: center;
+  border-right: 1px solid #323e4f;
+}
+.jimu-widget-header-controller .icon-node img{
+  height: 24px;
+  width: 24px;
+}
+.jimu-widget-header-controller .icon-node:first-child{
+  border: none;
+}
+.jimu-widget-header-controller .icon-node:hover{
+  opacity: 1;
+}
+.jimu-widget-header-controller .icon-node.jimu-state-selected{
+  background-color: #697a8c;
+  opacity: 1;
+  border: none;
+  border-top: 2px solid #8491a1;
+}
+
+.jimu-widget-header-controller .drop-triangle{
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  bottom: 1px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid white;
+}
+
+/****/
+.jimu-widget-header-controller .jimu-drop-menu{
+  background-color: #363455;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.4);
+}
+.jimu-widget-header-controller .jimu-drop-menu .menu-item{
+  overflow: hidden;
+  border-top: 1px solid #435063;
+}
+.jimu-widget-header-controller .jimu-drop-menu .menu-item:hover{
+  background-color: #485566;  
+}
+.jimu-widget-header-controller .jimu-drop-menu .menu-item img{
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin: 8px;
+  float: left;
+}
+.jimu-widget-header-controller .jimu-drop-menu .menu-item .label{
+  float: left;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 14px;
+  color: white;
+  min-width: 50px;
+}
+
+/**the popup link panel is not appended to container, so, don't add .jimu-widget-header-controller here**/
+.popup-links .popup-title{
+
+}
+.popup-links .logo{
+  float: left;
+  margin-left: 5.26315789473684%;/*14/266*/
+  height: 30px;
+}
+.popup-links .title{
+  float: left;
+  color:#fff;
+  text-align: center;
+  font-size: 16px;
+  margin-left: 5.26315789473684%;/*14/266*/
+  width: 71.42857142857143%;/*190/266*/
+  overflow: hidden;
+  white-space: nowrap;
+  height: 100%;
+}
+.popup-links .line{
+  width: 100%;
+  height: 4px;
+  border-bottom: 1px solid #393c40;
+}
+.popup-links .link-section{
+  width: 100%;
+  height: 66px;
+}
+.popup-links a{
+  color: #fff;
+  margin-left: 20px;
+  font-size: 14px;
+  height: 100%;
+  display: inline-block;
+}
+.popup-links .link-section.signin a{
+  color: #d9dde0; 
+}
+
+/***/
+.jimu-header-more-popup{
+  position: absolute;
+  border-radius: 2px;
+  z-index: 200;/*on the top of the pane, which z-index is 100*/
+  background-color: #516070;
+}
+.jimu-header-more-popup .pages{
+  position: relative;
+  overflow: hidden;
+  padding: 2px;
+}
+.jimu-header-more-popup .points{
+  position: absolute;
+  overflow: hidden;
+  bottom: -18px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+}
+.jimu-header-more-popup .points-inner{
+  display: inline-block;
+  overflow: hidden;
+}
+.jimu-header-more-popup .point{
+  float: left;
+  width: 8px;
+  height: 8px;
+  margin-left: 5px;
+  border-radius: 4px;
+  background-color: #f2f6f9;
+  cursor: pointer;
+}
+.jimu-header-more-popup .point-selected{
+  background-color: #485566;
+}
+.jimu-header-more-popup .page{
+  position: relative;
+  overflow: hidden;
+}
+.jimu-header-more-popup .close{
+  position: absolute;
+  width: 08.92857142857143%;/*50/560*/
+  height: 08.92857142857143%;
+  top: -04.46428571428571%;/**/
+  right: -04.46428571428571%;
+  border-radius: 50%;/*the context is the node itself*/
+  background-color: #697a8c;
+  cursor: pointer;
+}
+.jimu-header-more-popup .close-inner{
+  width: 80%;/*40/50*/
+  height: 80%;
+  margin-left: 10%;/*5/50*/
+  margin-top: 10%;/*5/50*/
+  border-radius: 50%;/*20/50*/
+  background: #1d2123 url(images/close.png) no-repeat center center;
+}
+.jimu-header-more-popup .icon-node{
+  float: left;
+  background-color: #697a8c;
+  cursor: pointer;
+}
+.jimu-header-more-popup .icon-node.jimu-state-selected{
+  background-color: red;
+}
+.jimu-header-more-popup img{
+  width: 27.17391304347826%;/*50/184*/
+  margin-left: 36.41304347826087%;/*67/184*/
+  margin-top: 30.97826086956522%;/*57/184*/
+}
+.jimu-header-more-popup .node-label{
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+@media screen and (max-width:600px){
+  .jimu-header-more-popup .node-label{
+    font-size: 14px;
+  }
+}
+.jimu-more-icon-cover{
+  z-index: 199;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*rules for style*/
+.FoldableTheme.cyan .jimu-widget-header-controller .subtitle{
+  color: #e8e7e6;
+}
+
+.FoldableTheme.cyan .jimu-widget-header-controller .links .link{
+  color: #e8e7e6;
+}
+
+.FoldableTheme.cyan .jimu-widget-header-controller .signin-section .link{
+  color: #ffffff;
+}
+
+.FoldableTheme.cyan .jimu-widget-header-controller .icon-node{
+  border-right: 1px solid #abcecf;
+}
+
+.FoldableTheme.cyan .jimu-widget-header-controller .icon-node.jimu-state-selected{
+  background-color: #8db8b9;
+}
+
+.FoldableTheme.green .jimu-widget-header-controller .subtitle{
+  color: #70dec3;
+}
+
+.FoldableTheme.green .jimu-widget-header-controller .links .link{
+  color: #70dec3;
+}
+
+.FoldableTheme.green .jimu-widget-header-controller .signin-section .link{
+  color: #fcc931;
+}
+
+.FoldableTheme.green .jimu-widget-header-controller .icon-node{
+  border-right: 1px solid #229d7b;
+}
+
+.FoldableTheme.green .jimu-widget-header-controller .icon-node.jimu-state-selected{
+  background-color: #1c9678;
+}
