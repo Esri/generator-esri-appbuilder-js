@@ -125,5 +125,5 @@ limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/license.txt) file.
 
-[](Esri Tags: "Web AppBuilder" yeoman generator node)
+[](Esri Tags: web AppBuilder yeoman generator node)
 [](Esri Language: JavaScript)
