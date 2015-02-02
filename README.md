@@ -1,6 +1,6 @@
 # generator-esri-appbuilder-js [![Build Status](https://secure.travis-ci.org/Esri/generator-esri-appbuilder-js.png?branch=master)](https://travis-ci.org/Esri/generator-esri-appbuilder-js)
 
-> [Yeoman](http://yeoman.io) generator to help customize [the ArcGIS Web AppBuilder](http://video.esri.com/watch/3211/web-app-builder).
+> [Yeoman](http://yeoman.io) generator to help customize [the ArcGIS Web AppBuilder](https://developers.arcgis.com/web-appbuilder/).
 
 ## About
 
@@ -32,7 +32,7 @@ The generators should be run in the root folder of either the stem app or an app
 
 Currently the app generator doesn't do much other than install some project files (`package.json`, `.jshintrc`, etc) and ensure required subfolders (like `widgets`) exist. The subgenerators do most of the work.
 
-1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
 2. Run the generator with `yo esri-appbuilder-js`
 3. Answer the man's questions!
 
@@ -44,7 +44,7 @@ Currently the app generator doesn't do much other than install some project file
 
 Scaffolds out the files needed to create a new custom widget.
 
-1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
 2. Run the generator with `yo esri-appbuilder-js:widget`
 3. Answer the man's questions!
 
@@ -87,7 +87,7 @@ The next time you run the Web AppBuilder, you will see something like the follow
 
 Scaffolds out the files needed to create a new custom theme based on the default Foldable Theme by Esri.
 
-1. Navigate into either `stemapp` or `builder/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
 2. Run the generator with `yo esri-appbuilder-js:theme`
 3. Answer the man's questions!
 
