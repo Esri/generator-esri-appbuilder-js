@@ -1,10 +1,10 @@
 {
   "name": "<%= widgetName %>",
-  "label": "<%= widgetTitle %>",
   "2D": <%= is2d %>,
   "3D": <%= is3d %>,
   "platform": "HTML",
   "version": "0.0.1",
+  "wabVersion": "1.1",
   "author": "TODO: your name here",
   "description": "<%= description %>",
   "copyright": "",
@@ -14,6 +14,11 @@
     "hasLocale": <%= hasLocale %>,
     "hasStyle": <%= hasStyle %>,
     "hasConfig": <%= hasConfig %>,
-    "hasUIFile": <%= hasUIFile %>
+    "hasUIFile": <%= hasUIFile %>,
+    "hasSettingPage":false,
+    "hasSettingUIFile":false,
+    "hasSettingLocale":false,
+    "hasSettingStyle":false,
+    "IsController":false
   }
 }
