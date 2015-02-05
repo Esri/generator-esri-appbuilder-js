@@ -1,56 +1,60 @@
-define([
-  'dojo/_base/declare',
+define(['dojo/_base/declare', 'jimu/BaseWidget'],
+function(declare, BaseWidget) {
+  //To create a widget, you need to derive from BaseWidget.
+  return declare([BaseWidget], {
 
-  'jimu/BaseWidget'
-], function(
-  declare,
-  BaseWidget
-) {
+    // Custom widget code goes here
 
-  var clazz = declare([BaseWidget], {
-    //these two properties are defined in the BaseWiget
     baseClass: '<%= baseClass %>',
-    name: '<%= widgetName %>',
-
+    // this property is set by the framework when widget is loaded.
+    // name: '<%= widgetName %>',
     // add additional properties here
 
+    //methods to communication with app container:
     postCreate: function() {
-      // summary:
-      //      Overrides method of same name in dijit._Widget.
-      // tags:
-      //      private
       this.inherited(arguments);
-      console.log('<%= widgetName %>::postCreate', arguments);
-
-      // add additional post constructor logic here
-    },
-
-    // start up child widgets
-    startup: function() {
-      // summary:
-      //      Overrides method of same name in dijit._Widget.
-      // tags:
-      //      private
-      this.inherited(arguments);
-      console.log('<%= widgetName %>::startup', arguments);
-    },
-
-    onOpen: function() {
-      // summary:
-      //      Overrides method of same name in jimu._BaseWidget.
-      console.log('<%= widgetName %>::onOpen', arguments);
-
-      // add code to execute whenever the widget is opened
-    },
-
-    onClose: function() {
-      // summary:
-      //      Overrides method of same name in jimu._BaseWidget.
-      console.log('<%= widgetName %>::onClose', arguments);
-
-      // add code to execute whenever the widget is closed
+      console.log('<%= widgetName %>::postCreate');
     }
+
+    // startup: function() {
+    //   this.inherited(arguments);
+    //   console.log('<%= widgetName %>::startup');
+    // },
+
+    // onOpen: function(){
+    //   console.log('<%= widgetName %>::onOpen');
+    // },
+
+    // onClose: function(){
+    //   console.log('<%= widgetName %>::onClose');
+    // },
+
+    // onMinimize: function(){
+    //   console.log('<%= widgetName %>::onMinimize');
+    // },
+
+    // onMaximize: function(){
+    //   console.log('<%= widgetName %>::onMaximize');
+    // },
+
+    // onSignIn: function(credential){
+    //   console.log('<%= widgetName %>::onSignIn', credential);
+    // },
+
+    // onSignOut: function(){
+    //   console.log('<%= widgetName %>::onSignOut');
+    // }
+
+    // onPositionChange: function(){
+    //   console.log('<%= widgetName %>::onPositionChange');
+    // },
+
+    // resize: function(){
+    //   console.log('<%= widgetName %>::resize');
+    // }
+
+//methods to communication between widgets:
+
   });
 
-  return clazz;
 });
