@@ -1,5 +1,6 @@
 {
   "name": "<%= widgetName %>",
+  "label": "<%= widgetTitle %>",
   "2D": <%= is2d %>,
   "3D": <%= is3d %>,
   "platform": "HTML",
