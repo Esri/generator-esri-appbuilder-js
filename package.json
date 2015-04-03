@@ -1,6 +1,6 @@
 {
   "name": "generator-esri-appbuilder-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yeoman generator to help customize the ArcGIS Web AppBuilder",
   "license": "Apache",
   "main": "app/index.js",
