@@ -51,6 +51,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFile(expected);
     });
 
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
+    });    
+
     it('should set inPanel to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -119,6 +123,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         // TODO: settings
       ];
       helpers.assertFile(expected);
+    });
+
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('sets inPanel to false in manifest', function() {
@@ -191,6 +199,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertNoFile('widgets/TestWidget/nls/strings.js');
     });
 
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
+    });
+
     it('should set inPanel to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -260,6 +272,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertNoFile('widgets/TestWidget/css/style.css');
     });
 
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
+    });
+
     it('should set inPanel to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -324,6 +340,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       ];
       helpers.assertFile(expected);
       helpers.assertNoFile('widgets/TestWidget/config.json');
+    });
+
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('should set inPanel to true in manifest', function() {
@@ -391,6 +411,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       ];
       helpers.assertFile(expected);
       helpers.assertNoFile('widgets/TestWidget/Widget.html');
+    });
+
+    it('should set Label to widgetTitle', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('should set inPanel to true in manifest', function() {
