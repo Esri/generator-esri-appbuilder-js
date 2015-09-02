@@ -1,7 +1,9 @@
-﻿define({
-    group: "ı_Name_İ",
-    openAll: "ı_Open All in Panel_İ",
-    dropDown: "ı_Show in Drop-down Menu_İ",
-    noGroup: "ı_There is no widget group set._İ",
-    groupSetLabel: "ı_Set widget groups properties_İ"
-});
+﻿define(
+   ({
+    group: "Ad",
+    openAll: "Tümünü Panoda Aç",
+    dropDown: "Açılır Menüde Göster",
+    noGroup: "Ayarlanmış araç grubu yok.",
+    groupSetLabel: "Araç grubu özelliklerini ayarla"
+  })
+);

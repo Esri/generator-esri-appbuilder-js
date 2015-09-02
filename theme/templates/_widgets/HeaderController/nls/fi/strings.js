@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Å_Sign In_ö",
-    signout: "Å_Sign Out_ö",
-    about: "Å_About_ö",
-    signInTo: "Å_Sign in to_ö"
-});
+﻿define(
+   ({
+    _widgetLabel: "Ylätunnisteen hallinta",
+    signin: "Kirjaudu sisään",
+    signout: "Kirjaudu ulos",
+    about: "Tietoja",
+    signInTo: "Kirjaudu palveluun",
+    cantSignOutTip: "Toiminto ei ole käytettävissä esikatselutilassa."
+  })
+);

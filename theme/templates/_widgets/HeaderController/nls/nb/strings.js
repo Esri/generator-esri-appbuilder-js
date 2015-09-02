@@ -1,6 +1,10 @@
-﻿define({
-    signin: "å_Sign In_ø",
-    signout: "å_Sign Out_ø",
-    about: "å_About_ø",
-    signInTo: "å_Sign in to_ø"
-});
+﻿define(
+   ({
+    _widgetLabel: "Hodekontroller",
+    signin: "Logg på",
+    signout: "Logg ut",
+    about: "Om",
+    signInTo: "Logg inn på",
+    cantSignOutTip: "Denne funksjonen er ikke relevant i forhåndsvisningsmodus."
+  })
+);

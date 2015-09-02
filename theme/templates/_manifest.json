@@ -3,12 +3,20 @@
   "label": "<%= themeName %>",
   "panels": [
     {
-      "name": "FoldablePanel",
-      "description": "This is foldable panel"
+      "name": "DockablePanel",
+      "description": "This is dockable panel"
     },
     {
-      "name": "SimplePanel",
-      "description": "this is simple panel"
+      "name": "FoldablePanel",
+      "description": "this is foldable panel"
+    },
+    {
+      "name": "SimpleBorderPanel",
+      "description": "this is simple border panel"
+    },
+    {
+      "name": "TitlePanel",
+      "description": "this is title panel"
     }
   ],
   "styles": [

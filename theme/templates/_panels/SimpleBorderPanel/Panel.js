@@ -20,6 +20,6 @@ define(['dojo/_base/declare',
 function(declare, BaseWidgetPanel) {
 
   return declare([BaseWidgetPanel], {
-    baseClass: 'jimu-widget-panel jimu-simple-panel'
+    baseClass: 'jimu-panel jimu-border-panel'
   });
 });

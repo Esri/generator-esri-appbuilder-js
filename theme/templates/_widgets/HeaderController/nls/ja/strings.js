@@ -1,6 +1,10 @@
-﻿define({
-    signin: "須_Sign In_鷗",
-    signout: "須_Sign Out_鷗",
-    about: "須_About_鷗",
-    signInTo: "須_Sign in to_鷗"
-});
+﻿define(
+   ({
+    _widgetLabel: "ヘッダー構成",
+    signin: "サイン イン",
+    signout: "サイン アウト",
+    about: "情報",
+    signInTo: "サイン イン",
+    cantSignOutTip: "この関数は、プレビュー モードでは使用できません。"
+  })
+);

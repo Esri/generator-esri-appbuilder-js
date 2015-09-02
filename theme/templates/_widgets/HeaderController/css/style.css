@@ -3,70 +3,51 @@
 }
 .jimu-widget-header-controller .header-section{
   height: 100%;
-  float: left;
   overflow: hidden;
 }
 .jimu-widget-header-controller .container-section{
   height: 100%;
-  float: left;
+  min-width: 80px;
 }
 .jimu-widget-header-controller .logo{
-  float: left;
-  margin-left: 14px;
   cursor: pointer;
+}
+.jimu-widget-header-controller .hide-logo{
+  display: none;
 }
 
 .jimu-widget-header-controller .titles{
-  margin-left: 14px;
   height: 100%;
-  float: left;
   overflow: hidden;
 }
 
-.jimu-widget-header-controller .title{
-  float: left;
-  color:#fff;
+.jimu-widget-header-controller .jimu-title{
   text-align: center;
   height: 100%;
-  font-size: 18px;
-  font-weight: bold;
 }
 
-.jimu-widget-header-controller .subtitle{
-  float: left;
-  margin-left: 20px;
-  color:#6d7685;
-  font-size: 12px;
+.jimu-widget-header-controller .jimu-subtitle{
   text-align: center;
   height: 100%;
-  font-weight: bold;
 }
+
 .jimu-widget-header-controller .links{
-  float: left;
   height: 100%;
-  margin-left: 40px;
   overflow: hidden;
 }
 .jimu-widget-header-controller .dynamic-section,
 .jimu-widget-header-controller .about-section,
 .jimu-widget-header-controller .signin-section{
-  float: left;
   height: 100%;
 }
-.jimu-widget-header-controller .links .link{
-  color:#6d7685;
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 12px;
-  text-decoration: none;
+.jimu-widget-header-controller .links .jimu-link{
   height: 100%;
 }
-.jimu-widget-header-controller .signin-section .link{
+.jimu-widget-header-controller .signin-section .jimu-link{
   color: #d9dde0;
 }
 
 .jimu-widget-header-controller .icon-node{
-  float: right;
   cursor: pointer;
   opacity: 0.6;
   text-align: center;
@@ -109,22 +90,23 @@
   border-top: 1px solid #435063;
 }
 .jimu-widget-header-controller .jimu-drop-menu .menu-item:hover{
-  background-color: #485566;  
+  background-color: #485566;
 }
 .jimu-widget-header-controller .jimu-drop-menu .menu-item img{
   width: 24px;
   height: 24px;
   cursor: pointer;
   margin: 8px;
-  float: left;
+  /*float: left;*/
 }
 .jimu-widget-header-controller .jimu-drop-menu .menu-item .label{
-  float: left;
+  /*float: left;*/
   cursor: pointer;
   margin-top: 12px;
   font-size: 14px;
   color: white;
   min-width: 50px;
+  text-align: center;
 }
 
 /**the popup link panel is not appended to container, so, don't add .jimu-widget-header-controller here**/
@@ -132,16 +114,16 @@
 
 }
 .popup-links .logo{
-  float: left;
-  margin-left: 5.26315789473684%;/*14/266*/
+  /*float: left;*/
+  /*margin-left: 5.26315789473684%;/*14/266*/*/
   height: 30px;
 }
 .popup-links .title{
-  float: left;
+  /*float: left;*/
   color:#fff;
   text-align: center;
   font-size: 16px;
-  margin-left: 5.26315789473684%;/*14/266*/
+  /*margin-left: 5.26315789473684%;/*14/266*/*/
   width: 71.42857142857143%;/*190/266*/
   overflow: hidden;
   white-space: nowrap;
@@ -161,17 +143,19 @@
   margin-left: 20px;
   font-size: 14px;
   height: 100%;
+  width: 95%;
+  overflow: hidden;
   display: inline-block;
 }
 .popup-links .link-section.signin a{
-  color: #d9dde0; 
+  color: #d9dde0;
 }
 
 /***/
 .jimu-header-more-popup{
   position: absolute;
   border-radius: 2px;
-  z-index: 200;/*on the top of the pane, which z-index is 100*/
+  z-index: 111;/*same zindex with loading*/
   background-color: #516070;
 }
 .jimu-header-more-popup .pages{
@@ -182,10 +166,11 @@
 .jimu-header-more-popup .points{
   position: absolute;
   overflow: hidden;
-  bottom: -18px;
+  bottom: -15px;
   left: 0px;
   right: 0px;
   text-align: center;
+  background-color: #bababa;
 }
 .jimu-header-more-popup .points-inner{
   display: inline-block;
@@ -209,13 +194,17 @@
 }
 .jimu-header-more-popup .close{
   position: absolute;
-  width: 08.92857142857143%;/*50/560*/
-  height: 08.92857142857143%;
+/*  width: 08.92857142857143%;50/560
+  height: 08.92857142857143%;*/
   top: -04.46428571428571%;/**/
   right: -04.46428571428571%;
   border-radius: 50%;/*the context is the node itself*/
   background-color: #697a8c;
   cursor: pointer;
+}
+.jimu-rtl .jimu-header-more-popup .close{
+  left: -04.46428571428571%;
+  right: auto;
 }
 .jimu-header-more-popup .close-inner{
   width: 80%;/*40/50*/
@@ -226,7 +215,6 @@
   background: #1d2123 url(images/close.png) no-repeat center center;
 }
 .jimu-header-more-popup .icon-node{
-  float: left;
   background-color: #697a8c;
   cursor: pointer;
 }
@@ -234,18 +222,20 @@
   background-color: red;
 }
 .jimu-header-more-popup img{
-  width: 27.17391304347826%;/*50/184*/
-  margin-left: 36.41304347826087%;/*67/184*/
-  margin-top: 30.97826086956522%;/*57/184*/
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  margin-top: 25%;
+  display: block;
 }
 .jimu-header-more-popup .node-label{
   width: 100%;
   text-align: center;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 5px;
   color: white;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: pre-line;
   text-overflow: ellipsis;
   display: inline-block;
 }
@@ -255,51 +245,10 @@
   }
 }
 .jimu-more-icon-cover{
-  z-index: 199;
+  z-index: 110;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-}
-
-/*rules for style*/
-.FoldableTheme.cyan .jimu-widget-header-controller .subtitle{
-  color: #e8e7e6;
-}
-
-.FoldableTheme.cyan .jimu-widget-header-controller .links .link{
-  color: #e8e7e6;
-}
-
-.FoldableTheme.cyan .jimu-widget-header-controller .signin-section .link{
-  color: #ffffff;
-}
-
-.FoldableTheme.cyan .jimu-widget-header-controller .icon-node{
-  border-right: 1px solid #abcecf;
-}
-
-.FoldableTheme.cyan .jimu-widget-header-controller .icon-node.jimu-state-selected{
-  background-color: #8db8b9;
-}
-
-.FoldableTheme.green .jimu-widget-header-controller .subtitle{
-  color: #70dec3;
-}
-
-.FoldableTheme.green .jimu-widget-header-controller .links .link{
-  color: #70dec3;
-}
-
-.FoldableTheme.green .jimu-widget-header-controller .signin-section .link{
-  color: #fcc931;
-}
-
-.FoldableTheme.green .jimu-widget-header-controller .icon-node{
-  border-right: 1px solid #229d7b;
-}
-
-.FoldableTheme.green .jimu-widget-header-controller .icon-node.jimu-state-selected{
-  background-color: #1c9678;
 }

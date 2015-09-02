@@ -1,0 +1,95 @@
+.jimu-foldable-dijit{
+  position: relative;
+}
+.jimu-foldable-dijit .jimu-panel-title{
+  position: relative;
+}
+.jimu-foldable-dijit>.jimu-panel-content{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.foldable-widget-frame{
+  overflow: hidden;
+}
+.jimu-foldable-panel{
+  position: absolute;
+}
+.jimu-foldable-panel>.jimu-panel-title{
+  color: white;
+  cursor: pointer;
+  background-color: #485566;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.4);
+  position: relative;
+  font-weight: bold;
+}
+.jimu-foldable-panel .title-label{
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: absolute;
+  left: 16px;
+  right: 110px;
+}
+.jimu-foldable-panel .close-btn,
+.jimu-foldable-panel .max-btn,
+.jimu-foldable-panel .foldable-btn{
+  width: 35px;
+  height: 100%;
+  border-radius: 11px;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.jimu-foldable-panel .close-btn{
+  background-image: url(images/x.png);
+}
+.jimu-foldable-panel .max-btn{
+  background-image: url(images/max.png);
+}
+.jimu-foldable-panel .max-btn.maximized{
+  background-image: url(images/normal.png);
+}
+
+.jimu-foldable-panel .foldable-btn{
+  background-image: url(images/fold_up.png);
+}
+.jimu-foldable-panel .foldable-btn.folded{
+  background-image: url(images/fold_down.png);
+}
+
+.jimu-ismobile .jimu-foldable-panel .foldable-btn{
+  background-image: url(images/fold_down.png);
+}
+.jimu-ismobile .jimu-foldable-panel .foldable-btn.folded{
+  background-image: url(images/fold_up.png);
+}
+
+.jimu-foldable-panel .jimu-widget-frame .foldable-btn{
+  background-image: url(images/minus.png);
+}
+.jimu-foldable-panel .jimu-widget-frame .foldable-btn.folded{
+  background-image: url(images/plus.png);
+}
+
+.jimu-foldable-panel .close-tip{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.foldable-widget-frame>.title{
+  color: #86909c;
+  background-color: #d9dde0;
+  cursor: pointer;
+}
+.foldable-widget-frame>.title>.title-label{
+  font-size: 14px;
+}
+
+.jimu-rtl .jimu-foldable-panel .title-label{
+  left: 110px;
+  right: 16px;
+}

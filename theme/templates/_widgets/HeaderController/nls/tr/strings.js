@@ -1,6 +1,10 @@
-﻿define({
-    signin: "ı_Sign In_İ",
-    signout: "ı_Sign Out_İ",
-    about: "ı_About_İ",
-    signInTo: "ı_Sign in to_İ"
-});
+﻿define(
+   ({
+    _widgetLabel: "Başlık Denetleyici",
+    signin: "Oturum Aç",
+    signout: "Oturumu Kapat",
+    about: "Hakkında",
+    signInTo: "Şurada oturum aç",
+    cantSignOutTip: "Bu işlev ön izleme modunda yok."
+  })
+);

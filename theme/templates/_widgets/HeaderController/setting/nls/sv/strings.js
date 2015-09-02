@@ -1,7 +1,9 @@
-﻿define({
-    group: "Å_Name_ö",
-    openAll: "Å_Open All in Panel_ö",
-    dropDown: "Å_Show in Drop-down Menu_ö",
-    noGroup: "Å_There is no widget group set._ö",
-    groupSetLabel: "Å_Set widget groups properties_ö"
-});
+﻿define(
+   ({
+    group: "Namn",
+    openAll: "Öppna alla i panelen",
+    dropDown: "Visa i listmenyn",
+    noGroup: "Det finns ingen angiven widgetgrupp.",
+    groupSetLabel: "Ange widgetgruppens egenskaper"
+  })
+);

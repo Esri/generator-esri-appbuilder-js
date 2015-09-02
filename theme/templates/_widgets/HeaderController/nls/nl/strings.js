@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Ĳ_Sign In_ä",
-    signout: "Ĳ_Sign Out_ä",
-    about: "Ĳ_About_ä",
-    signInTo: "Ĳ_Sign in to_ä"
-});
+﻿define(
+   ({
+    _widgetLabel: "Controller van koptekst",
+    signin: "Aanmelden",
+    signout: "Afmelden",
+    about: "Over",
+    signInTo: "Meld u aan bij",
+    cantSignOutTip: "Deze functie is niet beschikbaar in de voorbeeldmodus."
+  })
+);

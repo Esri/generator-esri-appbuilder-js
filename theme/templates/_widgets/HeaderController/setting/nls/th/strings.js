@@ -1,7 +1,9 @@
-﻿define({
-    group: "ก้_Name_ษฺ",
-    openAll: "ก้_Open All in Panel_ษฺ",
-    dropDown: "ก้_Show in Drop-down Menu_ษฺ",
-    noGroup: "ก้_There is no widget group set._ษฺ",
-    groupSetLabel: "ก้_Set widget groups properties_ษฺ"
-});
+﻿define(
+   ({
+    group: "ชื่อ",
+    openAll: "เปิดทั้งหมดในแผงหน้าปัด",
+    dropDown: "แสดงในรายการแบบเลื่อนลง",
+    noGroup: "ไม่มีการตั้งกลุ่ม widget",
+    groupSetLabel: "การตั้งคุณสมบัติกลุ่ม widget"
+  })
+);

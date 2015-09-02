@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Į_Sign In_š",
-    signout: "Į_Sign Out_š",
-    about: "Į_About_š",
-    signInTo: "Į_Sign in to_š"
-});
+﻿define(
+   ({
+    _widgetLabel: "Antraštės valdiklis",
+    signin: "Prisijungti",
+    signout: "Atsijungti",
+    about: "Apie",
+    signInTo: "Prisijungti į",
+    cantSignOutTip: "Ši funkcija veikiant peržiūros režimu negalima."
+  })
+);

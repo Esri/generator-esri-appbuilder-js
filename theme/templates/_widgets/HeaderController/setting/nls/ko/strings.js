@@ -1,7 +1,9 @@
-﻿define({
-    group: "한_Name_빠",
-    openAll: "한_Open All in Panel_빠",
-    dropDown: "한_Show in Drop-down Menu_빠",
-    noGroup: "한_There is no widget group set._빠",
-    groupSetLabel: "한_Set widget groups properties_빠"
-});
+﻿define(
+   ({
+    group: "이름",
+    openAll: "패널의 모든 항목 열기",
+    dropDown: "드롭다운 메뉴에 표시",
+    noGroup: "위젯 그룹 세트가 없습니다.",
+    groupSetLabel: "위젯 그룹 등록정보 설정"
+  })
+);

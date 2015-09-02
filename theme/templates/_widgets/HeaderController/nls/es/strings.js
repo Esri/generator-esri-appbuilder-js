@@ -1,6 +1,10 @@
-﻿define({
-    signin: "á_Sign In_Ó",
-    signout: "á_Sign Out_Ó",
-    about: "á_About_Ó",
-    signInTo: "á_Sign in to_Ó"
-});
+﻿define(
+   ({
+    _widgetLabel: "Controlador de encabezado",
+    signin: "Iniciar sesión",
+    signout: "Cerrar sesión",
+    about: "Acerca de",
+    signInTo: "Iniciar sesión en",
+    cantSignOutTip: "Esta función no está disponible en el modo de vista previa."
+  })
+);

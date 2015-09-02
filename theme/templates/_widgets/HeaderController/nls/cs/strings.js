@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Ř_Sign In_ů",
-    signout: "Ř_Sign Out_ů",
-    about: "Ř_About_ů",
-    signInTo: "Ř_Sign in to_ů"
-});
+﻿define(
+   ({
+    _widgetLabel: "Ovladač záhlaví",
+    signin: "Přihlásit se",
+    signout: "Odhlásit se",
+    about: "O aplikaci",
+    signInTo: "Přihlásit se do",
+    cantSignOutTip: "Tato funkce není v režimu náhledu k dispozici."
+  })
+);
