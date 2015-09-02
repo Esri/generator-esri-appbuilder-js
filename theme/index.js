@@ -69,6 +69,8 @@ var ThemeGenerator = yeoman.generators.Base.extend({
 
       this.template('_manifest.json', path.join(basePath, 'manifest.json'), context);
       this.template('_config.json',path.join(basePath,'layouts/default/config.json'),context);
+	  //js
+      this.src.copy('_main.js', path.join(basePath, 'main.js'));
       
     }
 });
