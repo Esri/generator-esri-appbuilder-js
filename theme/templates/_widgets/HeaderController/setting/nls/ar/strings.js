@@ -1,7 +1,9 @@
-﻿define({
-    group: "بيت_Name_لاحقة",
-    openAll: "بيت_Open All in Panel_لاحقة",
-    dropDown: "بيت_Show in Drop-down Menu_لاحقة",
-    noGroup: "بيت_There is no widget group set._لاحقة",
-    groupSetLabel: "بيت_Set widget groups properties_لاحقة"
-});
+﻿define(
+   ({
+    group: "الاسم",
+    openAll: "فتح الكل في اللوحة",
+    dropDown: "الإظهار في القائمة المنسدلة",
+    noGroup: "لا توجد مجموعة لعناصر واجهة الاستخدام.",
+    groupSetLabel: "تعيين خصائص مجموعات عناصر واجهة الاستخدام"
+  })
+);

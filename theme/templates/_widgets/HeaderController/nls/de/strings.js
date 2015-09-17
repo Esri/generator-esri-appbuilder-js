@@ -1,6 +1,10 @@
-﻿define({
-    signin: "ä_Sign In_Ü",
-    signout: "ä_Sign Out_Ü",
-    about: "ä_About_Ü",
-    signInTo: "ä_Sign in to_Ü"
-});
+﻿define(
+   ({
+    _widgetLabel: "Header-Controller",
+    signin: "Anmelden",
+    signout: "Abmelden",
+    about: "Info zu",
+    signInTo: "Melden Sie sich an bei",
+    cantSignOutTip: "Diese Funktion ist im Vorschaumodus nicht zutreffend."
+  })
+);

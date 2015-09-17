@@ -1,8 +1,5 @@
 {
   "widgetOnScreen": {
-    "panel": {
-      "uri": "themes/<%= themeNameClean %>/panels/TitlePanel/Panel"
-    },
     "widgets": [{
         "uri": "themes/<%= themeNameClean %>/widgets/HeaderController/Widget",
         "positionRelativeTo": "browser",

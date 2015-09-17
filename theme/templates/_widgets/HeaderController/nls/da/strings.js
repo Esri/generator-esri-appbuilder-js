@@ -1,6 +1,10 @@
-﻿define({
-    signin: "ø_Sign In_å",
-    signout: "ø_Sign Out_å",
-    about: "ø_About_å",
-    signInTo: "ø_Sign in to_å"
-});
+﻿define(
+   ({
+    _widgetLabel: "Header-controller",
+    signin: "Log ind",
+    signout: "Log ud",
+    about: "Om",
+    signInTo: "Log ind på",
+    cantSignOutTip: "Denne funktion er ikke relevant i forhåndsvisningen."
+  })
+);

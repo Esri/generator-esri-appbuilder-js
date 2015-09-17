@@ -3,12 +3,20 @@
   "label": "<%= themeName %>",
   "panels": [
     {
-      "name": "FoldablePanel",
-      "description": "This is foldable panel"
+      "name": "DockablePanel",
+      "description": "This is dockable panel"
     },
     {
-      "name": "SimplePanel",
-      "description": "this is simple panel"
+      "name": "FoldablePanel",
+      "description": "this is foldable panel"
+    },
+    {
+      "name": "SimpleBorderPanel",
+      "description": "this is simple border panel"
+    },
+    {
+      "name": "TitlePanel",
+      "description": "this is title panel"
     }
   ],
   "styles": [
@@ -45,9 +53,11 @@
       "description": "this is theme widget controller"
     }
   ],
+  "platform": "HTML",
   "version": "0.0.1",
   "author": "<%= author %>",
   "description": "<%= desc %>",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0"
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "wabVersion": "1.1"
 }

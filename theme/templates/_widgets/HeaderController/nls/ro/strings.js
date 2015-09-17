@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Ă_Sign In_ș",
-    signout: "Ă_Sign Out_ș",
-    about: "Ă_About_ș",
-    signInTo: "Ă_Sign in to_ș"
-});
+﻿define(
+   ({
+    _widgetLabel: "Controller antet",
+    signin: "Autentificare",
+    signout: "Ieşire",
+    about: "Despre",
+    signInTo: "Autentificare la",
+    cantSignOutTip: "Această funcţie nu este disponibilă în modul de previzualizare."
+  })
+);

@@ -1,6 +1,10 @@
-﻿define({
-    signin: "ã_Sign In_Ç",
-    signout: "ã_Sign Out_Ç",
-    about: "ã_About_Ç",
-    signInTo: "ã_Sign in to_Ç"
-});
+﻿define(
+   ({
+    _widgetLabel: "Controlador do Cabeçalho",
+    signin: "Iniciar sessão",
+    signout: "Terminar sessão",
+    about: "Sobre",
+    signInTo: "Iniciar sessão em",
+    cantSignOutTip: "Esta função encontra-se indisponível em modo de previsualização."
+  })
+);

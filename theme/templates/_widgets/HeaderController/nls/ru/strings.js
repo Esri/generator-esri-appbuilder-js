@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Ж_Sign In_Я",
-    signout: "Ж_Sign Out_Я",
-    about: "Ж_About_Я",
-    signInTo: "Ж_Sign in to_Я"
-});
+﻿define(
+   ({
+    _widgetLabel: "Контроллер заголовка",
+    signin: "Войти",
+    signout: "Выйти",
+    about: "О",
+    signInTo: "Войти в",
+    cantSignOutTip: "Эта функция недоступна в режиме предварительного просмотра."
+  })
+);

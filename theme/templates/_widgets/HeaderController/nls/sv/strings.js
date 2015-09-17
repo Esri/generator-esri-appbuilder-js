@@ -1,6 +1,10 @@
-﻿define({
-    signin: "Å_Sign In_ö",
-    signout: "Å_Sign Out_ö",
-    about: "Å_About_ö",
-    signInTo: "Å_Sign in to_ö"
-});
+﻿define(
+   ({
+    _widgetLabel: "Rubrikhanterare",
+    signin: "Logga in",
+    signout: "Logga ut",
+    about: "Om",
+    signInTo: "Logga in på",
+    cantSignOutTip: "Denna funktion är inte tillgänglig i förhandsgranskningsläge."
+  })
+);

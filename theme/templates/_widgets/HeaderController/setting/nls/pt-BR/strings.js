@@ -1,7 +1,9 @@
-﻿define({
-    group: "ã_Name_Ç",
-    openAll: "ã_Open All in Panel_Ç",
-    dropDown: "ã_Show in Drop-down Menu_Ç",
-    noGroup: "ã_There is no widget group set._Ç",
-    groupSetLabel: "ã_Set widget groups properties_Ç"
-});
+﻿define(
+   ({
+    group: "Nome",
+    openAll: "Abrir Todos no Painel",
+    dropDown: "Mostrar no Menu Suspenso",
+    noGroup: "Não há grupo de widget configurado.",
+    groupSetLabel: "Configurar propriedades de grupos do widget"
+  })
+);

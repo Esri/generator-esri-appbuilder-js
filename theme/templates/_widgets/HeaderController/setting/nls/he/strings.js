@@ -1,7 +1,9 @@
-﻿define({
-    group: "כן_Name_ש",
-    openAll: "כן_Open All in Panel_ש",
-    dropDown: "כן_Show in Drop-down Menu_ש",
-    noGroup: "כן_There is no widget group set._ש",
-    groupSetLabel: "כן_Set widget groups properties_ש"
-});
+﻿define(
+   ({
+    group: "שם",
+    openAll: "פתח הכל בפאנל",
+    dropDown: "הצג בתפריט נפתח",
+    noGroup: "לא הוגדרה קבוצת וידג\'טים.",
+    groupSetLabel: "הגדר תכונות של קבוצות וידג\'טים"
+  })
+);

@@ -18,7 +18,6 @@ define(['dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/html',
     'dojo/_base/array',
-    'dojo/_base/fx',
     'dojo/on',
     'dojo/aspect',
     'jimu/BaseWidgetPanel',
@@ -27,150 +26,95 @@ define(['dojo/_base/declare',
     './FoldableDijit',
     './FoldableWidgetFrame'
   ],
-  function(declare, lang, html, array, baseFx, on, aspect, BaseWidgetPanel, BaseWidgetFrame, utils, FoldableDijit, FoldableWidgetFrame) {
-    var criticality = 360;
-    var currentLh = html.getMarginBox(jimuConfig.layoutId).h; // layout height
+  function(
+    declare, lang, html, array, on, aspect, BaseWidgetPanel,
+    BaseWidgetFrame, utils, FoldableDijit, FoldableWidgetFrame
+  ) {
+    var borderRadius = '4px';
+
     /* global jimuConfig */
-    function isFullWindow() {
-      var layoutBox = html.getMarginBox(jimuConfig.layoutId);
-      if (layoutBox.w * 0.7 <= criticality) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    function changedLh() {
-      var layoutBox = html.getMarginBox(jimuConfig.layoutId);
-      var changed = currentLh !== layoutBox.h;
-      currentLh = layoutBox.h;
-      return changed;
-    }
-
-    function getPanelWidth() {
-      var layoutBox = html.getMarginBox(jimuConfig.layoutId);
-      if (layoutBox.w * 0.7 <= criticality) {
-        return '100%';
-      } else {
-        return 360;
-      }
-    }
-
-    function getHeaderHeight() {
-      return 35;
-    }
 
     return declare([BaseWidgetPanel, FoldableDijit], {
-      baseClass: 'jimu-widget-panel jimu-foldable-dijit jimu-foldable-panel',
+      baseClass: 'jimu-panel jimu-foldable-dijit jimu-foldable-panel',
 
       closeTolerance: 30,
 
-      closeBtnHandle: null,
+      openAnimation: 'fadeIn',
+      closeAnimation: 'fadeOut',
+      animationDuration: 500,
 
       startup: function() {
-        this.titleHeight = getHeaderHeight();
-        this.isFull = null;
+        this.titleHeight = 35;
         this.inherited(arguments);
+
+        html.addClass(this.titleNode, 'jimu-panel-title');
         this.createCloseBtn();
+        this.createMaxBtn();
+        this.createFoldableBtn();
+        this.panelManager.normalizePanel(this);
+      },
+
+      getPanelPosition: function(){
+        if (window.appInfo.isRunInMobile) {
+          return this.panelManager.getPositionOnMobile(this);
+        } else {
+          var pos = lang.clone(this.position);
+          if(typeof pos.width === 'undefined'){
+            pos.width = 360;
+          }
+          if(this.windowState === 'minimized'){
+            pos.bottom = 'auto';
+            pos.height = this.titleHeight;
+            pos.borderRadiusStyle = {
+              borderTopLeftRadius: borderRadius,
+              borderTopRightRadius: borderRadius,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0
+            };
+          }else{
+            pos.bottom = this.position.bottom;
+            pos.height = 'auto';
+            pos.borderRadiusStyle = {
+              borderTopLeftRadius: borderRadius,
+              borderTopRightRadius: borderRadius,
+              borderBottomLeftRadius: borderRadius,
+              borderBottomRightRadius: borderRadius
+            };
+          }
+
+          return pos;
+        }
+      },
+
+      onNormalize: function(){
         this.resize();
       },
 
-      getFullPosition: function() {
-        var fullPos = {},
-          pos = this.position;
-        fullPos.left = pos.left ? pos.left : 'auto';
-        fullPos.right = pos.right ? pos.right : 'auto';
-        fullPos.top = pos.top ? pos.top : 'auto';
-        fullPos.bottom = pos.bottom ? pos.bottom : 'auto';
-        fullPos.width = pos.width ? pos.width : 'auto';
-        fullPos.height = pos.height ? pos.height : 'auto';
-
-        if (this.isFull) {
-          fullPos.right = 0;
-          fullPos.bottom = 0;
-        }
-        return fullPos;
+      onMaximize: function(){
+        this.resize();
       },
 
-      changePosition: function() {
-        var pos;
-
-        this.position.width = getPanelWidth();
-        if (this.iframePane) {
-          this.iframePane.setPosition(this.position);
-        }
-
-        if (this.isFull) {
-          html.place(this.domNode, jimuConfig.layoutId);
-          pos = {
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: 'auto',
-            height: 'auto'
-          };
-        } else {
-          html.place(this.domNode, jimuConfig.mapId);
-          pos = {
-            left: this.position.left ? this.position.left : 'auto',
-            right: this.position.right ? this.position.right : 'auto',
-            top: this.position.top ? this.position.top : 'auto',
-            bottom: this.position.bottom ? this.position.bottom : 'auto',
-            width: this.position.width ? this.position.width : 'auto',
-            height: this.position.height ? this.position.height : 'auto'
-          };
-        }
-        html.setStyle(this.domNode, utils.getPositionStyle(pos));
-        utils.setVerticalCenter(this.titleNode);
-        this.setBorderRadius();
-        this.moveTitle();
-      },
-
-      setBorderRadius: function() {
-        var style;
-        if (this.isFull) {
-          style = {
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0
-          };
-        } else {
-          style = {
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
-            borderBottomLeftRadius: '4px',
-            borderBottomRightRadius: '4px'
-          };
-        }
-        html.setStyle(this.domNode, style);
-      },
-
-      _changePos: function() {
-        this.position.width = getPanelWidth();
-        if (!isFullWindow()) {
-          this.position.left = 'auto';
-        }
-
-        this.position.height = 'auto';
+      onMinimize: function(){
+        this.resize();
       },
 
       resize: function() {
-        this._changePos();
+        this._switchMaxBtn();
+        this._switchParentNode();
 
-        if (this.isFull !== isFullWindow() || changedLh()) {
-          this.isFull = isFullWindow();
-          this.changePosition();
+        var pos = this.getPanelPosition();
+        if(this.position.zIndex){
+          pos.zIndex = this.position.zIndex;
         }
-        html.setStyle(this.domNode, {
-          width: getPanelWidth() + 'px'
-        });
+        var style = utils.getPositionStyle(pos);
+        lang.mixin(style, pos.borderRadiusStyle);
+        html.setStyle(this.domNode, style);
+
+        if (this.getChildren().length > 1) {
+          this._setFrameSize(pos.contentHeight);
+        }
 
         this.inherited(arguments);
-        if (this.getChildren().length > 1) {
-          this._setFrameSize();
-        }
       },
 
       reloadWidget: function(widgetConfig) {
@@ -188,9 +132,24 @@ define(['dojo/_base/declare',
         this.setTitleLabel(_config.label);
       },
 
-      _setFrameSize: function() {
-        var h, box = html.getContentBox(this.containerNode),
-          openedPaneCount = 0;
+      _switchMaxBtn: function(){
+        if (window.appInfo.isRunInMobile) {
+          html.setStyle(this.maxNode, 'display', '');
+        }else{
+          html.setStyle(this.maxNode, 'display', 'none');
+        }
+      },
+
+      _switchParentNode: function(){
+        if (window.appInfo.isRunInMobile) {
+          html.place(this.domNode, jimuConfig.layoutId);
+        }else{
+          html.place(this.domNode, this.map.id);
+        }
+      },
+
+      _setFrameSize: function(contentHeight) {
+        var h, openedPaneCount = 0;
 
         //openedPaneCount should >= 1
         array.forEach(this.getChildren(), function(frame) {
@@ -199,8 +158,12 @@ define(['dojo/_base/declare',
           }
         }, this);
 
-        h = (box.h - (this.getChildren().length - openedPaneCount) * this.getChildren()[0].titleHeight) / openedPaneCount;
-        console.log('box.h=' + box.h + ', h=' + h);
+        if(typeof contentHeight === 'undefined'){
+          contentHeight = html.getContentBox(this.containerNode).h;
+        }
+
+        h = (contentHeight - (this.getChildren().length - openedPaneCount) *
+          this.getChildren()[0].titleHeight) / openedPaneCount;
         array.forEach(this.getChildren(), function(frame) {
           if (frame.folded) {
             html.setStyle(frame.domNode, {
@@ -216,23 +179,26 @@ define(['dojo/_base/declare',
       },
 
       createCloseBtn: function() {
-        if (this.isFull) {
-          this.closeNode = html.create('div', {
-            'class': 'fold-btn jimu-vcenter'
-          }, this.titleNode);
-        } else {
-          this.closeNode = html.create('div', {
-            'class': 'close-btn jimu-vcenter'
-          }, this.titleNode);
+        this.closeNode = html.create('div', {
+          'class': 'close-btn jimu-float-trailing'
+        }, this.titleNode);
 
-          this.closeBtnHandle = on(this.closeNode, 'click', lang.hitch(this, function(evt) {
-            evt.stopPropagation();
-            this.panelManager.closePanel(this);
-          }));
-        }
-        utils.setVerticalCenter(this.titleNode);
+        this.own(on(this.closeNode, 'click', lang.hitch(this, function(evt) {
+          evt.stopPropagation();
+          this.panelManager.closePanel(this);
+        })));
       },
 
+      createMaxBtn: function(){
+        this.maxNode = html.create('div', {
+          'class': 'max-btn jimu-float-trailing'
+        }, this.titleNode);
+
+        this.own(on(this.maxNode, 'click', lang.hitch(this, function(evt) {
+          evt.stopPropagation();
+          this.onMaxNodeClick();
+        })));
+      },
 
       createFrame: function(widgetConfig) {
         var frame;
@@ -267,73 +233,22 @@ define(['dojo/_base/declare',
         return frame;
       },
 
-      createFullCloseTip: function() {
-        var node;
-        node = html.create('div', {
-          'class': 'close-tip',
-          innerHTML: 'Close',
-          style: {
-            height: this.titleHeight + 'px',
-            lineHeight: this.titleHeight + 'px'
-          }
-        }, this.domNode);
-        return node;
-      },
-
-      onTitleClick: function() {
-        var ch;
-        if (this.folded) {
-          this.folded = false;
-          html.setStyle(this.domNode, utils.getPositionStyle(this.getFullPosition()));
-
-          if (this.iframePane) {
-            html.setStyle(this.iframePane.domNode, utils.getPositionStyle(this.getFullPosition()));
-            this.iframePane.resize();
-          }
-
-          this.moveTitle();
-        } else {
-          this.folded = true;
-          ch = 0;
-          html.setStyle(this.domNode, {
-            height: this.titleHeight + 'px'
-          });
-          if (this.iframePane) {
-            html.setStyle(this.iframePane.domNode, {
-              height: this.titleHeight + 'px'
-            });
-            this.iframePane.resize();
-          }
-          this.moveTitle();
-        }
-
-        this.onFoldStateChanged();
-      },
-
-      onOpen: function() {
+      onFoldableNodeClick: function() {
         this.inherited(arguments);
-        this._changePos();
 
-        this.isFull = isFullWindow();
-        this.changePosition();
-
-        if (this.folded) {
-          this.onTitleClick();
+        if (this.windowState === 'minimized') {
+          this.panelManager.normalizePanel(this);
+        } else {
+          this.panelManager.minimizePanel(this);
         }
       },
 
-      onFoldStateChanged: function() {
-        array.forEach(this.getChildren(), function(frame) {
-          var widget = frame.getWidget();
-          if (!widget) {
-            return;
-          }
-          if (this.folded) {
-            this.widgetManager.minimizeWidget(widget);
-          } else {
-            this.widgetManager.maximizeWidget(widget);
-          }
-        }, this);
+      onMaxNodeClick: function() {
+        if (this.windowState === 'maximized') {
+          this.panelManager.normalizePanel(this);
+        } else {
+          this.panelManager.maximizePanel(this);
+        }
       },
 
       moveTitle: function() {

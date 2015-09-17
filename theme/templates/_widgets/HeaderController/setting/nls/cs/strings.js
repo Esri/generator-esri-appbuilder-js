@@ -1,7 +1,9 @@
-﻿define({
-    group: "Ř_Name_ů",
-    openAll: "Ř_Open All in Panel_ů",
-    dropDown: "Ř_Show in Drop-down Menu_ů",
-    noGroup: "Ř_There is no widget group set._ů",
-    groupSetLabel: "Ř_Set widget groups properties_ů"
-});
+﻿define(
+   ({
+    group: "Název",
+    openAll: "Otevřít vše v panelu",
+    dropDown: "Zobrazit v rozbalovací nabídce",
+    noGroup: "Není nastavena žádná skupina widgetů.",
+    groupSetLabel: "Nastavit vlastnosti skupin widgetů"
+  })
+);

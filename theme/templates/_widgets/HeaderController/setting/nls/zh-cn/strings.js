@@ -1,7 +1,9 @@
-﻿define({
-    group: "试_Name_验",
-    openAll: "试_Open All in Panel_验",
-    dropDown: "试_Show in Drop-down Menu_验",
-    noGroup: "试_There is no widget group set._验",
-    groupSetLabel: "试_Set widget groups properties_验"
-});
+﻿define(
+   ({
+    group: "名称",
+    openAll: "面板中的\“打开所有\”",
+    dropDown: "在下拉菜单中显示",
+    noGroup: "不存在微件组集。",
+    groupSetLabel: "设置微件组属性"
+  })
+);

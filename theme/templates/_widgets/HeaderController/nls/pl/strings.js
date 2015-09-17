@@ -1,6 +1,10 @@
-﻿define({
-    signin: "ł_Sign In_ą",
-    signout: "ł_Sign Out_ą",
-    about: "ł_About_ą",
-    signInTo: "ł_Sign in to_ą"
-});
+﻿define(
+   ({
+    _widgetLabel: "Kontroler nagłówka",
+    signin: "Zaloguj się",
+    signout: "Wyloguj się",
+    about: "Informacje o",
+    signInTo: "Zaloguj się do",
+    cantSignOutTip: "Funkcja nie ma zastosowania w widoku podglądu."
+  })
+);

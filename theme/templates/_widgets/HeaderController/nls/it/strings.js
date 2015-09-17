@@ -1,6 +1,10 @@
-﻿define({
-    signin: "é_Sign In_È",
-    signout: "é_Sign Out_È",
-    about: "é_About_È",
-    signInTo: "é_Sign in to_È"
-});
+﻿define(
+   ({
+    _widgetLabel: "Controller intestazione",
+    signin: "Accedi",
+    signout: "Disconnetti",
+    about: "Informazioni",
+    signInTo: "Accedi a",
+    cantSignOutTip: "Questa funzione non è disponibile in modalità anteprima."
+  })
+);

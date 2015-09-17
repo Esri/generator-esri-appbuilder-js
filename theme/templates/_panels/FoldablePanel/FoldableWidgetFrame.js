@@ -15,18 +15,16 @@
 ///////////////////////////////////////////////////////////////////////////
 
 define(['dojo/_base/declare',
-  'dojo/_base/lang',
-  'dojo/_base/html',
   'jimu/BaseWidgetFrame',
   './FoldableDijit'],
-  function(declare, lang, html, BaseWidgetFrame, FoldableDijit){
+  function(declare, BaseWidgetFrame, FoldableDijit){
   return declare([BaseWidgetFrame, FoldableDijit], {
     baseClass: 'jimu-widget-frame jimu-foldable-dijit foldable-widget-frame',
 
     postCreate: function(){
       this.inherited(arguments);
+      this.createFoldableBtn();
       this.titleHeight = 30;
-      this.createFoldBtn();
       this.foldEnable = true;
     },
 
@@ -40,35 +38,15 @@ define(['dojo/_base/declare',
       this.setTitleLabel(this.widget.label);
     },
 
-    onTitleClick: function(){
-      if(!this.foldEnable){
+    onFoldableNodeClick: function(){
+      this.inherited(arguments);
+      if(!this.widget){
         return;
       }
       if(this.folded){
-        this.folded = false;
+        this.widgetManager.minimizeWidget(this.widget);
       }else{
-        this.folded = true;
-      }
-      this.onFoldStateChanged();
-    },
-
-    createFoldBtn: function(){
-      this.foldNode = html.create('div', {
-        'class': 'fold-btn'
-      }, this.titleNode);
-    },
-
-    onFoldStateChanged: function(){
-      if(this.folded){
-        html.addClass(this.foldNode, 'folded');
-        if(this.widget){
-          this.widgetManager.minimizeWidget(this.widget);
-        }
-      }else{
-        html.removeClass(this.foldNode, 'folded');
-        if(this.widget){
-          this.widgetManager.maximizeWidget(this.widget);
-        }
+        this.widgetManager.maximizeWidget(this.widget);
       }
     }
   });
