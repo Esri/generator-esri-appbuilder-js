@@ -53,9 +53,11 @@
       "description": "this is theme widget controller"
     }
   ],
+  "platform": "HTML",
   "version": "0.0.1",
   "author": "<%= author %>",
   "description": "<%= desc %>",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0"
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "wabVersion": "1.1"
 }
