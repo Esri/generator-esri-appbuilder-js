@@ -53,7 +53,7 @@ function(declare, BaseWidget) {
     //   console.log('<%= widgetName %>::resize');
     // }
 
-//methods to communication between widgets:
+    //methods to communication between widgets:
 
   });
 
