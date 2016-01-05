@@ -210,7 +210,7 @@ describe('esri-appbuilder-js:theme subgenerator', function() {
         });
 
         it('should set themeName in manifest.json ', function() {
-          helpers.assertFileContent('themes/Testtheme/manifest.json', /"name": "Testtheme"/g);
+          helpers.assertFileContent('themes/Testtheme/manifest.json', /"name": "TestTheme"/g);
         });
 
         it('should set description in manifest.json ', function() {

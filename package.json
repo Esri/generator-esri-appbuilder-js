@@ -22,11 +22,15 @@
     "theme"
   ],
   "keywords": [
-    "yeoman-generator", "Esri", "ArcGIS", "Web", "AppBuilder"
+    "yeoman-generator",
+    "Esri",
+    "ArcGIS",
+    "Web",
+    "AppBuilder"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
     "chalk": "~0.4.0",
+    "yeoman-generator": "^0.17.0",
     "yosay": "^0.1.0"
   },
   "devDependencies": {

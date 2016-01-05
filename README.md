@@ -4,7 +4,7 @@
 
 ## About
 
-This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to creates project files (`package.json`, `.jshintrc`, etc) and scaffold out the files needed to create a new custom widget and custom theme.
+This generator scaffolds out the boilerplate files that are needed when you are customizing the Web AppBuilder. This includes [generators](#running-the-generators) to set up your project and scaffold out the files needed to create custom widgets and themes.
 
 ![Screenshot](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/running-the-generators.png)
 
@@ -26,25 +26,26 @@ $ npm install -g generator-esri-appbuilder-js
 
 ### Running the Generators
 
-The generators should be run in the root folder of either the stem app or an app that you've already created with the Web AppBuilder.
+The generators should be run in the root of a working folder for your project. This should be *outside* of the Web AppBuilder's folder structure (i.e. NOT in the stem app or an app that you've already created with the Web AppBuilder). The grunt tasks configured by the generators will handle copying the widget and theme files to the appropriate folders under the Web AppBuilder's install directory.
 
 #### App (Default) Generator
 
-Currently the app generator doesn't do much other than install some project files (`package.json`, `.jshintrc`, etc) and ensure required subfolders (like `widgets`) exist. The subgenerators do most of the work.
+The app generator installs and configures the [grunt tasks](#running-the-grunt-tasks) and other project files (`package.json`, `.jshintrc`, etc) and ensures that required subfolders (like `widgets`) exist.
 
-1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into the root folder of your project
 2. Run the generator with `yo esri-appbuilder-js`
 3. Answer the man's questions!
 
 |Prompt|Description|Default|
 |------|-----------|-------|
-|Author|Name of developers or organization for widget manifests|Your Name or Organization|
+|Author|Name of developers or organization for widget manifests|Your Name or Organization
+|Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
 
 #### Widget Generator
 
 Scaffolds out the files needed to create a new custom widget.
 
-1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into the root folder of your project
 2. Run the generator with `yo esri-appbuilder-js:widget`
 3. Answer the man's questions!
 
@@ -79,7 +80,7 @@ MyWidget
         strings.js
 ```
 
-The next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
+After you [copy the widget files to the Web AppBuilder's stemapp](#copying-widget-and-theme-files), the next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
 
 ![Widget in the Builder](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
 
@@ -87,7 +88,7 @@ The next time you run the Web AppBuilder, you will see something like the follow
 
 Scaffolds out the files needed to create a new custom theme based on the default Foldable Theme by Esri.
 
-1. Navigate into either `stemapp` or `server/apps/[appId]` under your local Web AppBuilder installation
+1. Navigate into the root folder of your project
 2. Run the generator with `yo esri-appbuilder-js:theme`
 3. Answer the man's questions!
 
@@ -95,7 +96,39 @@ Scaffolds out the files needed to create a new custom theme based on the default
 |------|-----------|-------|
 |Theme Name|Folder name for output files and theme identifier|DefaultThemeName|
 |Description|Give a description of your custom theme|A good description of my theme...|
-|Author|Your name or organization to be associated with the theme|My organization|
+|Author|Your name or organization to be associated with the theme|My organization
+
+## Copying Widget and Theme Files
+
+In order for the widgets and themes that you're working on to be available in the Web AppBuilder you will need to copy their files to the appropriate folders under the Web AppBuilder's install root.
+
+### Copying the Files Manually
+
+For example, let's say you've installed the Web AppBuilder in `c:\arcgis-web-appbuilder-1.3`, then you'll need to copy widget and theme files to their respective folders under the stem app:
+
+```
+c:\arcgis-web-appbuilder-1.3\client\stemapp\widgets
+c:\arcgis-web-appbuilder-1.3\client\stemapp\themes
+```
+
+Also, you'll likely want to copy widget and theme files to any applications that you've created that use them:
+
+```
+c:\arcgis-web-appbuilder-1.3\server\apps\[appId]\widgets
+c:\arcgis-web-appbuilder-1.3\server\apps\[appId]\themes
+```
+
+Unless you're using the grunt tasks, you'll need to re-copy the files each time you make changes to the files.
+
+### Running the Grunt Tasks
+
+The easiest way to keep your widget and theme files in sync with the Web AppBuilder is to run the grunt tasks. After running the generators, you can run the default grunt task following at the project root:
+
+```
+grunt
+```
+
+This will copy over any files that haven't already been copied over, and then start watching all files under the widgets and themes folders for changes and re-copy the files to the Web AppBuilder's folders.
 
 ## Issues
 
