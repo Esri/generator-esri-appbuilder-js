@@ -53,7 +53,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
 
     it('should set Label to widgetTitle', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
-    });    
+    });
 
     it('should set inPanel to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
@@ -446,6 +446,249 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       helpers.assertFileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
     });
 
+  });
+
+/** SETTINGS */
+
+  describe('when creating a widget with settings', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json',
+        'widgets/TestWidget/setting/Setting.js',
+        'widgets/TestWidget/setting/Setting.html',
+        'widgets/TestWidget/setting/css/style.css',
+        'widgets/TestWidget/setting/nls/strings.js'
+      ];
+    });
+
+    it('should set hasSettingUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingUIFile": true/);
+    });
+
+    it('should set hasSettingLocale to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingLocale": true/);
+    });
+
+    it('should set hasSettingStyle to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": true/);
+    });
+
+    it('has baseClass in Setting.js', function() {
+      helpers.assertFileContent('widgets/TestWidget/setting/Setting.js', /baseClass: 'test-widget-setting'/);
+    });
+  });
+
+  describe('when creating a widget without settings', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        hasSettingPage: false
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json'
+      ];
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/setting/Setting.js');
+      helpers.assertNoFile('widgets/TestWidget/setting/Setting.html');
+      helpers.assertNoFile('widgets/TestWidget/setting/css/style.css');
+      helpers.assertNoFile('widgets/TestWidget/setting/nls/strings.js');
+    });
+
+    it('should set hasSettingUIFile to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingUIFile": false/);
+    });
+
+    it('should set hasSettingLocale to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingLocale": false/);
+    });
+
+    it('should set hasSettingStyle to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": false/);
+    });
+  });
+
+  describe('when creating a widget with settings without style', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+
+
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json',
+        'widgets/TestWidget/setting/Setting.js',
+        'widgets/TestWidget/setting/Setting.html',
+        'widgets/TestWidget/setting/nls/strings.js'
+      ];
+
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/setting/css/style.css');
+    });
+
+    it('should set hasSettingUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingUIFile": true/);
+    });
+
+    it('should set hasSettingLocale to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingLocale": true/);
+    });
+
+    it('should set hasSettingStyle to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": false/);
+    });
+  });
+
+  describe('when creating a widget with settings without locale', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingStyle' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json',
+        'widgets/TestWidget/setting/Setting.js',
+        'widgets/TestWidget/setting/Setting.html',
+        'widgets/TestWidget/setting/css/style.css'
+      ];
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/setting/nls/strings.js');
+    });
+
+    it('should set hasSettingUIFile to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingUIFile": true/);
+    });
+
+    it('should set hasSettingLocale to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingLocale": false/);
+    });
+
+    it('should set hasSettingStyle to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": true/);
+    });
+  });
+
+  describe('when creating a widget with settings without UIFile', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingLocale', 'hasSettingStyle' ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        // add files you expect to exist here.
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json',
+        'widgets/TestWidget/setting/Setting.js',
+        'widgets/TestWidget/setting/css/style.css',
+        'widgets/TestWidget/setting/nls/strings.js'
+      ];
+
+      helpers.assertFile(expected);
+      helpers.assertNoFile('widgets/TestWidget/setting/Setting.html');
+    });
+
+    it('should set hasSettingUIFile to false in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingUIFile": false/);
+    });
+
+    it('should set hasSettingLocale to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingLocale": true/);
+    });
+
+    it('should set hasSettingStyle to true in manifest', function() {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": true/);
+    });
   });
 
 });

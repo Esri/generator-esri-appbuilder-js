@@ -82,6 +82,39 @@ var WidgetGenerator = yeoman.generators.Base.extend({
         }
       ],
       'default': [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
+    },
+    {
+      when: function (response) {
+        // only show this step if user answered TRUE to 'hasConfig'
+        return response.features.indexOf('hasConfig') > -1;
+      },
+      type: 'confirm',
+      message: 'Would you like a settings page?',
+      name: 'hasSettingPage'
+    },
+    {
+      when: function (response) {
+        // only show this step if user answered TRUE to 'hasSettingPage'
+        return response.hasSettingPage;
+      },
+      type: 'checkbox',
+      message: 'Which settings page features would you like to include?',
+      name: 'settingsFeatures',
+      choices: [
+        {
+          value: 'hasSettingUIFile',
+          name: 'Settings template (HTML) file'
+        },
+        {
+          value: 'hasSettingLocale',
+          name: 'Settings locale (i18n) file'
+        },
+        {
+          value: 'hasSettingStyle',
+          name: 'Settings style (CSS) file'
+        }
+      ],
+      'default': [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
     }];
 
     this.prompt(prompts, function (props) {
@@ -97,6 +130,11 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       this.hasStyle = props.features.indexOf('hasStyle') > -1;
       this.hasConfig = props.features.indexOf('hasConfig') > -1;
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
+      // settings
+      this.hasSettingPage = props.hasSettingPage;
+      this.hasSettingUIFile = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false);
+      this.hasSettingLocale = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingLocale') > -1) : false);
+      this.hasSettingStyle = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingStyle') > -1) : false);
       this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
@@ -122,7 +160,20 @@ var WidgetGenerator = yeoman.generators.Base.extend({
     }
     this.copy('images/icon.png', path.join(basePath, 'images/icon.png'));
     this.template('_manifest.json', path.join(basePath, 'manifest.json'));
-    // TODO: settings
+
+    // Settings:
+    if(this.hasSettingPage) {
+      this.template('setting/_Setting.js', path.join(basePath, 'setting/Setting.js'));
+      if (this.hasSettingUIFile) {
+        this.template('setting/_Setting.html', path.join(basePath, 'setting/Setting.html'));
+      }
+      if (this.hasSettingLocale) {
+        this.template('setting/nls/_strings.js', path.join(basePath, 'setting/nls/strings.js'));
+      }
+      if (this.hasSettingStyle) {
+        this.template('setting/css/_style.css', path.join(basePath, 'setting/css/style.css'));
+      }
+    }
   }
 });
 
