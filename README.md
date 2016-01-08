@@ -59,6 +59,10 @@ Scaffolds out the files needed to create a new custom widget.
 |Style (CSS) file|Will your widget require a style file?|Yes|
 |Config (JSON) file|Will your widget require a configuration file?|Yes|
 |Template (HTML) file|Will your widget require a template file?|Yes|
+|Would you like a settings page?|Will your widget have a settings page?|Yes
+|Settings template (HTML) file|Will your settings page require a template file?|Yes|
+|Settings locale (i18n) file|Will your settings page require a locale file?|Yes|
+|Settings style (CSS) file|Will your settings page require a style file?|Yes|
 
 Taking the default values for the prompts will generate the following output under the `widgets` folder:
 
@@ -75,8 +79,16 @@ MyWidget
 ├───images
 │       icon.png
 │
-└───nls
-        strings.js
+├───nls
+│       strings.js
+│
+└───setting
+    |   Setting.js
+    |   Setting.html
+    ├───nls
+    |       strings.js
+    └───css
+            style.css
 ```
 
 The next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
