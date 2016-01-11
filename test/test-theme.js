@@ -26,6 +26,8 @@ describe('esri-appbuilder-js:theme subgenerator', function() {
                 desc: 'A test theme.',
                 author: 'Test Authorsen'
             });
+            // NOTE: sometimes theme generator takes longer than default 2 seconds
+            this.timeout(3000);
             this.theme.run({}, function() {
                 done();
             });
