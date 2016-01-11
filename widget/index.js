@@ -132,9 +132,9 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
       // settings
       this.hasSettingPage = props.hasSettingPage;
-      this.hasSettingUIFile = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false);
-      this.hasSettingLocale = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingLocale') > -1) : false);
-      this.hasSettingStyle = (props.hasOwnProperty('settingsFeatures') ? (props.settingsFeatures.indexOf('hasSettingStyle') > -1) : false);
+      this.hasSettingUIFile = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false;
+      this.hasSettingLocale = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingLocale') > -1) : false;
+      this.hasSettingStyle = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingStyle') > -1) : false;
       this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
