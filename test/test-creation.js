@@ -2,6 +2,8 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var isWin = process.platform === 'win32';
+var wabRoot = (isWin) ? 'C:\\code\\arcgis-web-appbuilder-1.3' : '/code/arcgis-web-appbuilder-1.3';
 
 describe('esri-appbuilder-js generator', function () {
   before(function (done) {
@@ -16,7 +18,7 @@ describe('esri-appbuilder-js generator', function () {
 
       helpers.mockPrompt(this.app, {
         'author': 'Tom Wayson',
-        'wabRoot': 'C:\\code\\arcgis-web-appbuilder-1.3'
+        'wabRoot': wabRoot
       });
       this.app.options['skip-install'] = true;
       this.app.run({}, function () {
@@ -47,11 +49,12 @@ describe('esri-appbuilder-js generator', function () {
   });
 
   describe('when creating gruntfile', function() {
+    var _wabRoot = isWin ? wabRoot.replace(/\\/g, '/') : wabRoot;
     it('sets stemappDir variable', function() {
-      helpers.assertFileContent('Gruntfile.js', /var stemappDir = 'C:\/code\/arcgis-web-appbuilder-1.3\/client\/stemapp'/);
+      helpers.assertFileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + _wabRoot + '/client/stemapp'));
     });
     it('sets appDir variable', function() {
-      helpers.assertFileContent('Gruntfile.js', /var appDir = 'C:\/code\/arcgis-web-appbuilder-1.3\/server\/apps\/2'/);
+      helpers.assertFileContent('Gruntfile.js', new RegExp('var appDir = \'' + _wabRoot + '/server/apps/2'));
     });
     it('sets watch config', function() {
       helpers.assertFileContent('Gruntfile.js', new RegExp('watch:'));
