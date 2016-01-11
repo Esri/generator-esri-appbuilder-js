@@ -1,9 +1,10 @@
 'use strict';
-var os = require('os');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 var chalk = require('chalk');
+var isWin = process.platform === 'win32';
+var homedir = (isWin) ? process.env.HOMEPATH : process.env.HOME;
 
 module.exports = yeoman.generators.Base.extend({
   init: function () {
@@ -32,7 +33,7 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'wabRoot',
       message: 'Web AppBuilder install root:',
-      'default': path.join(os.homedir(), 'arcgis-web-appbuilder-1.3')
+      'default': path.join(homedir, 'arcgis-web-appbuilder-1.3')
     }];
 
     this.prompt(prompts, function (props) {
@@ -53,7 +54,7 @@ module.exports = yeoman.generators.Base.extend({
     gruntConfig: function() {
       var stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
       var appDir = path.join(this.wabRoot, 'server', 'apps', '2');
-      if (os.platform() === 'win32') {
+      if (isWin) {
         // this hack is neded to ensure paths are not esacped when injected into Gruntfile
         stemappDir = stemappDir.replace(/\\/g, '/');
         appDir = appDir.replace(/\\/g, '/');
