@@ -46,7 +46,6 @@ module.exports = yeoman.generators.Base.extend({
   writing: {
     app: function () {
       this.mkdir('widgets');
-      this.mkdir('themes');
 
       this.template('_package.json', 'package.json');
     },
@@ -61,14 +60,14 @@ module.exports = yeoman.generators.Base.extend({
       }
       var watchConfig = {
         main: {
-          files: ['widgets/**', 'themes/**'],
+          files: ['widgets/**'],
           tasks: ['sync'],
           options: {
             spawn: false
           }
         }
       };
-      var filesPrefix = '{src: [\'widgets/**\', \'themes/**\'], dest: ';
+      var filesPrefix = '{src: [\'widgets/**\'], dest: ';
       var syncConfig = '{ main: { verbose: true, files: [';
       syncConfig = syncConfig + filesPrefix + 'stemappDir },';
       syncConfig = syncConfig + filesPrefix + 'appDir }]';

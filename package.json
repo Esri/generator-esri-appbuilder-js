@@ -18,8 +18,7 @@
   },
   "files": [
     "app",
-    "widget",
-    "theme"
+    "widget"
   ],
   "keywords": [
     "yeoman-generator",

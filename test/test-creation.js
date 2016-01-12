@@ -27,6 +27,8 @@ describe('esri-appbuilder-js generator', function () {
     }.bind(this));
   });
 
+  // TODO: test for existence of widgets folder?
+
   it('creates expected dotfiles', function () {
     var expected = [
       '.jshintrc',
