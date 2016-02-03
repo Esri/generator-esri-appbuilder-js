@@ -3,7 +3,7 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 var isWin = process.platform === 'win32';
-var wabRoot = (isWin) ? 'C:\\arcgis-web-appbuilder-1.3' : '/code/arcgis-web-appbuilder-1.3';
+var wabRoot = (isWin) ? 'C:\\code\\arcgis-web-appbuilder-1.3' : '/code/arcgis-web-appbuilder-1.3';
 var appDirId = '5';
 
 
