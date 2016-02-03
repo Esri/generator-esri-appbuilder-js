@@ -5,39 +5,46 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 var isWin = process.platform === 'win32';
 var homedir = (isWin) ? process.env.HOMEPATH : process.env.HOME;
+var fs = require('fs');
 
 module.exports = yeoman.generators.Base.extend({
-  init: function () {
-    this.pkg = require('../package.json');
-
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies({
-          bower: false
-        });
-      }
-    });
+  initializing: function () {
+    // check for existence of package.json
+    try {
+      fs.accessSync('./package.json', fs.F_OK);
+      this.hasPackageJson = true;
+    } catch (e) {
+      this.hasPackageJson = false;
+    }
   },
 
-  askFor: function () {
+  prompting: function () {
     var done = this.async();
+    var self = this;
 
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the ArcGIS Web AppBuilder generator!'));
     console.log(chalk.yellow('These generators should be run in the root folder of your project.'));
 
     var prompts = [{
-      name: 'author',
-      message: 'Author:',
-      'default': 'Your Name or Organization'
+      name: 'abort',
+      type: 'confirm',
+      default: false,
+      message: 'No package.json found. Would you like to abort and run npm init first?',
+      when: function() {
+        return !self.hasPackageJson;
+      }
     }, {
       name: 'wabRoot',
       message: 'Web AppBuilder install root:',
-      'default': path.join(homedir, 'arcgis-web-appbuilder-1.3')
+      'default': path.join(homedir, 'arcgis-web-appbuilder-1.3'),
+      when: function(answers) {
+        return !answers.abort;
+      }
     }];
 
     this.prompt(prompts, function (props) {
-      this.author = props.author;
+      this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       done();
     }.bind(this));
@@ -45,12 +52,16 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      if (this.abort) {
+        return;
+      }
       this.mkdir('widgets');
-
-      this.template('_package.json', 'package.json');
     },
 
     gruntConfig: function() {
+      if (this.abort) {
+        return;
+      }
       var stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
       var appDir = path.join(this.wabRoot, 'server', 'apps', '2');
       if (isWin) {
@@ -82,8 +93,18 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     projectfiles: function () {
+      if (this.abort) {
+        return;
+      }
       this.copy('editorconfig', '.editorconfig');
       this.copy('jshintrc', '.jshintrc');
     }
+  },
+
+  install: function() {
+    if (this.abort || this.options['skip-install']) {
+      return;
+    }
+    this.npmInstall(['grunt', 'grunt-contrib-watch', 'grunt-sync'], { 'saveDev': true });
   }
 });

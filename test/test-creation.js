@@ -17,7 +17,7 @@ describe('esri-appbuilder-js generator', function () {
       ]);
 
       helpers.mockPrompt(this.app, {
-        'author': 'Tom Wayson',
+        'abort': false,
         'wabRoot': wabRoot
       });
       this.app.options['skip-install'] = true;
@@ -35,19 +35,6 @@ describe('esri-appbuilder-js generator', function () {
       '.editorconfig'
     ];
     helpers.assertFile(expected);
-  });
-
-  describe('when generating package.json', function() {
-    it('sets author name', function() {
-      helpers.assertFileContent('package.json', /"name": "Tom Wayson"/);
-    });
-
-    // TODO: test if package.json has properties
-    it('sets dependencies', function() {
-      helpers.assertFileContent('package.json', /"grunt": "\^0.4.5"/);
-      helpers.assertFileContent('package.json', /"grunt-contrib-watch": "\^0.6.1"/);
-      helpers.assertFileContent('package.json', /"grunt-sync": "\^0.5.1"/);
-    });
   });
 
   describe('when creating gruntfile', function() {
