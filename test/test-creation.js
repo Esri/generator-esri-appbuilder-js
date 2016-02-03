@@ -8,7 +8,7 @@ var fs = require('fs');
 var wabRoot = path.join(__dirname, 'temp');
 var appDirId = '5'; // arbitrary number since we're creating everything anyway.
 var appTitle = 'TestTitle'; // arbitrary title
-var filePath = 'server/apps/' + appDirId + '/config.json';
+var filePath = path.join('server', 'apps', appDirId, 'config.json');
 var configFileContents = '{title:"' + appTitle + '"}';
 
 describe('esri-appbuilder-js generator', function () {
