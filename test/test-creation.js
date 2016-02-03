@@ -2,18 +2,27 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
-var isWin = process.platform === 'win32';
-var wabRoot = (isWin) ? 'C:\\code\\arcgis-web-appbuilder-1.3' : '/code/arcgis-web-appbuilder-1.3';
-var appDirId = '5';
+var util = require('./util');
+var fs = require('fs');
 
-
+var wabRoot = path.join(__dirname, 'temp');
+var appDirId = '5'; // arbitrary number since we're creating everything anyway.
+var appTitle = 'TestTitle'; // arbitrary title
+var filePath = 'server/apps/' + appDirId + '/config.json';
+var configFileContents = '{title:"' + appTitle + '"}';
 
 describe('esri-appbuilder-js generator', function () {
   before(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    helpers.testDirectory(wabRoot, function (err) {
       if (err) {
         return done(err);
       }
+
+      // Write the config file to the "filePath", so it's available to
+      // read when the generator goes to lookup the possible values
+      // for the apps.
+      util.ensureDirectoryExistence(filePath);
+      fs.writeFileSync(filePath, configFileContents);
 
       this.app = helpers.createGenerator('esri-appbuilder-js:app', [
         '../../app'
@@ -55,12 +64,11 @@ describe('esri-appbuilder-js generator', function () {
   });
 
   describe('when creating gruntfile', function() {
-    var _wabRoot = isWin ? wabRoot.replace(/\\/g, '/') : wabRoot;
     it('sets stemappDir variable', function() {
-      helpers.assertFileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + _wabRoot + '/client/stemapp'));
+      helpers.assertFileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + path.join(wabRoot, 'client', 'stemapp').replace(/\\/g, '/')));
     });
     it('sets appDir variable', function() {
-      helpers.assertFileContent('Gruntfile.js', new RegExp('var appDir = \'' + _wabRoot + '/server/apps/' + appDirId));
+      helpers.assertFileContent('Gruntfile.js', new RegExp('var appDir = \'' + path.join(wabRoot, 'server', 'apps', appDirId).replace(/\\/g, '/')));
     });
     it('sets watch config', function() {
       helpers.assertFileContent('Gruntfile.js', new RegExp('watch:'));
@@ -82,10 +90,13 @@ describe('esri-appbuilder-js generator', function () {
 
 describe('esri-appbuilder-js generator - no app', function () {
   before(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    helpers.testDirectory(wabRoot, function (err) {
       if (err) {
         return done(err);
       }
+
+      util.ensureDirectoryExistence(filePath);
+      fs.writeFileSync(filePath, configFileContents);
 
       this.app = helpers.createGenerator('esri-appbuilder-js:app', [
         '../../app'
