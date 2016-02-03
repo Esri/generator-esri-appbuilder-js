@@ -2,13 +2,15 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
-var util = require('./util');
+var mkdirp = require('mkdirp');
 var fs = require('fs');
+
 
 var wabRoot = path.join(__dirname, 'temp');
 var appDirId = '5'; // arbitrary number since we're creating everything anyway.
 var appTitle = 'TestTitle'; // arbitrary title
-var filePath = path.join('server', 'apps', appDirId, 'config.json');
+var appDirPath = path.join('server', 'apps', appDirId);
+var filePath = path.join(appDirPath, 'config.json');
 var configFileContents = '{title:"' + appTitle + '"}';
 
 describe('esri-appbuilder-js generator', function () {
@@ -21,22 +23,26 @@ describe('esri-appbuilder-js generator', function () {
       // Write the config file to the "filePath", so it's available to
       // read when the generator goes to lookup the possible values
       // for the apps.
-      util.ensureDirectoryExistence(filePath);
-      fs.writeFileSync(filePath, configFileContents);
+      mkdirp(appDirPath, function (err) {
+        if (err) {
+          console.error(err);
+        } else {
+          fs.writeFileSync(filePath, configFileContents);
+          this.app = helpers.createGenerator('esri-appbuilder-js:app', [
+            '../../app'
+          ]);
 
-      this.app = helpers.createGenerator('esri-appbuilder-js:app', [
-        '../../app'
-      ]);
-
-      helpers.mockPrompt(this.app, {
-        'author': 'Tom Wayson',
-        'wabRoot': wabRoot,
-        'appDirId': appDirId
-      });
-      this.app.options['skip-install'] = true;
-      this.app.run({}, function () {
-        done();
-      });
+          helpers.mockPrompt(this.app, {
+            'author': 'Tom Wayson',
+            'wabRoot': wabRoot,
+            'appDirId': appDirId
+          });
+          this.app.options['skip-install'] = true;
+          this.app.run({}, function () {
+            done();
+          });
+        }
+      }.bind(this));
     }.bind(this));
   });
 
@@ -95,22 +101,27 @@ describe('esri-appbuilder-js generator - no app', function () {
         return done(err);
       }
 
-      util.ensureDirectoryExistence(filePath);
-      fs.writeFileSync(filePath, configFileContents);
+      mkdirp(appDirPath, function (err) {
+        if (err) {
+          console.error(err);
+        } else {
+          fs.writeFileSync(filePath, configFileContents);
 
-      this.app = helpers.createGenerator('esri-appbuilder-js:app', [
-        '../../app'
-      ]);
+          this.app = helpers.createGenerator('esri-appbuilder-js:app', [
+            '../../app'
+          ]);
 
-      helpers.mockPrompt(this.app, {
-        'author': 'Tom Wayson',
-        'wabRoot': wabRoot,
-        'appDirId': 'None'
-      });
-      this.app.options['skip-install'] = true;
-      this.app.run({}, function () {
-        done();
-      });
+          helpers.mockPrompt(this.app, {
+            'author': 'Tom Wayson',
+            'wabRoot': wabRoot,
+            'appDirId': 'None'
+          });
+          this.app.options['skip-install'] = true;
+          this.app.run({}, function () {
+            done();
+          });
+        }
+      }.bind(this));
     }.bind(this));
   });
 
