@@ -62,3 +62,35 @@ describe('esri-appbuilder-js generator', function () {
     });
   });
 });
+
+describe('esri-appbuilder-js abort', function () {
+  before(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {
+        return done(err);
+      }
+
+      this.app = helpers.createGenerator('esri-appbuilder-js:app', [
+        '../../app'
+      ]);
+
+      helpers.mockPrompt(this.app, {
+        'abort': true,
+        'wabRoot': wabRoot
+      });
+      this.app.options['skip-install'] = true;
+      this.app.run({}, function () {
+        done();
+      });
+    }.bind(this));
+  });
+
+  it('does not create dotfiles or Gruntfile', function () {
+    var expected = [
+      '.jshintrc',
+      '.editorconfig',
+      'Gruntfile.js'
+    ];
+    helpers.assertNoFile(expected);
+  });
+});
