@@ -26,7 +26,7 @@ $ npm install -g generator-esri-appbuilder-js
 
 ### Running the Generators
 
-The generators should be run in the root of a working folder for your project. This should be *outside* of the Web AppBuilder's folder structure (i.e. NOT in the stem app or an app that you've already created with the Web AppBuilder). The grunt tasks configured by the generators will handle copying the widget files to the appropriate folders under the Web AppBuilder's install directory.
+The generators should be run in the root of a working folder for your project. This should be *outside* of the Web AppBuilder's folder structure (i.e. NOT in the stem app or an app that you've already created with the Web AppBuilder). The grunt tasks configured by the generators will handle copying the widget files to the appropriate folders under the Web AppBuilder's install directory. Because of this, the generator will ask you what app to use. If you select `None` or do not have any Web AppBuilder apps in your Web AppBuilder install directory, the grunt file will be created but will not be configured to copy your code to the appropriate app directory. If you create an app _after_ running the Yeoman generator, you can either go to the Gruntfile and make manual edits (you'll see details in there), or you can re-run this generator and it will offer to overwrite your Gruntfile.
 
 #### App (Default) Generator
 
@@ -39,7 +39,8 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Prompt|Description|Default|
 |------|-----------|-------|
 |Author|Name of developers or organization for widget manifests|Your Name or Organization
-|Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
+|Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3
+Web AppBuilder application|The name of the application you would like the grunt task to sync your code with.|None
 
 #### Widget Generator
 

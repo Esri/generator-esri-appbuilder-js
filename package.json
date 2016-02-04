@@ -33,6 +33,7 @@
     "yosay": "^0.1.0"
   },
   "devDependencies": {
+    "mkdirp": "^0.5.1",
     "mocha": "*"
   },
   "peerDependencies": {
