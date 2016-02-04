@@ -2,6 +2,7 @@
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var utils = require('./utils');
 
 var WidgetGenerator = yeoman.generators.Base.extend({
   askFor: function () {
@@ -121,6 +122,11 @@ var WidgetGenerator = yeoman.generators.Base.extend({
       this.widgetName = props.widgetName;
       this.widgetTitle = props.widgetTitle;
       this.description = props.description;
+
+      // properties that we need to get from the package json, if it exists:
+      this.author = utils.authorToString(utils.getPackageInfo('author'));
+      this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
+
       // TODO: get from prompt once the WAB supports 3D
       this.is2d = true;
       this.is3d = false;

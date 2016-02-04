@@ -1,11 +1,19 @@
-/*global describe, beforeEach, it */
+/*global describe, before, beforeEach, it */
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
+var fs = require('fs');
+
+var wabRoot = path.join(__dirname, 'temp');
+var filePath = 'package.json';
+var testAuthorName = 'Barney Rubble';
+var testAuthorEmail = 'b@rubble.com';
+var testAuthorUrl = 'http://barnyrubble.tumblr.com';
+var testLicense = 'Apache-2.0';
 
 describe('esri-appbuilder-js:widget subgenerator', function () {
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    helpers.testDirectory(wabRoot, function (err) {
       if (err) {
         return done(err);
       }
@@ -688,6 +696,200 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
 
     it('should set hasSettingStyle to true in manifest', function() {
       helpers.assertFileContent('widgets/TestWidget/manifest.json', /"hasSettingStyle": true/);
+    });
+  });
+
+  describe('when creating a widget that has a package.json', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":"' + testAuthorName + '", "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has author name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "' + testAuthorName + '",'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+  describe('when creating a widget that has a package.json with author object - name only', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":{"name":"' + testAuthorName + '"}, "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has author name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "' + testAuthorName + '",'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+  describe('when creating a widget that has a package.json with author object - author and email', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":{"name":"' + testAuthorName + '", "email":"' + testAuthorEmail + '"}, "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has author name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "' + testAuthorName + ' <' + testAuthorEmail + '>",'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+    describe('when creating a widget that has a package.json with author object but no name property', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":{"url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has blank author in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "",'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+  describe('when creating a widget that has a package.json with author object - author and url', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":{"name":"' + testAuthorName + '", "url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has author name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "' + testAuthorName + ' \\(' + testAuthorUrl + '\\)"'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+  describe('when creating a widget that has a package.json with author object - author, email, url', function() {
+    beforeEach(function(done) {
+      fs.writeFileSync(filePath, '{"author":{"name":"' + testAuthorName + '", "email":"' + testAuthorEmail + '", "url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
+
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has author name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "' + testAuthorName + ' <' + testAuthorEmail + '> \\(' + testAuthorUrl + '\\)"'));
+    });
+
+    it('has license name in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "' + testLicense + '",'));
+    });
+  });
+
+  describe('when creating a widget that does not have a package.json', function() {
+    beforeEach(function(done) {
+      helpers.mockPrompt(this.widget, {
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      });
+      this.widget.run({}, function () {
+        done();
+      });
+    });
+
+    it('has blank author in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"author": "",'));
+    });
+
+    it('has blank license in manifest.json', function (/*done*/) {
+      helpers.assertFileContent('widgets/TestWidget/manifest.json', new RegExp('"license": "",'));
     });
   });
 
