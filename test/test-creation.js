@@ -5,7 +5,6 @@ var helpers = require('yeoman-generator').test;
 var mkdirp = require('mkdirp');
 var fs = require('fs');
 
-
 var wabRoot = path.join(__dirname, 'temp');
 var appDirId = '5'; // arbitrary number since we're creating everything anyway.
 var appTitle = 'TestTitle'; // arbitrary title
@@ -28,12 +27,13 @@ describe('esri-appbuilder-js generator', function () {
           console.error(err);
         } else {
           fs.writeFileSync(filePath, configFileContents);
+
           this.app = helpers.createGenerator('esri-appbuilder-js:app', [
             '../../app'
           ]);
 
           helpers.mockPrompt(this.app, {
-            'author': 'Tom Wayson',
+            'abort': false,
             'wabRoot': wabRoot,
             'appDirId': appDirId
           });
@@ -54,19 +54,6 @@ describe('esri-appbuilder-js generator', function () {
       '.editorconfig'
     ];
     helpers.assertFile(expected);
-  });
-
-  describe('when generating package.json', function() {
-    it('sets author name', function() {
-      helpers.assertFileContent('package.json', /"name": "Tom Wayson"/);
-    });
-
-    // TODO: test if package.json has properties
-    it('sets dependencies', function() {
-      helpers.assertFileContent('package.json', /"grunt": "\^0.4.5"/);
-      helpers.assertFileContent('package.json', /"grunt-contrib-watch": "\^0.6.1"/);
-      helpers.assertFileContent('package.json', /"grunt-sync": "\^0.5.1"/);
-    });
   });
 
   describe('when creating gruntfile', function() {
@@ -112,7 +99,7 @@ describe('esri-appbuilder-js generator - no app', function () {
           ]);
 
           helpers.mockPrompt(this.app, {
-            'author': 'Tom Wayson',
+            'abort': false,
             'wabRoot': wabRoot,
             'appDirId': 'None'
           });
@@ -131,5 +118,46 @@ describe('esri-appbuilder-js generator - no app', function () {
     });
     // TODO - not testing the other parts of the gruntfile here since it's the same as the previous
     // case. That common code should be pulled out in the future.
+  });
+});
+
+describe('esri-appbuilder-js abort', function () {
+  before(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {
+        return done(err);
+      }
+
+      mkdirp(appDirPath, function (err) {
+        if (err) {
+          console.error(err);
+        } else {
+          fs.writeFileSync(filePath, configFileContents);
+
+          this.app = helpers.createGenerator('esri-appbuilder-js:app', [
+            '../../app'
+          ]);
+
+          helpers.mockPrompt(this.app, {
+            'abort': true,
+            'wabRoot': wabRoot,
+            'appDirId': appDirId
+          });
+          this.app.options['skip-install'] = true;
+          this.app.run({}, function () {
+            done();
+          });
+        }
+      }.bind(this));
+    }.bind(this));
+  });
+
+  it('does not create dotfiles or Gruntfile', function () {
+    var expected = [
+      '.jshintrc',
+      '.editorconfig',
+      'Gruntfile.js'
+    ];
+    helpers.assertNoFile(expected);
   });
 });
