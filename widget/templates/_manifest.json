@@ -6,10 +6,10 @@
   "platform": "HTML",
   "version": "0.0.1",
   "wabVersion": "1.4",
-  "author": "TODO: your name here",
+  "author": "<%= author %>",
   "description": "<%= description %>",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "license": "<%= license %>",
   "properties": {
     "inPanel": <%= inPanel %>,
     "hasLocale": <%= hasLocale %>,
