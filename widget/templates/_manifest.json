@@ -6,7 +6,7 @@
   "platform": "HTML",
   "version": "0.0.1",
   "wabVersion": "1.4",
-  "author": "<%= author %>",
+  "author": "<%- author %>",
   "description": "<%= description %>",
   "copyright": "",
   "license": "<%= license %>",

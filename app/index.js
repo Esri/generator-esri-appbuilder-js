@@ -1,11 +1,12 @@
 'use strict';
 var path = require('path');
-var yeoman = require('yeoman-generator');
+var Base = require('yeoman-generator').Base;
 var yosay = require('yosay');
 var chalk = require('chalk');
 var isWin = process.platform === 'win32';
 var homedir = (isWin) ? process.env.HOMEPATH : process.env.HOME;
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 function getDirectories(srcpath) {
   return fs.readdirSync(srcpath).filter(function(file) {
@@ -13,7 +14,7 @@ function getDirectories(srcpath) {
   });
 }
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = Base.extend({
   initializing: function () {
     // check for existence of package.json
     try {
@@ -134,7 +135,7 @@ module.exports = yeoman.generators.Base.extend({
       if (this.abort) {
         return;
       }
-      this.mkdir('widgets');
+      mkdirp('widgets');
     },
 
     gruntConfig: function() {
