@@ -14,7 +14,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 10000"
   },
   "files": [
     "app",
@@ -34,6 +34,9 @@
     "yosay": "^1.0.2"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mkdirp": "^0.5.1",
+    "mocha": "*",
+    "yeoman-assert": "^2.0.0",
+    "yeoman-test": "^1.0.0"
   }
 }
