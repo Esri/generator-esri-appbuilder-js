@@ -1,24 +1,25 @@
 {
   "name": "<%= widgetName %>",
+  "label": "<%= widgetTitle %>",
   "2D": <%= is2d %>,
   "3D": <%= is3d %>,
   "platform": "HTML",
   "version": "0.0.1",
-  "wabVersion": "1.1",
-  "author": "TODO: your name here",
+  "wabVersion": "1.4",
+  "author": "<%= author %>",
   "description": "<%= description %>",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "license": "<%= license %>",
   "properties": {
     "inPanel": <%= inPanel %>,
     "hasLocale": <%= hasLocale %>,
     "hasStyle": <%= hasStyle %>,
     "hasConfig": <%= hasConfig %>,
     "hasUIFile": <%= hasUIFile %>,
-    "hasSettingPage":false,
-    "hasSettingUIFile":false,
-    "hasSettingLocale":false,
-    "hasSettingStyle":false,
-    "IsController":false
+    "hasSettingPage": <%= hasSettingPage %>,
+    "hasSettingUIFile": <%= hasSettingUIFile %>,
+    "hasSettingLocale": <%= hasSettingLocale %>,
+    "hasSettingStyle": <%= hasSettingStyle %>,
+    "IsController": false
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "generator-esri-appbuilder-js",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Yeoman generator to help customize the ArcGIS Web AppBuilder",
   "license": "Apache",
   "main": "app/index.js",
@@ -18,18 +18,22 @@
   },
   "files": [
     "app",
-    "widget",
-    "theme"
+    "widget"
   ],
   "keywords": [
-    "yeoman-generator", "Esri", "ArcGIS", "Web", "AppBuilder"
+    "yeoman-generator",
+    "Esri",
+    "ArcGIS",
+    "Web",
+    "AppBuilder"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
     "chalk": "~0.4.0",
+    "yeoman-generator": "^0.17.0",
     "yosay": "^0.1.0"
   },
   "devDependencies": {
+    "mkdirp": "^0.5.1",
     "mocha": "*"
   },
   "peerDependencies": {
