@@ -1,13 +1,13 @@
 'use strict';
 var path = require('path');
-var yeoman = require('yeoman-generator');
+var Base = require('yeoman-generator').Base;
 var chalk = require('chalk');
+var dasherize = require('underscore.string/dasherize');
 var utils = require('./utils');
 
-var WidgetGenerator = yeoman.generators.Base.extend({
+var WidgetGenerator = Base.extend({
   askFor: function () {
     var done = this.async();
-    var dasherize = this._.dasherize;
 
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
 
@@ -147,9 +147,6 @@ var WidgetGenerator = yeoman.generators.Base.extend({
   },
 
   files: function () {
-    // NOTE: this is needed b/c _Widget.html has ES6 style interpolation delimiters
-    // see: https://github.com/lodash/lodash/issues/399
-    this._.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
     var basePath = path.join('widgets', this.widgetName);
     this.template('_Widget.js', path.join(basePath, 'Widget.js'));
     if (this.hasUIFile) {

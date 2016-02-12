@@ -1,8 +1,7 @@
+sudo: false
 language: node_js
 node_js:
-  - "stable"
+  - 'stable'
+  - 'v4'
+  - '0.12'
   - '0.10'
-before_install:
-  - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-esri-appbuilder-js' ]; then cd .. && eval "mv $currentfolder generator-esri-appbuilder-js" && cd generator-esri-appbuilder-js; fi
-
