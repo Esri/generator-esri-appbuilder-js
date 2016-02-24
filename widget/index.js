@@ -55,7 +55,21 @@ var WidgetGenerator = Base.extend({
       }
       // TODO: validate not empty string?
     },
-    // TODO: checkbox prompt for 2D/3D once the WAB supports 3D
+    {
+      type: 'checkbox',
+      message: 'Is it 2D or 3D?',
+      name: 'widgetType',
+      choices: [
+        {
+          value: 'is2d',
+          name: '2D'
+        },
+        {
+          value: 'is3d',
+          name: '3D'
+        }
+      ]
+    },
     {
       type: 'checkbox',
       message: 'Which features would you like to include?',
@@ -128,8 +142,8 @@ var WidgetGenerator = Base.extend({
       this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
 
       // TODO: get from prompt once the WAB supports 3D
-      this.is2d = true;
-      this.is3d = false;
+      this.is2d = props.widgetType.indexOf('is2d') > -1;
+      this.is3d = props.widgetType.indexOf('is3d') > -1;
       this.baseClass = props.baseClass;
       this.inPanel = props.features.indexOf('inPanel') > -1;
       this.hasLocale = props.features.indexOf('hasLocale') > -1;
@@ -162,7 +176,10 @@ var WidgetGenerator = Base.extend({
       this.template('nls/_strings.js', path.join(basePath, 'nls/strings.js'));
     }
     this.copy('images/icon.png', path.join(basePath, 'images/icon.png'));
-    this.template('_manifest.json', path.join(basePath, 'manifest.json'));
+    if(this.is2d)
+      this.template('_manifest.json', path.join(basePath, 'manifest.json'));
+    else if(this.is3d)
+      this.template('_3Dmanifest.json', path.join(basePath, 'manifest.json'));
 
     // Settings:
     if(this.hasSettingPage) {

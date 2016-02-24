@@ -1,0 +1,17 @@
+{
+  "name": "<%= widgetName %>",
+  "2D": <%= is2d %>,
+  "3D": <%= is3d %>,
+  "platform": "HTML3D",
+  "version": "2.0beta",
+  "wabVersion": "2.0beta",
+  "author": "<%= author %>",
+  "description": "<%= description %>",
+  "copyright": "",
+  "license": "<%= license %>",
+  "properties": {
+    "inPanel": <%= inPanel %>,
+    "hasConfig": <%= hasConfig %>,
+    "hasUIFile": <%= hasUIFile %>,
+  }
+}
