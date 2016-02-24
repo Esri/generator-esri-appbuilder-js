@@ -42,12 +42,37 @@ module.exports = Base.extend({
         return !self.hasPackageJson;
       }
     }, {
-      name: 'wabRoot',
-      message: 'Web AppBuilder install root:',
-      'default': path.join(homedir, 'arcgis-web-appbuilder-1.3'),
+      type: 'list',
+      choices: [
+        {
+          value: 'is2d',
+          name: '2D'
+        },
+        {
+          value: 'is3d',
+          name: '3D'
+        }
+      ],
+      name: 'widgetsType',
+      message: 'Type of widget(s) to be generated:',
+      when: function(currentAnswers) {
+        return !currentAnswers.abort;
+      }
+    }, {  
       when: function(currentAnswers) {
         return !currentAnswers.abort;
       },
+      name: 'wabRoot',
+      message: 'Web AppBuilder install root:',
+      'default': function(currentAnswers) {
+        var wabDir;
+        if (currentAnswers.widgetsType === 'is2d') {
+          wabDir = path.join(homedir,  'arcgis-web-appbuilder-1.3' );
+        } else if (currentAnswers.widgetsType === 'is3d') {
+          wabDir = path.join(homedir,  'arcgis-web-appbuilder-2.0beta' );
+        } 
+        return wabDir;
+      },    
       validate: function(wabPath) {
         // make sure input directory and apps directory is valid and exists.
         var paths = [wabPath, path.join(wabPath, 'server/apps' )];
@@ -121,6 +146,7 @@ module.exports = Base.extend({
     this.prompt(prompts, function (props) {
       this.abort = props.abort;
       this.wabRoot = props.wabRoot;
+      this.widgetsType = props.widgetsType;
       if (props.appDirId && props.appDirId !== 'None') {
         this.appDirId = props.appDirId;
       } else {
@@ -142,7 +168,12 @@ module.exports = Base.extend({
       if (this.abort) {
         return;
       }
-      var stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
+      var stemappDir;
+      if (this.widgetsType === 'is2d') {
+        stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
+      } else if (this.widgetsType === 'is3d') {
+        stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d'); 
+      }
       var appDir = false;
       if (this.appDirId) {
         appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
