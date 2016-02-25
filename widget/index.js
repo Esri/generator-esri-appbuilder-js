@@ -129,9 +129,15 @@ var WidgetGenerator = Base.extend({
       this.widgetsType = this.config.get('widgetsType');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
-      if(this.is3d) 
-         this.platform = 'HTML3D'; 
-      else this.platform = 'HTML'; 
+      if (this.is3d) {
+        this.platform = 'HTML3D';
+        this.version = '2.0beta';
+        this.wabVersion = '2.0beta';
+      } else {
+        this.platform = 'HTML';
+        this.version = '0.0.1';
+        this.wabVersion = '1.4';
+      }
 
       this.baseClass = props.baseClass;
       this.inPanel = props.features.indexOf('inPanel') > -1;
