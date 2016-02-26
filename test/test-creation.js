@@ -114,3 +114,118 @@ describe('esri-appbuilder-js abort', function () {
     assert.noFile(expected);
   });
 });
+
+describe('esri-appbuilder-js:3dapp', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ skipInstall: true })
+      .withPrompts({
+        'abort': false,
+        'wabRoot': wabRoot,
+        'appDirId': appDirId,
+        'widgetsType': 'is3d'
+      }).inTmpDir(function(/*dir*/) {
+        var done = this.async();
+        mkdirp(appDirPath, function () {
+          fs.writeFileSync(configFilePath, configFileContents);
+          done();
+        });
+      })
+      .on('end', done);
+  });
+
+  // TODO: test for existence of widgets folder?
+
+  it('creates expected dotfiles', function () {
+    var expected = [
+      '.jshintrc',
+      '.editorconfig',
+      '.yo-rc.json'
+    ];
+    assert.file(expected);
+  });
+
+  it('the 3d choice is stored in config', function() {
+    assert.fileContent('.yo-rc.json', /"widgetsType": "is3d"/);
+  });
+
+  describe('when creating gruntfile', function() {
+    it('sets stemappDir variable', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + path.join(wabRoot, 'client', 'stemapp3d').replace(/\\/g, '/')));
+    });
+    it('sets appDir variable', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('var appDir = \'' + path.join(wabRoot, 'server', 'apps', appDirId).replace(/\\/g, '/')));
+    });
+    it('sets watch config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('watch:'));
+    });
+    it('loads watch task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-contrib-watch'\);/);
+    });
+    it('sets sync config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('sync:'));
+    });
+    it('loads sync task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sync'\);/);
+    });
+    it('registers default task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
+    });
+  });
+});
+
+describe('esri-appbuilder-js generator - 3d no app', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ skipInstall: true })
+      .withPrompts({
+        'abort': false,
+        'wabRoot': wabRoot,
+        'appDirId': 'None',
+        'widgetsType': 'is3d'
+      }).inTmpDir(function(/*dir*/) {
+        var done = this.async();
+        mkdirp(appDirPath, function () {
+          fs.writeFileSync(configFilePath, configFileContents);
+          done();
+        });
+      })
+      .on('end', done);
+  });
+
+  it('the 3d choice is stored in config', function() {
+    assert.fileContent('.yo-rc.json', /"widgetsType": "is3d"/);
+  });
+
+  describe('when creating gruntfile', function() {
+    it('appDir set to "todo"', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('var appDir = \'TODO(.*)'));
+    });
+    // TODO - not testing the other parts of the gruntfile here since it's the same as the previous
+    // case. That common code should be pulled out in the future.
+  });
+});
+
+describe('esri-appbuilder-js 3d abort', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ skipInstall: true })
+      .withPrompts({
+        'abort': true,
+        'wabRoot': wabRoot,
+        'appDirId': appDirId,
+        'widgetsType': 'is3d'
+      })
+      .on('end', done);
+  });
+
+  it('does not create dotfiles or Gruntfile', function () {
+    var expected = [
+      '.jshintrc',
+      '.editorconfig',
+      '.yo-rc.json',
+      'Gruntfile.js'
+    ];
+    assert.noFile(expected);
+  });
+});

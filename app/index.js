@@ -170,10 +170,10 @@ module.exports = Base.extend({
         return;
       }
       var stemappDir;
-      if (this.widgetsType === 'is2d') {
-        stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
-      } else if (this.widgetsType === 'is3d') {
+      if (this.widgetsType === 'is3d') {
         stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d'); 
+      } else {
+        stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
       }
       var appDir = false;
       if (this.appDirId) {

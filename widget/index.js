@@ -137,6 +137,7 @@ var WidgetGenerator = Base.extend({
         this.platform = 'HTML';
         this.version = '0.0.1';
         this.wabVersion = '1.4';
+        this.is2d = true;
       }
 
       this.baseClass = props.baseClass;
