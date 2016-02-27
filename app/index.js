@@ -69,7 +69,7 @@ module.exports = Base.extend({
         if (currentAnswers.widgetsType === 'is2d') {
           wabDir = path.join(homedir,  'arcgis-web-appbuilder-1.3' );
         } else if (currentAnswers.widgetsType === 'is3d') {
-          wabDir = path.join(homedir,  'arcgis-web-appbuilder-2.0beta\\WebAppBuilderForArcGIS' );
+          wabDir = path.join(homedir,  'WebAppBuilderForArcGIS' );
         } 
         return wabDir;
       },    

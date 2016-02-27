@@ -873,10 +873,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has version set to 0.0.1', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"version": "0.0.1",/);
-    });
-
     it('has wabVersion set to 1.4', function (/*done*/) {
       assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "1.4",/);
     });
@@ -913,10 +909,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has version set to 0.0.1', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"version": "0.0.1"/);
-    });
-
     it('has wabVersion set to 1.4', function (/*done*/) {
       assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "1.4"/);
     });
@@ -950,10 +942,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         widgetsType: "is3d"
       })
       .on('end', done);
-    });
-
-    it('has version set to 2.0beta', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"version": "2.0beta"/);
     });
 
     it('has wabVersion set to 2.0beta', function (/*done*/) {

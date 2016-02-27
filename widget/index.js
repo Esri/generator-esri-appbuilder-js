@@ -131,11 +131,9 @@ var WidgetGenerator = Base.extend({
       this.is3d = (this.widgetsType === 'is3d');
       if (this.is3d) {
         this.platform = 'HTML3D';
-        this.version = '2.0beta';
         this.wabVersion = '2.0beta';
       } else {
         this.platform = 'HTML';
-        this.version = '0.0.1';
         this.wabVersion = '1.4';
         this.is2d = true;
       }
