@@ -66,11 +66,11 @@ module.exports = Base.extend({
       message: 'Web AppBuilder install root:',
       'default': function(currentAnswers) {
         var wabDir;
-        if (currentAnswers.widgetsType === 'is2d') {
-          wabDir = path.join(homedir,  'arcgis-web-appbuilder-1.3' );
-        } else if (currentAnswers.widgetsType === 'is3d') {
+        if (currentAnswers.widgetsType === 'is3d') {
           wabDir = path.join(homedir,  'WebAppBuilderForArcGIS' );
-        } 
+        } else {
+          wabDir = path.join(homedir,  'arcgis-web-appbuilder-1.3' );
+        }
         return wabDir;
       },    
       validate: function(wabPath) {
