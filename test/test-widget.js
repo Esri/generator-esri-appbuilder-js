@@ -22,7 +22,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -96,7 +97,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
+        features: [ 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -168,7 +170,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIFile' ]
+        features: [ 'inPanel', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -239,7 +242,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasConfig', 'hasUIFile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -307,7 +311,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasUIFile' ]
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasUIFile' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -376,7 +381,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         description: 'A test widget.',
         path: 'widgets',
         baseClass: 'test-widget',
-        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ]
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -443,7 +449,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
         hasSettingPage: true,
-        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -491,7 +498,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         path: 'widgets',
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
-        hasSettingPage: false
+        hasSettingPage: false,
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -536,7 +544,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
         hasSettingPage: true,
-        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale' ]
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
 
@@ -584,7 +593,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
         hasSettingPage: true,
-        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingStyle' ]
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingStyle' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -629,7 +639,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig' ],
         hasSettingPage: true,
-        settingsFeatures: [ 'hasSettingLocale', 'hasSettingStyle' ]
+        settingsFeatures: [ 'hasSettingLocale', 'hasSettingStyle' ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -676,7 +687,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         console.log(path.join(dir, 'package.json'));
@@ -705,7 +717,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         fs.writeFileSync(path.join(dir, 'package.json'), '{"author":{"name":"' + testAuthorName + '"}, "license":"' + testLicense + '"}');
@@ -733,7 +746,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         fs.writeFileSync(path.join(dir, 'package.json'), '{"author":{"name":"' + testAuthorName + '", "email":"' + testAuthorEmail + '"}, "license":"' + testLicense + '"}');
@@ -761,7 +775,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         fs.writeFileSync(path.join(dir, 'package.json'), '{"author":{"url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
@@ -789,7 +804,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         fs.writeFileSync(path.join(dir, 'package.json'), '{"author":{"name":"' + testAuthorName + '", "url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
@@ -817,7 +833,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .inTmpDir(function(dir) {
         fs.writeFileSync(path.join(dir, 'package.json'), '{"author":{"name":"' + testAuthorName + '", "email":"' + testAuthorEmail + '", "url":"' + testAuthorUrl + '"}, "license":"' + testLicense + '"}');
@@ -844,7 +861,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -868,7 +886,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       })
       .on('end', done);
     });
@@ -902,7 +921,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       }).withLocalConfig({
         widgetsType: "is2d"
       })
@@ -937,7 +957,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         baseClass: 'test-widget',
         features: [],
         hasSettingPage: false,
-        settingsFeatures: [  ]
+        settingsFeatures: [  ],
+        jsVersion: 'ES2015'
       }).withLocalConfig({
         widgetsType: "is3d"
       })
@@ -961,4 +982,36 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
   });
 
+  describe('when creating an ES5 Widget', function() {
+
+    before(function(done) {
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES5'
+      })
+      .on('end', done);
+    });
+
+    it('creates expected files', function (/*done*/) {
+      var expected = [
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/Widget.html',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/nls/strings.js',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/images/icon.png',
+        'widgets/TestWidget/manifest.json'
+      ];
+      assert.file(expected);
+    });
+
+    it('should use define style module loading', function() {
+      assert.fileContent('widgets/TestWidget/Widget.js', /define\((.*)\'dojo\/_base\/declare/);
+    });
+  });
 });

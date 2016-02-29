@@ -276,6 +276,7 @@ module.exports = Base.extend({
       }
       this.copy('editorconfig', '.editorconfig');
       this.copy('jshintrc', '.jshintrc');
+      this.copy('babelrc', '.babelrc');
     }
   },
 
@@ -284,6 +285,9 @@ module.exports = Base.extend({
       return;
     }
     this.npmInstall([
+      'babel-plugin-transform-es2015-modules-simple-amd',
+      'babel-preset-es2015-without-strict',
+      'babel-preset-stage-0',
       'grunt',
       'grunt-contrib-watch',
       'grunt-sync',
