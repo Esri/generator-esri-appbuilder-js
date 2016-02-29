@@ -858,4 +858,107 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
   });
 
+  describe('when creating a widget that does not have the 2d/3d prompt set', function() {
+    before(function(done) {
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      })
+      .on('end', done);
+    });
+
+    it('has wabVersion set to 1.4', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "1.4",/);
+    });
+
+    it('has platform set to HTML', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"platform": "HTML",/);
+    });
+
+    it('has 2D set to true', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"2D": true,/);
+    });
+
+    it('has 3D set to false', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"3D": false/);
+    });
+  });
+
+
+  describe('when creating a widget that has the 2d/3d prompt set to 2d', function() {
+    before(function(done) {
+
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      }).withLocalConfig({
+        widgetsType: "is2d"
+      })
+      .on('end', done);
+    });
+
+    it('has wabVersion set to 1.4', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "1.4"/);
+    });
+
+    it('has platform set to HTML', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"platform": "HTML"/);
+    });
+
+    it('has 2D set to true', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"2D": true/);
+    });
+
+    it('has 3D set to false', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"3D": false/);
+    });
+  });
+
+  describe('when creating a widget that has the 2d/3d prompt set to 3d', function() {
+    before(function(done) {
+
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [],
+        hasSettingPage: false,
+        settingsFeatures: [  ]
+      }).withLocalConfig({
+        widgetsType: "is3d"
+      })
+      .on('end', done);
+    });
+
+    it('has wabVersion set to 2.0beta', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.0beta"/);
+    });
+
+    it('has platform set to HTML3D', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"platform": "HTML3D"/);
+    });
+
+    it('has 2D set to false', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"2D": false/);
+    });
+
+    it('has 3D set to true', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"3D": true/);
+    });
+  });
+
 });
