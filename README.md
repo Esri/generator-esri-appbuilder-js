@@ -39,8 +39,9 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 
 |Prompt|Description|Default|
 |------|-----------|-------|
+|Type of widget(s) to be generated|Whether you want to build 2D or 3D widgets|2D|
 |Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
-|Web AppBuilder application|The name of the application you would like the grunt task to sync your code with.|None|
+|Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
 
 **NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
