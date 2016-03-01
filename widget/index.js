@@ -115,6 +115,11 @@ var WidgetGenerator = Base.extend({
         }
       ],
       'default': [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
+    }, {
+      name: 'jsVersion',
+      type: 'list',
+      message: 'Which JavaScript  syntax version would you like to develop in?',
+      choices: [ 'ES2015', 'ES5']
     }];
 
     this.prompt(prompts, function (props) {
@@ -144,6 +149,7 @@ var WidgetGenerator = Base.extend({
       this.hasStyle = props.features.indexOf('hasStyle') > -1;
       this.hasConfig = props.features.indexOf('hasConfig') > -1;
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
+      this.jsVersion = props.jsVersion;
       // settings
       this.hasSettingPage = props.hasSettingPage;
       this.hasSettingUIFile = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false;
@@ -156,7 +162,7 @@ var WidgetGenerator = Base.extend({
 
   files: function () {
     var basePath = path.join('widgets', this.widgetName);
-    this.template('_Widget.js', path.join(basePath, 'Widget.js'));
+    this.template('_Widget_' + this.jsVersion + '.js', path.join(basePath, 'Widget.js'));
     if (this.hasUIFile) {
       this.template('_Widget.html', path.join(basePath, 'Widget.html'));
     }
@@ -171,10 +177,10 @@ var WidgetGenerator = Base.extend({
     }
     this.copy('images/icon.png', path.join(basePath, 'images/icon.png'));
     this.template('_manifest.json', path.join(basePath, 'manifest.json'));
-    
+
     // Settings:
     if(this.hasSettingPage) {
-      this.template('setting/_Setting.js', path.join(basePath, 'setting/Setting.js'));
+      this.template('setting/_Setting_' + this.jsVersion + '.js', path.join(basePath, 'setting/Setting.js'));
       if (this.hasSettingUIFile) {
         this.template('setting/_Setting.html', path.join(basePath, 'setting/Setting.html'));
       }

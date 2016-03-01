@@ -1,0 +1,5 @@
+{
+  // blacklisting 'strict' until dojo2 fixes class declarations. see http://dojo-toolkit.33424.n3.nabble.com/A-line-to-use-instead-of-quot-this-inherited-arguments-quot-in-strict-mode-td3999709.html
+  presets: ['es2015-without-strict', 'stage-0'],
+  plugins: ['transform-es2015-modules-simple-amd']
+}
