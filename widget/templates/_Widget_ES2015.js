@@ -1,7 +1,7 @@
 import declare from 'dojo/_base/declare';
 import BaseWidget from 'jimu/BaseWidget';
 
-//To create a widget, you need to derive from BaseWidget.
+// To create a widget, you need to derive from BaseWidget.
 export default declare([BaseWidget], {
 
   // Custom widget code goes here
@@ -10,8 +10,8 @@ export default declare([BaseWidget], {
 
   // add additional properties here
 
-  //methods to communication with app container:
-  postCreate() {
+  // methods to communication with app container:
+  postCreate () {
     this.inherited(arguments);
     console.log('<%= widgetName %>::postCreate');
   }

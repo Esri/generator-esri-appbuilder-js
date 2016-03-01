@@ -1,5 +1,5 @@
 define({
   root: ({
-    serviceUrl: "Set service url:"
+    serviceUrl: 'Set service url:'
   })
 });
