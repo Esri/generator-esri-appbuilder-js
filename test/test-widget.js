@@ -82,8 +82,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
 
     it('has title/description in nls', function() {
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
   });
@@ -155,8 +155,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
 
     it('has title/description in nls', function() {
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
   });
@@ -296,8 +296,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
 
     it('has title/description in nls', function() {
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
   });
@@ -365,8 +365,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
 
     it('has title/description in nls', function() {
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
   });
@@ -431,8 +431,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
 
     it('has title/description in nls', function() {
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: "Test Widget"/);
-      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: "A test widget\."/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
   });

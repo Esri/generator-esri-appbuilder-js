@@ -45,6 +45,7 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 
 **NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
+
 #### Widget Generator
 
 Scaffolds out the files needed to create a new custom widget.
@@ -68,6 +69,7 @@ Scaffolds out the files needed to create a new custom widget.
 |Settings template (HTML) file|Will your settings page require a template file?|Yes|
 |Settings locale (i18n) file|Will your settings page require a locale file?|Yes|
 |Settings style (CSS) file|Will your settings page require a style file?|Yes|
+|Which JavaScript syntax version would you like to develop in?|Will widget and settings JavaScript files use ES2015 or ES5?|ES5|
 
 Taking the default values for the prompts will generate the following output under the `widgets` folder:
 
@@ -130,6 +132,35 @@ grunt
 
 This will copy over any files that haven't already been copied over, and then start watching all files under the widgets folder for changes and re-copy the files to the Web AppBuilder's folders.
 
+### Linting Your Code
+
+By default the app generator scaffolds out [Esri's standard jshint configuration file](https://github.com/Esri/jsapi-resources/tree/master/jshint). This should work well for ES5 files, however, it is not configured for ES2015 syntax. If you are going to use ES2015 syntax, we recommend that you use [semistandard][semistandard].
+
+1) Install semistandard:
+```bash
+npm install -g semistandard
+```
+
+2) Below is a sample configuration you can add to your package.json:
+```json
+  "semistandard": {
+    "globals": [
+      "define"
+    ],
+    "ignore": [
+      "Gruntfile.js",
+      "**/dist/**/*.js"
+    ]
+  }
+```
+
+3) Validate your code:
+```bash
+semistandard
+```
+
+See the [semistandard docs][semistandard] for more information.
+
 ## Issues
 
 Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/Esri/generator-esri-appbuilder-js/issues).
@@ -157,6 +188,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/license.txt) file.
+
+[semistandard]: https://www.npmjs.com/package/semistandard
 
 [](Esri Tags: web AppBuilder yeoman generator node)
 [](Esri Language: JavaScript)

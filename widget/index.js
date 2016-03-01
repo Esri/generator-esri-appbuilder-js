@@ -119,7 +119,7 @@ var WidgetGenerator = Base.extend({
       name: 'jsVersion',
       type: 'list',
       message: 'Which JavaScript  syntax version would you like to develop in?',
-      choices: [ 'ES2015', 'ES5']
+      choices: ['ES5', 'ES2015']
     }];
 
     this.prompt(prompts, function (props) {
