@@ -244,18 +244,17 @@ module.exports = Base.extend({
       // COPY CONFIG
       this.gruntfile.insertConfig('copy', JSON.stringify({
         main: {
-          cwd: 'widgets/',
           src: [
             'widgets/**/**.html',
             'widgets/**/**.json',
             'widgets/**/**.css',
             'widgets/**/images/**',
             'widgets/**/nls/**',
-			'themes/**.html',
-			'themes/**.json',
-			'themes/**.css',
-			'themes/images/**',
-			'themes/nls/**'
+			'themes/**/**.html',
+			'themes/**/**.json',
+			'themes/**/**.css',
+			'themes/**/images/**',
+			'themes/**/nls/**'
           ],
           dest: 'dist/',
           expand: true
