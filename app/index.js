@@ -251,11 +251,11 @@ module.exports = Base.extend({
             'widgets/**/**.css',
             'widgets/**/images/**',
             'widgets/**/nls/**',
-			'themes**/**.html',
-			'themes**/**.json',
-			'themes**/**.css',
-			'themes**/images/**',
-			'themes**/nls/**'
+			'themes/**.html',
+			'themes/**.json',
+			'themes/**.css',
+			'themes/images/**',
+			'themes/nls/**'
           ],
           dest: 'dist/',
           expand: true
