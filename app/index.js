@@ -213,12 +213,17 @@ module.exports = Base.extend({
         main: {
           files: [{
             expand: true,
-            cwd: 'widgets/',
             src: [
-              '*.js', '**/*.js', '**/**/*.js',
-              '!**/**/nls/*.js',
+                'widgets/*.js',
+				'widgets/**/*.js',
+				'widgets/**/**/*.js',
+				'widgets/!**/**/nls/*.js',
+				'themes/*.js',
+				'themes/**/*.js',
+				'themes/**/**/*.js',
+				'themes/!**/**/nls/*.js'
             ],
-            dest: 'dist/widgets/'
+            dest: 'dist/'
           }]
         }
       };
@@ -227,7 +232,7 @@ module.exports = Base.extend({
       // WATCH CONFIG
       this.gruntfile.insertConfig('watch', JSON.stringify({
         main: {
-          files: ['widgets/**'],
+          files: ['widgets/**', 'themes/**'],
           tasks: ['clean', 'babel', 'copy', 'sync'],
           options: {
             spawn: false,
@@ -239,15 +244,19 @@ module.exports = Base.extend({
       // COPY CONFIG
       this.gruntfile.insertConfig('copy', JSON.stringify({
         main: {
-          cwd: 'widgets/',
           src: [
-            '**/**.html',
-            '**/**.json',
-            '**/**.css',
-            '**/images/**',
-            '**/nls/**'
+            'widgets/**/**.html',
+            'widgets/**/**.json',
+            'widgets/**/**.css',
+            'widgets/**/images/**',
+            'widgets/**/nls/**',
+			'themes/**/**.html',
+			'themes/**/**.json',
+			'themes/**/**.css',
+			'themes/**/images/**',
+			'themes/**/nls/**'
           ],
-          dest: 'dist/widgets/',
+          dest: 'dist/',
           expand: true
         }
       }));
