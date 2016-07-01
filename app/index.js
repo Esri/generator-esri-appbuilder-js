@@ -74,8 +74,10 @@ module.exports = Base.extend({
         return wabDir;
       },
       validate: function(wabPath) {
-        // make sure input directory and apps directory is valid and exists.
-        var paths = [wabPath, path.join(wabPath, 'server/apps')];
+        // make sure input directory and the following paths exist:
+        // * server
+        // * client
+        var paths = [wabPath, path.join(wabPath, 'server'), path.join(wabPath, 'client')];
         try {
           paths.forEach(function(path) {
             fs.accessSync(path, fs.F_OK);
@@ -91,13 +93,18 @@ module.exports = Base.extend({
         if (currentAnswers.abort) {
           return false;
         }
-        var appsPath = path.join(currentAnswers.wabRoot, 'server', 'apps');
-        var appsDirectories = getDirectories(appsPath);
-        if (appsDirectories.length > 0) {
-          return true;
-        } else {
+        try {
+          var appsPath = path.join(currentAnswers.wabRoot, 'server', 'apps');
+          var appsDirectories = getDirectories(appsPath);
+          if (appsDirectories.length > 0) {
+            return true;
+          } else {
+            this.log(chalk.red('You do not have any WAB apps setup yet. After you create an app, please see the Gruntfile for a todo, or run this generator again.'));
+          }
+        } catch (e) {
           this.log(chalk.red('You do not have any WAB apps setup yet. After you create an app, please see the Gruntfile for a todo, or run this generator again.'));
         }
+
       }.bind(this),
       name: 'appDirId',
       type: 'list',
