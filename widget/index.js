@@ -139,7 +139,7 @@ var WidgetGenerator = Base.extend({
         this.wabVersion = '2.0beta';
       } else {
         this.platform = 'HTML';
-        this.wabVersion = '1.4';
+        this.wabVersion = '2.2';
         this.is2d = true;
       }
 
