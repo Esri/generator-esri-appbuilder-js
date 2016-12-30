@@ -122,7 +122,7 @@ var WidgetGenerator = Base.extend({
       choices: ['ES5', 'ES2015']
     }];
 
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts).then(function (props) {
       this.widgetName = props.widgetName;
       this.widgetTitle = props.widgetTitle;
       this.description = props.description;

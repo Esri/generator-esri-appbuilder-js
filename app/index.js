@@ -150,7 +150,7 @@ module.exports = Base.extend({
       }
     }];
 
-    this.prompt(prompts, function(props) {
+    this.prompt(prompts).then(function(props) {
       this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
