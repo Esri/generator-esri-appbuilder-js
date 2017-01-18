@@ -150,12 +150,20 @@ module.exports = Generator.extend({
         });
         return retArray;
       }
+    }, {
+      when: function(currentAnswers) {
+        return !currentAnswers.abort;
+      },
+      type: 'confirm',
+      message: 'Would you like to use the SASS for CSS preprocessing?',
+      name: 'useSass'
     }];
 
     this.prompt(prompts).then(function(props) {
       this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
+      this.useSass = props.useSass;
       if (props.appDirId && props.appDirId !== 'None') {
         this.appDirId = props.appDirId;
       } else {
@@ -172,6 +180,7 @@ module.exports = Generator.extend({
       }
       mkdirp('widgets');
       this.config.set('widgetsType', this.widgetsType);
+      this.config.set('useSass', this.useSass);
     },
 
     gruntConfig: function() {
@@ -239,16 +248,16 @@ module.exports = Generator.extend({
       this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
 
       // WATCH CONFIG
-      this.gruntfile.insertConfig('watch', JSON.stringify({
+      this.gruntfile.insertConfig('watch', `{
         main: {
           files: ['widgets/**', 'themes/**'],
-          tasks: ['clean', 'babel', 'copy', 'sync'],
+          tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
           options: {
             spawn: false,
             atBegin: true
           }
         }
-      }));
+      }`);
 
       // COPY CONFIG
       this.gruntfile.insertConfig('copy', JSON.stringify({
@@ -276,6 +285,27 @@ module.exports = Generator.extend({
           src: 'dist/**'
         }
       }));
+
+      // SASS CONFIG
+      if(this.useSass) {
+        this.gruntfile.insertConfig('sass', `{
+          dist: {
+            options: {
+              sourceMap: true,
+            },
+
+            files: [{
+              expand: true,
+              src: ['widgets/**/*.scss'],
+              rename: function(dest, src) {
+                return src.replace('scss', 'css')
+              }
+            }]
+          }
+        }`);
+        this.gruntfile.loadNpmTasks('grunt-sass');
+      }
+
 
       // load tasks
       this.gruntfile.loadNpmTasks('grunt-babel');
@@ -321,7 +351,8 @@ module.exports = Generator.extend({
       'grunt-sync',
       'grunt-babel',
       'grunt-contrib-clean',
-      'grunt-contrib-copy'
+      'grunt-contrib-copy',
+      'grunt-sass'
     ], {
       'saveDev': true
     });

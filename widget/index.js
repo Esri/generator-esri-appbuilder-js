@@ -132,6 +132,7 @@ module.exports = Generator.extend({
       this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
 
       this.widgetsType = this.config.get('widgetsType');
+      this.useSass = this.config.get('useSass');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
       if (this.is3d) {
@@ -182,11 +183,20 @@ module.exports = Generator.extend({
       );
     }
     if (this.hasStyle) {
-      this.fs.copyTpl(
-        this.templatePath('css/_style.css'),
-        this.destinationPath(path.join(basePath, 'css/style.css')),
-        this
-      );
+      if(this.useSass) {
+        this.fs.copyTpl(
+          this.templatePath('css/_style.scss'),
+          this.destinationPath(path.join(basePath, 'css/style.scss')),
+          this
+        );
+      } else {
+        this.fs.copyTpl(
+          this.templatePath('css/_style.css'),
+          this.destinationPath(path.join(basePath, 'css/style.css')),
+          this
+        );
+      }
+
     }
     if (this.hasLocale) {
       this.fs.copyTpl(
