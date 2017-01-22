@@ -1,12 +1,12 @@
 'use strict';
-var path = require('path');
-var Base = require('yeoman-generator').Base;
-var chalk = require('chalk');
-var dasherize = require('underscore.string/dasherize');
-var utils = require('./utils');
+const path = require('path');
+const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+const dasherize = require('underscore.string/dasherize');
+const utils = require('./utils');
 
-var WidgetGenerator = Base.extend({
-  askFor: function () {
+module.exports = Generator.extend({
+  prompting: function () {
     var done = this.async();
 
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
@@ -122,7 +122,7 @@ var WidgetGenerator = Base.extend({
       choices: ['ES5', 'ES2015']
     }];
 
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts).then(function (props) {
       this.widgetName = props.widgetName;
       this.widgetTitle = props.widgetTitle;
       this.description = props.description;
@@ -160,38 +160,80 @@ var WidgetGenerator = Base.extend({
     }.bind(this));
   },
 
-  files: function () {
+  writing: function () {
     var basePath = path.join('widgets', this.widgetName);
-    this.template('_Widget_' + this.jsVersion + '.js', path.join(basePath, 'Widget.js'));
+    this.fs.copyTpl(
+      this.templatePath('_Widget_' + this.jsVersion + '.js'),
+      this.destinationPath(path.join(basePath, 'Widget.js')),
+      this
+    );
     if (this.hasUIFile) {
-      this.template('_Widget.html', path.join(basePath, 'Widget.html'));
+      this.fs.copyTpl(
+        this.templatePath('_Widget.html'),
+        this.destinationPath(path.join(basePath, 'Widget.html')),
+        this
+      );
     }
     if (this.hasConfig) {
-      this.template('_config.json', path.join(basePath, 'config.json'));
+      this.fs.copyTpl(
+        this.templatePath('_config.json'),
+        this.destinationPath(path.join(basePath, 'config.json')),
+        this
+      );
     }
     if (this.hasStyle) {
-      this.template('css/_style.css', path.join(basePath, 'css/style.css'));
+      this.fs.copyTpl(
+        this.templatePath('css/_style.css'),
+        this.destinationPath(path.join(basePath, 'css/style.css')),
+        this
+      );
     }
     if (this.hasLocale) {
-      this.template('nls/_strings.js', path.join(basePath, 'nls/strings.js'));
+      this.fs.copyTpl(
+        this.templatePath('nls/_strings.js'),
+        this.destinationPath(path.join(basePath, 'nls/strings.js')),
+        this
+      );
     }
-    this.copy('images/icon.png', path.join(basePath, 'images/icon.png'));
-    this.template('_manifest.json', path.join(basePath, 'manifest.json'));
+    this.fs.copy(
+      this.templatePath('images/icon.png'),
+      this.destinationPath(path.join(basePath, 'images/icon.png'))
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_manifest.json'),
+      this.destinationPath(path.join(basePath, 'manifest.json')),
+      this
+    );
 
     // Settings:
     if(this.hasSettingPage) {
-      this.template('setting/_Setting_' + this.jsVersion + '.js', path.join(basePath, 'setting/Setting.js'));
+      this.fs.copyTpl(
+        this.templatePath('setting/_Setting_' + this.jsVersion + '.js'),
+        this.destinationPath(path.join(basePath, 'setting/Setting.js')),
+        this
+      );
       if (this.hasSettingUIFile) {
-        this.template('setting/_Setting.html', path.join(basePath, 'setting/Setting.html'));
+        this.fs.copyTpl(
+          this.templatePath('setting/_Setting.html'),
+          this.destinationPath(path.join(basePath, 'setting/Setting.html')),
+          this
+        );
       }
       if (this.hasSettingLocale) {
-        this.template('setting/nls/_strings.js', path.join(basePath, 'setting/nls/strings.js'));
+        this.fs.copyTpl(
+          this.templatePath('setting/nls/_strings.js'),
+          this.destinationPath(path.join(basePath, 'setting/nls/strings.js')),
+          this
+        );
       }
       if (this.hasSettingStyle) {
-        this.template('setting/css/_style.css', path.join(basePath, 'setting/css/style.css'));
+        this.fs.copyTpl(
+          this.templatePath('setting/css/_style.css'),
+          this.destinationPath(path.join(basePath, 'setting/css/style.css')),
+          this
+        );
       }
     }
   }
 });
-
-module.exports = WidgetGenerator;

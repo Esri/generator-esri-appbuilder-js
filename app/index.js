@@ -1,12 +1,13 @@
 'use strict';
-var path = require('path');
-var Base = require('yeoman-generator').Base;
-var yosay = require('yosay');
-var chalk = require('chalk');
-var isWin = process.platform === 'win32';
-var homedir = (isWin) ? process.env.HOMEPATH : process.env.HOME;
-var fs = require('fs');
-var mkdirp = require('mkdirp');
+const path = require('path');
+const Generator = require('yeoman-generator');
+const yosay = require('yosay');
+const chalk = require('chalk');
+const isWin = process.platform === 'win32';
+const homedir = (isWin) ? process.env.HOMEPATH : process.env.HOME;
+const fs = require('fs');
+const mkdirp = require('mkdirp');
+const GruntfileEditor = require('gruntfile-editor');
 
 function getDirectories(srcpath) {
   return fs.readdirSync(srcpath).filter(function(file) {
@@ -14,8 +15,9 @@ function getDirectories(srcpath) {
   });
 }
 
-module.exports = Base.extend({
+module.exports = Generator.extend({
   initializing: function() {
+    this.gruntfile = new GruntfileEditor();
     // check for existence of package.json
     try {
       fs.accessSync('./package.json', fs.F_OK);
@@ -150,7 +152,7 @@ module.exports = Base.extend({
       }
     }];
 
-    this.prompt(prompts, function(props) {
+    this.prompt(prompts).then(function(props) {
       this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
@@ -290,9 +292,19 @@ module.exports = Base.extend({
       if (this.abort) {
         return;
       }
-      this.copy('editorconfig', '.editorconfig');
-      this.copy('jshintrc', '.jshintrc');
-      this.copy('babelrc', '.babelrc');
+      this.fs.copyTpl(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
+      this.fs.copyTpl(
+        this.templatePath('jshintrc'),
+        this.destinationPath('.jshintrc')
+      );
+      this.fs.copyTpl(
+        this.templatePath('babelrc'),
+        this.destinationPath('.babelrc')
+      );
+      fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
     }
   },
 
