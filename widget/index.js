@@ -135,11 +135,12 @@ module.exports = Generator.extend({
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
       this.wabVersion = '2.3';
-      
+
       if (this.is3d) {
         this.platform = 'HTML3D';
       } else {
         this.platform = 'HTML';
+        this.is2d = true;
       }
 
       this.baseClass = props.baseClass;

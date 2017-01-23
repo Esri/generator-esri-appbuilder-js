@@ -965,8 +965,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.0beta', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.0beta"/);
+    it('has wabVersion set to 2.3', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.3"/);
     });
 
     it('has platform set to HTML3D', function (/*done*/) {
