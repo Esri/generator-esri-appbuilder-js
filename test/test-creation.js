@@ -35,8 +35,8 @@ describe('esri-appbuilder-js:app', function () {
 
   it('creates expected dotfiles', function () {
     var expected = [
-      '.jshintrc',
-      '.editorconfig'
+      '.editorconfig',
+      '.babelrc'
     ];
     assert.file(expected);
   });
@@ -107,7 +107,6 @@ describe('esri-appbuilder-js abort', function () {
 
   it('does not create dotfiles or Gruntfile', function () {
     var expected = [
-      '.jshintrc',
       '.editorconfig',
       'Gruntfile.js'
     ];
@@ -138,7 +137,6 @@ describe('esri-appbuilder-js:3dapp', function () {
 
   it('creates expected dotfiles', function () {
     var expected = [
-      '.jshintrc',
       '.editorconfig',
       '.yo-rc.json'
     ];
@@ -221,7 +219,6 @@ describe('esri-appbuilder-js 3d abort', function () {
 
   it('does not create dotfiles or Gruntfile', function () {
     var expected = [
-      '.jshintrc',
       '.editorconfig',
       '.yo-rc.json',
       'Gruntfile.js'
