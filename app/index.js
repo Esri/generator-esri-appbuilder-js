@@ -327,10 +327,6 @@ module.exports = Generator.extend({
         this.destinationPath('.editorconfig')
       );
       this.fs.copyTpl(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
-      this.fs.copyTpl(
         this.templatePath('babelrc'),
         this.destinationPath('.babelrc')
       );
