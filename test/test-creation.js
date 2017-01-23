@@ -101,7 +101,6 @@ describe('esri-appbuilder-js:app no sass', function () {
 
   it('creates expected dotfiles', function () {
     var expected = [
-      '.jshintrc',
       '.editorconfig',
       '.yo-rc.json'
     ];

@@ -30,7 +30,7 @@ The generators should be run in the root of a working folder for your project. T
 
 #### App (Default) Generator
 
-The app generator installs and configures the [grunt tasks](#running-the-grunt-tasks) and other project files (.jshintrc, etc) and ensures that required subfolders (like widgets) exist.
+The app generator installs and configures the [grunt tasks](#running-the-grunt-tasks) and other project files and ensures that required subfolders (like widgets) exist.
 
 1. Navigate into the root folder of your project
 2. If you haven't already created a package.json file in this folder, run `npm init` (see NOTE below)
@@ -42,6 +42,7 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Type of widget(s) to be generated|Whether you want to build 2D or 3D widgets|2D|
 |Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
 |Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
+|Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
 
 **NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
@@ -81,7 +82,7 @@ MyWidget
 │   Widget.js
 │
 ├───css
-│       style.css
+│       style.css (or style.scss)
 │
 ├───images
 │       icon.png
@@ -134,7 +135,7 @@ This will copy over any files that haven't already been copied over, and then st
 
 ### Linting Your Code
 
-By default the app generator scaffolds out [Esri's standard jshint configuration file](https://github.com/Esri/jsapi-resources/tree/master/jshint). This should work well for ES5 files, however, it is not configured for ES2015 syntax. If you are going to use ES2015 syntax, we recommend that you use [semistandard][semistandard].
+The app generator does not scaffold out any linting files. We recommend that you use some form of linting, either [jshint][jshint], [semistandard][semistandard], or [eslint][eslint]. An example of using semistandard is below:
 
 1) Install semistandard:
 ```bash

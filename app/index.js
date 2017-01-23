@@ -155,7 +155,7 @@ module.exports = Generator.extend({
         return !currentAnswers.abort;
       },
       type: 'confirm',
-      message: 'Would you like to use the SASS for CSS preprocessing?',
+      message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
     }];
 
