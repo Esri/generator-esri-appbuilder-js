@@ -233,6 +233,69 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
   });
 
+  describe('when creating a widget w/o a setting page', function() {
+
+    before(function(done) {
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel' ],
+        jsVersion: 'ES2015'
+      })
+      .on('end', done);
+    });
+
+    it('creates expected files', function (/*done*/) {
+      assert.file([
+        'widgets/TestWidget/Widget.js',
+        'widgets/TestWidget/manifest.json',
+        'widgets/TestWidget/images/icon.png'
+      ]);
+
+      assert.noFile([
+        'widgets/TestWidget/Widget.html',
+        'widgets/TestWidget/config.json',
+        'widgets/TestWidget/css/style.css',
+        'widgets/TestWidget/nls/strings.js',
+      ]);
+    });
+
+    it('should set Label to widgetTitle', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
+    });
+
+    it('should set inPanel to true in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
+    });
+
+    it('sets manifest hasLocale to false in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"hasLocale": false/);
+    });
+
+    it('sets manifest hasConfig to true in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"hasConfig": false/);
+    });
+
+    it('sets manifest hasStyle to true in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"hasStyle": false/);
+    });
+
+    it('sets manifest hasUIFile to true in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"hasSettingPage": false/);
+    });
+
+    it('sets manifest hasSettingP to false in manifest', function() {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"hasUIFile": false/);
+    });
+
+    it('has baseClass in widget', function() {
+      assert.fileContent('widgets/TestWidget/Widget.js', /baseClass: 'test-widget'/);
+    });
+  });
+
   describe('when creating a widget w/o style', function() {
 
     before(function(done) {
