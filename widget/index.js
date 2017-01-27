@@ -151,7 +151,7 @@ module.exports = Generator.extend({
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
       this.jsVersion = props.jsVersion;
       // settings
-      this.hasSettingPage = props.hasSettingPage;
+      this.hasSettingPage = (props.hasSettingPage === true);
       this.hasSettingUIFile = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false;
       this.hasSettingLocale = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingLocale') > -1) : false;
       this.hasSettingStyle = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingStyle') > -1) : false;
