@@ -135,12 +135,12 @@ module.exports = Generator.extend({
       this.useSass = this.config.get('useSass');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
+      this.wabVersion = '2.3';
+
       if (this.is3d) {
         this.platform = 'HTML3D';
-        this.wabVersion = '2.0beta';
       } else {
         this.platform = 'HTML';
-        this.wabVersion = '2.2';
         this.is2d = true;
       }
 
@@ -152,7 +152,7 @@ module.exports = Generator.extend({
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
       this.jsVersion = props.jsVersion;
       // settings
-      this.hasSettingPage = props.hasSettingPage;
+      this.hasSettingPage = (props.hasSettingPage === true);
       this.hasSettingUIFile = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false;
       this.hasSettingLocale = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingLocale') > -1) : false;
       this.hasSettingStyle = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingStyle') > -1) : false;

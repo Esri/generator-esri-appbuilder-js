@@ -67,13 +67,7 @@ module.exports = Generator.extend({
       name: 'wabRoot',
       message: 'Web AppBuilder install root:',
       'default': function(currentAnswers) {
-        var wabDir;
-        if (currentAnswers.widgetsType === 'is3d') {
-          wabDir = path.join(homedir, 'WebAppBuilderForArcGIS');
-        } else {
-          wabDir = path.join(homedir, 'arcgis-web-appbuilder-1.3');
-        }
-        return wabDir;
+        return path.join(homedir, 'WebAppBuilderForArcGIS');
       },
       validate: function(wabPath) {
         // make sure input directory and the following paths exist:
