@@ -238,11 +238,19 @@ module.exports = Generator.extend({
         );
       }
       if (this.hasSettingStyle) {
-        this.fs.copyTpl(
-          this.templatePath('setting/css/_style.css'),
-          this.destinationPath(path.join(basePath, 'setting/css/style.css')),
-          this
-        );
+        if(this.useSass) {
+          this.fs.copyTpl(
+            this.templatePath('setting/css/_style.scss'),
+            this.destinationPath(path.join(basePath, 'setting/css/style.scss')),
+            this
+          );
+        } else {
+          this.fs.copyTpl(
+            this.templatePath('setting/css/_style.css'),
+            this.destinationPath(path.join(basePath, 'setting/css/style.css')),
+            this
+          );
+        }
       }
     }
   }
