@@ -1089,7 +1089,9 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         path: 'widgets',
         baseClass: 'test-widget',
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
-        jsVersion: 'ES2015'
+        jsVersion: 'ES2015',
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ],
       }).withLocalConfig({
         useSass: true
       })
@@ -1102,6 +1104,12 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
     it('does not create css style file', function (/*done*/) {
       assert.noFile('widgets/TestWidget/css/style.css');
+    });
+    it('creates settings scss style file', function (/*done*/) {
+      assert.file('widgets/TestWidget/setting/css/style.scss');
+    });
+    it('does not create settings css style file', function (/*done*/) {
+      assert.noFile('widgets/TestWidget/setting/css/style.css');
     });
   });
 
