@@ -1077,4 +1077,64 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.fileContent('widgets/TestWidget/Widget.js', /define\((.*)\'dojo\/_base\/declare/);
     });
   });
+
+
+  describe('when creating a widget where the user chose to use sass', function() {
+    before(function(done) {
+
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015',
+        hasSettingPage: true,
+        settingsFeatures: [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ],
+      }).withLocalConfig({
+        useSass: true
+      })
+      .on('end', done);
+    });
+
+
+    it('creates expected scss style file', function (/*done*/) {
+      assert.file('widgets/TestWidget/css/style.scss');
+    });
+    it('does not create css style file', function (/*done*/) {
+      assert.noFile('widgets/TestWidget/css/style.css');
+    });
+    it('creates settings scss style file', function (/*done*/) {
+      assert.file('widgets/TestWidget/setting/css/style.scss');
+    });
+    it('does not create settings css style file', function (/*done*/) {
+      assert.noFile('widgets/TestWidget/setting/css/style.css');
+    });
+  });
+
+  describe('when creating a widget where the user chose NOT to use sass', function() {
+    before(function(done) {
+
+      helpers.run(generatorPath).withPrompts({
+        widgetName: 'TestWidget',
+        widgetTitle: 'Test Widget',
+        description: 'A test widget.',
+        path: 'widgets',
+        baseClass: 'test-widget',
+        features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
+        jsVersion: 'ES2015'
+      }).withLocalConfig({
+        useSass: false
+      })
+      .on('end', done);
+    });
+
+    it('creates expected css style file', function (/*done*/) {
+      assert.file('widgets/TestWidget/css/style.css');
+    });
+    it('does not create scss style file', function (/*done*/) {
+      assert.noFile('widgets/TestWidget/css/style.scss');
+    });
+  });
 });

@@ -20,7 +20,8 @@ describe('esri-appbuilder-js:app', function () {
       .withPrompts({
         'abort': false,
         'wabRoot': wabRoot,
-        'appDirId': appDirId
+        'appDirId': appDirId,
+        'useSass': true
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -36,9 +37,14 @@ describe('esri-appbuilder-js:app', function () {
   it('creates expected dotfiles', function () {
     var expected = [
       '.editorconfig',
-      '.babelrc'
+      '.babelrc',
+      '.yo-rc.json'
     ];
     assert.file(expected);
+  });
+
+  it('the sass setting is stored in config', function() {
+    assert.fileContent('.yo-rc.json', /"useSass": true/);
   });
 
   describe('when creating gruntfile', function() {
@@ -62,6 +68,56 @@ describe('esri-appbuilder-js:app', function () {
     });
     it('registers default task', function() {
       assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
+    });
+
+
+    it('sets sass config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('sass:'));
+    });
+    it('loads sass task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sass'\);/);
+    });
+  });
+});
+
+describe('esri-appbuilder-js:app no sass', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ skipInstall: true })
+      .withPrompts({
+        'abort': false,
+        'wabRoot': wabRoot,
+        'appDirId': appDirId,
+        'useSass': false
+      }).inTmpDir(function(/*dir*/) {
+        var done = this.async();
+        mkdirp(appDirPath, function () {
+          fs.writeFileSync(configFilePath, configFileContents);
+          done();
+        });
+      })
+      .on('end', done);
+  });
+
+  it('creates expected dotfiles', function () {
+    var expected = [
+      '.editorconfig',
+      '.yo-rc.json'
+    ];
+    assert.file(expected);
+  });
+
+  it('the sass setting is stored in config', function() {
+    assert.fileContent('.yo-rc.json', /"useSass": false/);
+  });
+
+  describe('when creating gruntfile', function() {
+
+    it('does not set sass config', function() {
+      assert.noFileContent('Gruntfile.js', new RegExp('sass:'));
+    });
+    it('does not load sass task', function() {
+      assert.noFileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sass'\);/);
     });
   });
 });
