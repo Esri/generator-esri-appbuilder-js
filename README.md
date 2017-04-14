@@ -191,6 +191,5 @@ limitations under the License.
 A copy of the license is available in the repository's [license.txt](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/license.txt) file.
 
 [semistandard]: https://www.npmjs.com/package/semistandard
-
-[](Esri Tags: web AppBuilder yeoman generator node)
-[](Esri Language: JavaScript)
+[eslint]: https://www.npmjs.com/package/eslint
+[jshint]: https://www.npmjs.com/package/jshint
