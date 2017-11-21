@@ -5,8 +5,8 @@ const chalk = require('chalk');
 const dasherize = require('underscore.string/dasherize');
 const utils = require('./utils');
 
-module.exports = Generator.extend({
-  prompting: function () {
+module.exports = class extends Generator {
+  prompting() {
     var done = this.async();
 
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
@@ -159,9 +159,9 @@ module.exports = Generator.extend({
       this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
-  },
+  }
 
-  writing: function () {
+  writing() {
     var basePath = path.join('widgets', this.widgetName);
     this.fs.copyTpl(
       this.templatePath('_Widget_' + this.jsVersion + '.js'),
@@ -254,4 +254,4 @@ module.exports = Generator.extend({
       }
     }
   }
-});
+};
