@@ -340,6 +340,7 @@ module.exports = Generator.extend({
       'grunt-contrib-watch',
       'grunt-sync',
       'grunt-babel',
+      'babel-core',
       'grunt-contrib-clean',
       'grunt-contrib-copy',
       'grunt-sass'
