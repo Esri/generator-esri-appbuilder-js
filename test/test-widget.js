@@ -45,10 +45,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.file(expected);
     });
 
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
-    });
-
     it('should set inPanel to true in manifest', function() {
       assert.fileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -116,10 +112,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         // TODO: settings
       ];
       assert.file(expected);
-    });
-
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('sets inPanel to false in manifest', function() {
@@ -191,10 +183,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.noFile('widgets/TestWidget/nls/strings.js');
     });
 
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
-    });
-
     it('should set inPanel to true in manifest', function() {
       assert.fileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -263,10 +251,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       ]);
     });
 
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
-    });
-
     it('should set inPanel to true in manifest', function() {
       assert.fileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -324,10 +308,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       ];
       assert.file(expected);
       assert.noFile('widgets/TestWidget/css/style.css');
-    });
-
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('should set inPanel to true in manifest', function() {
@@ -395,10 +375,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.noFile('widgets/TestWidget/config.json');
     });
 
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
-    });
-
     it('should set inPanel to true in manifest', function() {
       assert.fileContent('widgets/TestWidget/manifest.json', /"inPanel": true/);
     });
@@ -463,10 +439,6 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       ];
       assert.file(expected);
       assert.noFile('widgets/TestWidget/Widget.html');
-    });
-
-    it('should set Label to widgetTitle', function() {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"label": "Test Widget"/);
     });
 
     it('should set inPanel to true in manifest', function() {
