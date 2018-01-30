@@ -1126,10 +1126,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.noFile('widgets/TestWidget/Widget.js');
     });
     it('creates expected setting/setting.ts file', function (/*done*/) {
-      assert.file('widgets/TestWidget/Setting/Setting.ts');
+      assert.file('widgets/TestWidget/setting/Setting.ts');
     });
     it('does not create setting/setting.js file', function (/*done*/) {
-      assert.noFile('widgets/TestWidget/Setting/Setting.js');
+      assert.noFile('widgets/TestWidget/setting/Setting.js');
     });
   });
 
