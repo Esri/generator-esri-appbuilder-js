@@ -151,6 +151,13 @@ module.exports = Generator.extend({
       type: 'confirm',
       message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
+    }, {
+      when: function(currentAnswers) {
+        return !currentAnswers.abort;
+      },
+      type: 'confirm',
+      message: 'Would you like to use Livereload to auto-refresh your browser (browser plugin required - see README)?',
+      name: 'useLivereload'
     }];
 
     this.prompt(prompts).then(function(props) {
@@ -158,6 +165,7 @@ module.exports = Generator.extend({
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
       this.useSass = props.useSass;
+      this.useLivereload = props.useLivereload;
       if (props.appDirId && props.appDirId !== 'None') {
         this.appDirId = props.appDirId;
       } else {
@@ -248,7 +256,8 @@ module.exports = Generator.extend({
           tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
           options: {
             spawn: false,
-            atBegin: true
+            atBegin: true,
+            livereload: ${(this.useLivereload ? 'true' : 'false')}
           }
         }
       }`);
@@ -262,11 +271,11 @@ module.exports = Generator.extend({
             'widgets/**/**.css',
             'widgets/**/images/**',
             'widgets/**/nls/**',
-			'themes/**/**.html',
-			'themes/**/**.json',
-			'themes/**/**.css',
-			'themes/**/images/**',
-			'themes/**/nls/**'
+            'themes/**/**.html',
+            'themes/**/**.json',
+            'themes/**/**.css',
+            'themes/**/images/**',
+            'themes/**/nls/**'
           ],
           dest: 'dist/',
           expand: true

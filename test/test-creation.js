@@ -21,7 +21,8 @@ describe('esri-appbuilder-js:app', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'useSass': true
+        'useSass': true,
+        'useLivereload': true
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -68,6 +69,9 @@ describe('esri-appbuilder-js:app', function () {
     });
     it('registers default task', function() {
       assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
+    });
+    it('enables livereload', function() {
+      assert.fileContent('Gruntfile.js', /livereload: true/);
     });
 
 
