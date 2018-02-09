@@ -1,5 +1,6 @@
 define({
   root: {
+    _widgetLabel: '<%= widgetTitle %>',
     widgetTitle: '<%= widgetTitle %>',
     description: '<%= description %>'
   }
