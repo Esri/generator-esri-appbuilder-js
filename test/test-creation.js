@@ -69,6 +69,9 @@ describe('esri-appbuilder-js:app', function () {
     it('registers default task', function() {
       assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
     });
+    it('enables livereload', function() {
+      assert.fileContent('Gruntfile.js', /livereload: true/);
+    });
 
 
     it('sets sass config', function() {
