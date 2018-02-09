@@ -43,6 +43,7 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/WebAppBuilderForArcGIS|
 |Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
 |Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
+|Which JavaScript syntax version would you like to develop in?|Will widget and settings JavaScript files use ES5, [ES2015](https://babeljs.io/learn-es2015/), or [TypeScript](https://www.typescriptlang.org/)?|ES5|
 
 **NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
@@ -70,9 +71,9 @@ Scaffolds out the files needed to create a new custom widget.
 |Settings template (HTML) file|Will your settings page require a template file?|Yes|
 |Settings locale (i18n) file|Will your settings page require a locale file?|Yes|
 |Settings style (CSS) file|Will your settings page require a style file?|Yes|
-|Which JavaScript syntax version would you like to develop in?|Will widget and settings JavaScript files use ES2015 or ES5?|ES5|
 
-Taking the default values for the prompts will generate the following output under the `widgets` folder:
+
+Taking the default values for the prompts will generate the following output under the `widgets` folder (note: if you choose TypeScript style, there will be `.ts` files instead of JS):
 
 ```
 MyWidget
@@ -109,16 +110,16 @@ In order for the widgets that you're working on to be available in the Web AppBu
 
 ### Copying the Files Manually
 
-For example, let's say you've installed the Web AppBuilder in `c:\arcgis-web-appbuilder-1.3`, then you'll need to copy widget files to the following folder under the stem app:
+For example, let's say you've installed the Web AppBuilder in `c:\WebAppBuilderForArcGIS`, then you'll need to copy widget files to the following folder under the stem app:
 
 ```
-c:\arcgis-web-appbuilder-1.3\client\stemapp\widgets
+c:\WebAppBuilderForArcGIS\client\stemapp\widgets
 ```
 
 Also, you'll likely want to copy widget files to any applications that you've created that use them:
 
 ```
-c:\arcgis-web-appbuilder-1.3\server\apps\[appId]\widgets
+c:\WebAppBuilderForArcGIS\server\apps\[appId]\widgets
 ```
 
 Unless you're using the grunt tasks, you'll need to re-copy the files each time you make changes to the files.
