@@ -15,8 +15,8 @@ function getDirectories(srcpath) {
   });
 }
 
-module.exports = Generator.extend({
-  initializing: function() {
+module.exports = class extends Generator {
+  initializing() {
     this.gruntfile = new GruntfileEditor();
     // check for existence of package.json
     try {
@@ -25,9 +25,9 @@ module.exports = Generator.extend({
     } catch (e) {
       this.hasPackageJson = false;
     }
-  },
+  }
 
-  prompting: function() {
+  prompting() {
     var done = this.async();
     var self = this;
 
@@ -165,170 +165,166 @@ module.exports = Generator.extend({
       }
       done();
     }.bind(this));
-  },
+  }
 
-  writing: {
-    app: function() {
-      if (this.abort) {
-        return;
-      }
-      mkdirp('widgets');
-      this.config.set('widgetsType', this.widgetsType);
-      this.config.set('useSass', this.useSass);
-    },
+  writing() {
+    if (this.abort) {
+      return;
+    }
+    mkdirp('widgets');
+    this.config.set('widgetsType', this.widgetsType);
+    this.config.set('useSass', this.useSass);
+  
+    // gruntConfig:
+    if (this.abort) {
+      return;
+    }
 
-    gruntConfig: function() {
-      if (this.abort) {
-        return;
+    // Setting up the stemappDir and appDir Gruntfile variables:
+    var stemappDir;
+    if (this.widgetsType === 'is3d') {
+      stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d');
+    } else {
+      stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
+    }
+    var appDir = false;
+    if (this.appDirId) {
+      appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
+    }
+    if (isWin) {
+      // this hack is needed to ensure paths are not escaped when injected into Gruntfile
+      stemappDir = stemappDir.replace(/\\/g, '/');
+      if (appDir) {
+        appDir = appDir.replace(/\\/g, '/');
       }
+    }
+    this.gruntfile.insertVariable('stemappDir', '"' + stemappDir + '"');
+    if (appDir) {
+      this.gruntfile.insertVariable('appDir', '"' + appDir + '"');
+    } else {
+      this.gruntfile.insertVariable('appDir', '"TODO - AFTER CREATING AN APP, PLEASE PUT PATH HERE AND INSERT ENTRY IN SYNC.MAIN.FILES BELOW."');
+    }
 
-      // Setting up the stemappDir and appDir Gruntfile variables:
-      var stemappDir;
-      if (this.widgetsType === 'is3d') {
-        stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d');
-      } else {
-        stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
+
+    // SYNC CONFIG
+    var syncConfig = '{ main: { verbose: true, files: [';
+    var filesPrefix = '{cwd: \'dist/\', src: \'**\', dest: ';
+    syncConfig = syncConfig + filesPrefix + 'stemappDir }';
+    if (appDir) {
+      syncConfig = syncConfig + ',' + filesPrefix + 'appDir }';
+    }
+    syncConfig = syncConfig + ']';
+    syncConfig = syncConfig + '} }';
+
+    this.gruntfile.insertConfig('sync', syncConfig);
+
+    // BABEL CONFIG
+    var babelConfig = {
+      main: {
+        files: [{
+          expand: true,
+          src: [
+              'widgets/*.js',
+      'widgets/**/*.js',
+      'widgets/**/**/*.js',
+      'widgets/!**/**/nls/*.js',
+      'themes/*.js',
+      'themes/**/*.js',
+      'themes/**/**/*.js',
+      'themes/!**/**/nls/*.js'
+          ],
+          dest: 'dist/'
+        }]
       }
-      var appDir = false;
-      if (this.appDirId) {
-        appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
-      }
-      if (isWin) {
-        // this hack is needed to ensure paths are not escaped when injected into Gruntfile
-        stemappDir = stemappDir.replace(/\\/g, '/');
-        if (appDir) {
-          appDir = appDir.replace(/\\/g, '/');
+    };
+    this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
+
+    // WATCH CONFIG
+    this.gruntfile.insertConfig('watch', `{
+      main: {
+        files: ['widgets/**', 'themes/**'],
+        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
+        options: {
+          spawn: false,
+          atBegin: true
         }
       }
-      this.gruntfile.insertVariable('stemappDir', '"' + stemappDir + '"');
-      if (appDir) {
-        this.gruntfile.insertVariable('appDir', '"' + appDir + '"');
-      } else {
-        this.gruntfile.insertVariable('appDir', '"TODO - AFTER CREATING AN APP, PLEASE PUT PATH HERE AND INSERT ENTRY IN SYNC.MAIN.FILES BELOW."');
+    }`);
+
+    // COPY CONFIG
+    this.gruntfile.insertConfig('copy', JSON.stringify({
+      main: {
+        src: [
+          'widgets/**/**.html',
+          'widgets/**/**.json',
+          'widgets/**/**.css',
+          'widgets/**/images/**',
+          'widgets/**/nls/**',
+    'themes/**/**.html',
+    'themes/**/**.json',
+    'themes/**/**.css',
+    'themes/**/images/**',
+    'themes/**/nls/**'
+        ],
+        dest: 'dist/',
+        expand: true
       }
+    }));
 
-
-      // SYNC CONFIG
-      var syncConfig = '{ main: { verbose: true, files: [';
-      var filesPrefix = '{cwd: \'dist/\', src: \'**\', dest: ';
-      syncConfig = syncConfig + filesPrefix + 'stemappDir }';
-      if (appDir) {
-        syncConfig = syncConfig + ',' + filesPrefix + 'appDir }';
+    // CLEAN CONFIG
+    this.gruntfile.insertConfig('clean', JSON.stringify({
+      dist: {
+        src: 'dist/**'
       }
-      syncConfig = syncConfig + ']';
-      syncConfig = syncConfig + '} }';
+    }));
 
-      this.gruntfile.insertConfig('sync', syncConfig);
+    // SASS CONFIG
+    if(this.useSass) {
+      this.gruntfile.insertConfig('sass', `{
+        dist: {
+          options: {
+            sourceMap: true,
+          },
 
-      // BABEL CONFIG
-      var babelConfig = {
-        main: {
           files: [{
             expand: true,
-            src: [
-                'widgets/*.js',
-				'widgets/**/*.js',
-				'widgets/**/**/*.js',
-				'widgets/!**/**/nls/*.js',
-				'themes/*.js',
-				'themes/**/*.js',
-				'themes/**/**/*.js',
-				'themes/!**/**/nls/*.js'
-            ],
-            dest: 'dist/'
+            src: ['widgets/**/*.scss'],
+            rename: function(dest, src) {
+              return src.replace('scss', 'css')
+            }
           }]
         }
-      };
-      this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
-
-      // WATCH CONFIG
-      this.gruntfile.insertConfig('watch', `{
-        main: {
-          files: ['widgets/**', 'themes/**'],
-          tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
-          options: {
-            spawn: false,
-            atBegin: true
-          }
-        }
       }`);
-
-      // COPY CONFIG
-      this.gruntfile.insertConfig('copy', JSON.stringify({
-        main: {
-          src: [
-            'widgets/**/**.html',
-            'widgets/**/**.json',
-            'widgets/**/**.css',
-            'widgets/**/images/**',
-            'widgets/**/nls/**',
-			'themes/**/**.html',
-			'themes/**/**.json',
-			'themes/**/**.css',
-			'themes/**/images/**',
-			'themes/**/nls/**'
-          ],
-          dest: 'dist/',
-          expand: true
-        }
-      }));
-
-      // CLEAN CONFIG
-      this.gruntfile.insertConfig('clean', JSON.stringify({
-        dist: {
-          src: 'dist/**'
-        }
-      }));
-
-      // SASS CONFIG
-      if(this.useSass) {
-        this.gruntfile.insertConfig('sass', `{
-          dist: {
-            options: {
-              sourceMap: true,
-            },
-
-            files: [{
-              expand: true,
-              src: ['widgets/**/*.scss'],
-              rename: function(dest, src) {
-                return src.replace('scss', 'css')
-              }
-            }]
-          }
-        }`);
-        this.gruntfile.loadNpmTasks('grunt-sass');
-      }
-
-
-      // load tasks
-      this.gruntfile.loadNpmTasks('grunt-babel');
-      this.gruntfile.loadNpmTasks('grunt-contrib-clean');
-      this.gruntfile.loadNpmTasks('grunt-contrib-copy');
-      this.gruntfile.loadNpmTasks('grunt-contrib-watch');
-      this.gruntfile.loadNpmTasks('grunt-sync');
-
-      // register tasks
-      this.gruntfile.registerTask('default', ['watch']);
-    },
-
-    projectfiles: function() {
-      if (this.abort) {
-        return;
-      }
-      this.fs.copyTpl(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copyTpl(
-        this.templatePath('babelrc'),
-        this.destinationPath('.babelrc')
-      );
-      fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
+      this.gruntfile.loadNpmTasks('grunt-sass');
     }
-  },
 
-  install: function() {
+
+    // load tasks
+    this.gruntfile.loadNpmTasks('grunt-babel');
+    this.gruntfile.loadNpmTasks('grunt-contrib-clean');
+    this.gruntfile.loadNpmTasks('grunt-contrib-copy');
+    this.gruntfile.loadNpmTasks('grunt-contrib-watch');
+    this.gruntfile.loadNpmTasks('grunt-sync');
+
+    // register tasks
+    this.gruntfile.registerTask('default', ['watch']);
+  
+    // projectFiles:
+    if (this.abort) {
+      return;
+    }
+    this.fs.copyTpl(
+      this.templatePath('editorconfig'),
+      this.destinationPath('.editorconfig')
+    );
+    this.fs.copyTpl(
+      this.templatePath('babelrc'),
+      this.destinationPath('.babelrc')
+    );
+    fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
+  }
+
+  install() {
     if (this.abort || this.options['skip-install']) {
       return;
     }
@@ -348,4 +344,4 @@ module.exports = Generator.extend({
       'saveDev': true
     });
   }
-});
+}
