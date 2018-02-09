@@ -225,13 +225,13 @@ module.exports = class extends Generator {
           expand: true,
           src: [
               'widgets/*.js',
-      'widgets/**/*.js',
-      'widgets/**/**/*.js',
-      'widgets/!**/**/nls/*.js',
-      'themes/*.js',
-      'themes/**/*.js',
-      'themes/**/**/*.js',
-      'themes/!**/**/nls/*.js'
+              'widgets/**/*.js',
+              'widgets/**/**/*.js',
+              'widgets/!**/**/nls/*.js',
+              'themes/*.js',
+              'themes/**/*.js',
+              'themes/**/**/*.js',
+              'themes/!**/**/nls/*.js'
           ],
           dest: 'dist/'
         }]
@@ -246,7 +246,8 @@ module.exports = class extends Generator {
         tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
         options: {
           spawn: false,
-          atBegin: true
+          atBegin: true,
+          livereload: true
         }
       }
     }`);
@@ -260,11 +261,11 @@ module.exports = class extends Generator {
           'widgets/**/**.css',
           'widgets/**/images/**',
           'widgets/**/nls/**',
-    'themes/**/**.html',
-    'themes/**/**.json',
-    'themes/**/**.css',
-    'themes/**/images/**',
-    'themes/**/nls/**'
+          'themes/**/**.html',
+          'themes/**/**.json',
+          'themes/**/**.css',
+          'themes/**/images/**',
+          'themes/**/nls/**'
         ],
         dest: 'dist/',
         expand: true
