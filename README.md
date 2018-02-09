@@ -43,7 +43,6 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/WebAppBuilderForArcGIS|
 |Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
 |Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
-|Would you like to use Livereload to auto-refresh your browser? ([Help](#livereload))|Yes|
 
 **NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
@@ -136,7 +135,7 @@ This will copy over any files that haven't already been copied over, and then st
 
 ### Livereload
 
-In the app generator, you can choose to enable `Livereload`. This means the Grunt watch task will run at the default livereload port so you can use a browser extension to have the page reload when you save your source widget files. See [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch#optionslivereload) for advanced customization. Extensions are available in all major browsers ([Example for Google Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en))
+The generator enables `Livereload` by default in the Gruntfile that it creates. This means the Grunt watch task will run at the default livereload port so you can use a browser extension to have the page reload when you save your source widget files. See [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch#optionslivereload) for advanced customization. Extensions are available in all major browsers ([Example for Google Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en))
 
 ### Linting Your Code
 

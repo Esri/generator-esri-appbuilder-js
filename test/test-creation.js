@@ -21,8 +21,7 @@ describe('esri-appbuilder-js:app', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'useSass': true,
-        'useLivereload': true
+        'useSass': true
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
