@@ -5,8 +5,8 @@ const chalk = require('chalk');
 const dasherize = require('underscore.string/dasherize');
 const utils = require('./utils');
 
-module.exports = Generator.extend({
-  prompting: function () {
+module.exports = class extends Generator {
+  prompting() {
     var done = this.async();
 
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
@@ -131,7 +131,7 @@ module.exports = Generator.extend({
       this.jsVersion = this.config.get('jsVersion');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
-      this.wabVersion = '2.3';
+      this.wabVersion = '2.7';
 
       if (this.is3d) {
         this.platform = 'HTML3D';
@@ -154,9 +154,9 @@ module.exports = Generator.extend({
       this.needsManifestProps = (!this.inPanel || !this.hasLocale);
       done();
     }.bind(this));
-  },
+  }
 
-  writing: function () {
+  writing() {
     var basePath = path.join('widgets', this.widgetName);
     if(this.jsVersion === 'ES2015TypeScript') {
       var templatePath = '_Widget_2d.ts';
@@ -277,4 +277,4 @@ module.exports = Generator.extend({
       }
     }
   }
-});
+};

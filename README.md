@@ -40,7 +40,7 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Prompt|Description|Default|
 |------|-----------|-------|
 |Type of widget(s) to be generated|Whether you want to build 2D or 3D widgets|2D|
-|Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
+|Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/WebAppBuilderForArcGIS|
 |Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
 |Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
 
@@ -132,6 +132,10 @@ grunt
 ```
 
 This will copy over any files that haven't already been copied over, and then start watching all files under the widgets folder for changes and re-copy the files to the Web AppBuilder's folders.
+
+### Livereload
+
+The generator enables `Livereload` by default in the Gruntfile that it creates. This means the Grunt watch task will run at the default livereload port so you can use a browser extension to have the page reload when you save your source widget files. See [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch#optionslivereload) for advanced customization. Extensions are available in all major browsers ([Example for Google Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en))
 
 ### Linting Your Code
 

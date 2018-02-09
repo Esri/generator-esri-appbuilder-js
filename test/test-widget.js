@@ -84,6 +84,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
+    it('should set Label to _widgetTitle in NLS strings file', function() {
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /_widgetLabel: 'Test Widget'/);
+    });
+
   });
 
   describe('when creating a non-inPanel widget', function() {
@@ -152,6 +156,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     it('has title/description in nls', function() {
       assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
       assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
+    });
+
+    it('should set Label to _widgetTitle in NLS strings file', function() {
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /_widgetLabel: 'Test Widget'/);
     });
 
   });
@@ -349,6 +357,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
+    it('should set Label to _widgetTitle in NLS strings file', function() {
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /_widgetLabel: 'Test Widget'/);
+    });
+
   });
 
   describe('when creating a widget w/o config', function() {
@@ -415,6 +427,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
     });
 
+    it('should set Label to _widgetTitle in NLS strings file', function() {
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /_widgetLabel: 'Test Widget'/);
+    });
+
   });
 
 
@@ -476,6 +492,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     it('has title/description in nls', function() {
       assert.fileContent('widgets/TestWidget/nls/strings.js', /widgetTitle: 'Test Widget'/);
       assert.fileContent('widgets/TestWidget/nls/strings.js', /description: 'A test widget\.'/);
+    });
+
+    it('should set Label to _widgetTitle in NLS strings file', function() {
+      assert.fileContent('widgets/TestWidget/nls/strings.js', /_widgetLabel: 'Test Widget'/);
     });
 
   });
@@ -948,8 +968,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.3', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.3",/);
+    it('has wabVersion set to 2.7', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.7",/);
     });
 
     it('has platform set to HTML', function (/*done*/) {
@@ -985,8 +1005,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.3', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.3"/);
+    it('has wabVersion set to 2.7', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.7"/);
     });
 
     it('has platform set to HTML', function (/*done*/) {
@@ -1021,8 +1041,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.3', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.3"/);
+    it('has wabVersion set to 2.7', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.7"/);
     });
 
     it('has platform set to HTML3D', function (/*done*/) {
