@@ -115,11 +115,6 @@ module.exports = class extends Generator {
         }
       ],
       'default': [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
-    }, {
-      name: 'jsVersion',
-      type: 'list',
-      message: 'Which JavaScript  syntax version would you like to develop in?',
-      choices: ['ES5', 'ES2015']
     }];
 
     this.prompt(prompts).then(function (props) {
@@ -133,6 +128,7 @@ module.exports = class extends Generator {
 
       this.widgetsType = this.config.get('widgetsType');
       this.useSass = this.config.get('useSass');
+      this.jsVersion = this.config.get('jsVersion');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
       this.wabVersion = '2.7';
@@ -150,7 +146,6 @@ module.exports = class extends Generator {
       this.hasStyle = props.features.indexOf('hasStyle') > -1;
       this.hasConfig = props.features.indexOf('hasConfig') > -1;
       this.hasUIFile = props.features.indexOf('hasUIFile') > -1;
-      this.jsVersion = props.jsVersion;
       // settings
       this.hasSettingPage = (props.hasSettingPage === true);
       this.hasSettingUIFile = this.hasSettingPage ? (props.settingsFeatures.indexOf('hasSettingUIFile') > -1) : false;
@@ -163,11 +158,31 @@ module.exports = class extends Generator {
 
   writing() {
     var basePath = path.join('widgets', this.widgetName);
-    this.fs.copyTpl(
-      this.templatePath('_Widget_' + this.jsVersion + '.js'),
-      this.destinationPath(path.join(basePath, 'Widget.js')),
-      this
-    );
+    if(this.jsVersion === 'TypeScript') {
+      var templatePath = '_Widget_2d.ts';
+      if(this.is3d) {
+        templatePath = '_Widget_3d.ts';
+      }
+      this.fs.copyTpl(
+        this.templatePath(templatePath), 
+        this.destinationPath(path.join(basePath, 'Widget.ts')),
+        this
+      );
+
+      // If we're using TypeScript, we also need the "declareDecorator" file.
+      this.fs.copyTpl(
+        this.templatePath('support/declareDecorator.ts'),
+        this.destinationPath(path.join(basePath, 'support/declareDecorator.ts')),
+        this
+      );
+    } else {
+      this.fs.copyTpl(
+        this.templatePath('_Widget_' + this.jsVersion + '.js'),
+        this.destinationPath(path.join(basePath, 'Widget.js')),
+        this
+      );
+    }
+    
     if (this.hasUIFile) {
       this.fs.copyTpl(
         this.templatePath('_Widget.html'),
@@ -218,11 +233,19 @@ module.exports = class extends Generator {
 
     // Settings:
     if(this.hasSettingPage) {
-      this.fs.copyTpl(
-        this.templatePath('setting/_Setting_' + this.jsVersion + '.js'),
-        this.destinationPath(path.join(basePath, 'setting/Setting.js')),
-        this
-      );
+      if(this.jsVersion === 'TypeScript') {
+        this.fs.copyTpl(
+          this.templatePath('setting/_Setting.ts'),
+          this.destinationPath(path.join(basePath, 'setting/Setting.ts')),
+          this
+        );
+      } else {
+        this.fs.copyTpl(
+          this.templatePath('setting/_Setting_' + this.jsVersion + '.js'),
+          this.destinationPath(path.join(basePath, 'setting/Setting.js')),
+          this
+        );
+      }
       if (this.hasSettingUIFile) {
         this.fs.copyTpl(
           this.templatePath('setting/_Setting.html'),

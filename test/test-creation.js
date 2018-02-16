@@ -21,7 +21,8 @@ describe('esri-appbuilder-js:app', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'useSass': true
+        'useSass': true,
+        'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -66,6 +67,9 @@ describe('esri-appbuilder-js:app', function () {
     it('loads sync task', function() {
       assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sync'\);/);
     });
+    it('loads sync babel task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-babel'\);/);
+    });
     it('registers default task', function() {
       assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
     });
@@ -91,7 +95,8 @@ describe('esri-appbuilder-js:app no sass', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'useSass': false
+        'useSass': false,
+        'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -181,7 +186,8 @@ describe('esri-appbuilder-js:3dapp', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'widgetsType': 'is3d'
+        'widgetsType': 'is3d',
+        'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -239,7 +245,8 @@ describe('esri-appbuilder-js generator - 3d no app', function () {
         'abort': false,
         'wabRoot': wabRoot,
         'appDirId': 'None',
-        'widgetsType': 'is3d'
+        'widgetsType': 'is3d',
+        'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {
@@ -271,7 +278,8 @@ describe('esri-appbuilder-js 3d abort', function () {
         'abort': true,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
-        'widgetsType': 'is3d'
+        'widgetsType': 'is3d',
+        'jsVersion': 'ES2015'
       })
       .on('end', done);
   });
@@ -283,5 +291,77 @@ describe('esri-appbuilder-js 3d abort', function () {
       'Gruntfile.js'
     ];
     assert.noFile(expected);
+  });
+});
+
+
+describe('esri-appbuilder-js:app - TypeScript', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ skipInstall: true })
+      .withPrompts({
+        'abort': false,
+        'wabRoot': wabRoot,
+        'appDirId': appDirId,
+        'useSass': true,
+        'jsVersion': 'TypeScript'
+      }).inTmpDir(function(/*dir*/) {
+        var done = this.async();
+        mkdirp(appDirPath, function () {
+          fs.writeFileSync(configFilePath, configFileContents);
+          done();
+        });
+      })
+      .on('end', done);
+  });
+
+  // TODO: test for existence of widgets folder?
+
+  it('creates expected dotfiles', function () {
+    var expected = [
+      '.editorconfig',
+      'tsconfig.json',
+      '.yo-rc.json'
+    ];
+    assert.file(expected);
+  });
+
+  it('the sass setting is stored in config', function() {
+    assert.fileContent('.yo-rc.json', /"useSass": true/);
+  });
+
+  describe('when creating gruntfile', function() {
+    it('sets stemappDir variable', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + path.join(wabRoot, 'client', 'stemapp').replace(/\\/g, '/')));
+    });
+    it('sets appDir variable', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('var appDir = \'' + path.join(wabRoot, 'server', 'apps', appDirId).replace(/\\/g, '/')));
+    });
+    it('sets watch config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('watch:'));
+    });
+    it('loads watch task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-contrib-watch'\);/);
+    });
+    it('sets sync config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('sync:'));
+    });
+    it('loads sync task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sync'\);/);
+    });
+    it('loads sync ts task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-ts'\);/);
+    });
+    it('registers default task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.registerTask\('default',/);
+    });
+
+
+    it('sets sass config', function() {
+      assert.fileContent('Gruntfile.js', new RegExp('sass:'));
+    });
+    it('loads sass task', function() {
+      assert.fileContent('Gruntfile.js', /grunt.loadNpmTasks\('grunt-sass'\);/);
+    });
   });
 });

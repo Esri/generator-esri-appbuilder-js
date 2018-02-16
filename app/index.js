@@ -151,6 +151,11 @@ module.exports = class extends Generator {
       type: 'confirm',
       message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
+    }, {
+      name: 'jsVersion',
+      type: 'list',
+      message: 'Which JavaScript  syntax version would you like to develop in?',
+      choices: ['ES5', 'ES2015', 'TypeScript']
     }];
 
     this.prompt(prompts).then(function(props) {
@@ -158,6 +163,7 @@ module.exports = class extends Generator {
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
       this.useSass = props.useSass;
+      this.jsVersion = props.jsVersion;
       if (props.appDirId && props.appDirId !== 'None') {
         this.appDirId = props.appDirId;
       } else {
@@ -174,7 +180,8 @@ module.exports = class extends Generator {
     mkdirp('widgets');
     this.config.set('widgetsType', this.widgetsType);
     this.config.set('useSass', this.useSass);
-  
+    this.config.set('jsVersion', this.jsVersion);
+
     // gruntConfig:
     if (this.abort) {
       return;
@@ -218,32 +225,44 @@ module.exports = class extends Generator {
 
     this.gruntfile.insertConfig('sync', syncConfig);
 
-    // BABEL CONFIG
-    var babelConfig = {
-      main: {
-        files: [{
-          expand: true,
-          src: [
-              'widgets/*.js',
-              'widgets/**/*.js',
-              'widgets/**/**/*.js',
-              'widgets/!**/**/nls/*.js',
-              'themes/*.js',
-              'themes/**/*.js',
-              'themes/**/**/*.js',
-              'themes/!**/**/nls/*.js'
-          ],
-          dest: 'dist/'
-        }]
-      }
-    };
-    this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
+    if(this.jsVersion === 'TypeScript') {
+      // TS CONFIG
+      var tsConfig = {
+        default: {
+          tsconfig: {
+            passThrough: true
+          }
+        }
+      };
+      this.gruntfile.insertConfig('ts', JSON.stringify(tsConfig));
+    } else {
+      // BABEL CONFIG
+      var babelConfig = {
+        main: {
+          files: [{
+            expand: true,
+            src: [
+                'widgets/*.js',
+                'widgets/**/*.js',
+                'widgets/**/**/*.js',
+                'widgets/!**/**/nls/*.js',
+                'themes/*.js',
+                'themes/**/*.js',
+                'themes/**/**/*.js',
+                'themes/!**/**/nls/*.js'
+            ],
+            dest: 'dist/'
+          }]
+        }
+      };
+      this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
+    }
 
     // WATCH CONFIG
     this.gruntfile.insertConfig('watch', `{
       main: {
         files: ['widgets/**', 'themes/**'],
-        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
+        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}${(this.jsVersion === 'TypeScript' ? '\'ts\', ' : '\'babel\', ')} 'copy', 'sync'],
         options: {
           spawn: false,
           atBegin: true,
@@ -301,7 +320,11 @@ module.exports = class extends Generator {
 
 
     // load tasks
-    this.gruntfile.loadNpmTasks('grunt-babel');
+    if(this.jsVersion === 'TypeScript') {
+      this.gruntfile.loadNpmTasks('grunt-ts');
+    } else {
+      this.gruntfile.loadNpmTasks('grunt-babel');
+    }
     this.gruntfile.loadNpmTasks('grunt-contrib-clean');
     this.gruntfile.loadNpmTasks('grunt-contrib-copy');
     this.gruntfile.loadNpmTasks('grunt-contrib-watch');
@@ -318,10 +341,19 @@ module.exports = class extends Generator {
       this.templatePath('editorconfig'),
       this.destinationPath('.editorconfig')
     );
-    this.fs.copyTpl(
-      this.templatePath('babelrc'),
-      this.destinationPath('.babelrc')
-    );
+    
+    if(this.jsVersion === 'TypeScript') {
+      this.fs.copyTpl(
+        this.templatePath('tsconfig'),
+        this.destinationPath('tsconfig.json')
+      );
+    } else {
+      this.fs.copyTpl(
+        this.templatePath('babelrc'),
+        this.destinationPath('.babelrc')
+      );
+    }
+    
     fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
   }
 
@@ -329,19 +361,42 @@ module.exports = class extends Generator {
     if (this.abort || this.options['skip-install']) {
       return;
     }
-    this.npmInstall([
-      'babel-plugin-transform-es2015-modules-simple-amd',
-      'babel-preset-es2015-without-strict',
-      'babel-preset-stage-0',
+
+    // we install different sets of packages depending on TypeScript or not:
+    var dependencies = [
       'grunt',
-      'grunt-contrib-watch',
-      'grunt-sync',
-      'grunt-babel',
-      'babel-core',
       'grunt-contrib-clean',
       'grunt-contrib-copy',
-      'grunt-sass'
-    ], {
+      'grunt-sass',
+      'grunt-sync',
+      'grunt-contrib-watch',
+    ];
+
+    if(this.jsVersion === 'TypeScript') {
+      dependencies = dependencies.concat([
+        'dojo-typings',
+        'grunt-contrib-connect',
+        'grunt-ts',
+        ,
+        'typescript@2.6.2'
+      ]);
+      // 3D vs 2D we need to install a different declarations file:
+      if (this.widgetsType === 'is3d') {
+        dependencies.push('@types/arcgis-js-api@4.6.0');
+      } else {
+        dependencies.push('@types/arcgis-js-api@3.23.0');
+      }
+    } else {
+      dependencies = dependencies.concat([
+        'babel-plugin-transform-es2015-modules-simple-amd',
+        'babel-preset-es2015-without-strict',
+        'babel-preset-stage-0',
+        'grunt-babel',
+        'babel-core'
+      ]);
+    }
+
+    this.npmInstall(dependencies, {
       'saveDev': true
     });
   }
