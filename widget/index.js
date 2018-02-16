@@ -158,7 +158,7 @@ module.exports = class extends Generator {
 
   writing() {
     var basePath = path.join('widgets', this.widgetName);
-    if(this.jsVersion === 'ES2015TypeScript') {
+    if(this.jsVersion === 'TypeScript') {
       var templatePath = '_Widget_2d.ts';
       if(this.is3d) {
         templatePath = '_Widget_3d.ts';
@@ -233,7 +233,7 @@ module.exports = class extends Generator {
 
     // Settings:
     if(this.hasSettingPage) {
-      if(this.jsVersion === 'ES2015TypeScript') {
+      if(this.jsVersion === 'TypeScript') {
         this.fs.copyTpl(
           this.templatePath('setting/_Setting.ts'),
           this.destinationPath(path.join(basePath, 'setting/Setting.ts')),

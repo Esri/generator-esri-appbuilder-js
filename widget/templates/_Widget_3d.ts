@@ -30,6 +30,36 @@ class Widget {
     self.inherited(arguments);
     console.log('<%= widgetName %>::postCreate');
   };
+  // startup() {
+  //   let self: any = this;
+  //   self.inherited(arguments);
+  //   console.log('<%= widgetName %>::startup');
+  // };
+  // onOpen() {
+  //   console.log('<%= widgetName %>::onOpen');
+  // };
+  // onClose(){
+  //   console.log('<%= widgetName %>::onClose');
+  // };
+  // onMinimize(){
+  //   console.log('<%= widgetName %>::onMinimize');
+  // };
+  // onMaximize(){
+  //   console.log('<%= widgetName %>::onMaximize');
+  // };
+  // onSignIn(credential){
+  //   console.log('<%= widgetName %>::onSignIn', credential);
+  // };
+  // onSignOut(){
+  //   console.log('<%= widgetName %>::onSignOut');
+  // };
+  // onPositionChange(){
+  //   console.log('<%= widgetName %>::onPositionChange');
+  // };
+  // resize(){
+  //   console.log('<%= widgetName %>::resize');
+  // };
+  
 };
 
 export = Widget;

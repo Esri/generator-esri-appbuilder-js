@@ -304,7 +304,7 @@ describe('esri-appbuilder-js:app - TypeScript', function () {
         'wabRoot': wabRoot,
         'appDirId': appDirId,
         'useSass': true,
-        'jsVersion': 'ES2015TypeScript'
+        'jsVersion': 'TypeScript'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
         mkdirp(appDirPath, function () {

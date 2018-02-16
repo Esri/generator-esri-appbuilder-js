@@ -155,7 +155,7 @@ module.exports = class extends Generator {
       name: 'jsVersion',
       type: 'list',
       message: 'Which JavaScript  syntax version would you like to develop in?',
-      choices: ['ES5', 'ES2015', 'ES2015TypeScript']
+      choices: ['ES5', 'ES2015', 'TypeScript']
     }];
 
     this.prompt(prompts).then(function(props) {
@@ -225,7 +225,7 @@ module.exports = class extends Generator {
 
     this.gruntfile.insertConfig('sync', syncConfig);
 
-    if(this.jsVersion === 'ES2015TypeScript') {
+    if(this.jsVersion === 'TypeScript') {
       // TS CONFIG
       var tsConfig = {
         default: {
@@ -262,7 +262,7 @@ module.exports = class extends Generator {
     this.gruntfile.insertConfig('watch', `{
       main: {
         files: ['widgets/**', 'themes/**'],
-        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}${(this.jsVersion === 'ES2015TypeScript' ? '\'ts\', ' : '\'babel\', ')} 'copy', 'sync'],
+        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}${(this.jsVersion === 'TypeScript' ? '\'ts\', ' : '\'babel\', ')} 'copy', 'sync'],
         options: {
           spawn: false,
           atBegin: true,
@@ -320,7 +320,7 @@ module.exports = class extends Generator {
 
 
     // load tasks
-    if(this.jsVersion === 'ES2015TypeScript') {
+    if(this.jsVersion === 'TypeScript') {
       this.gruntfile.loadNpmTasks('grunt-ts');
     } else {
       this.gruntfile.loadNpmTasks('grunt-babel');
@@ -342,7 +342,7 @@ module.exports = class extends Generator {
       this.destinationPath('.editorconfig')
     );
     
-    if(this.jsVersion === 'ES2015TypeScript') {
+    if(this.jsVersion === 'TypeScript') {
       this.fs.copyTpl(
         this.templatePath('tsconfig'),
         this.destinationPath('tsconfig.json')
@@ -372,7 +372,7 @@ module.exports = class extends Generator {
       'grunt-contrib-watch',
     ];
 
-    if(this.jsVersion === 'ES2015TypeScript') {
+    if(this.jsVersion === 'TypeScript') {
       dependencies = dependencies.concat([
         'dojo-typings',
         'grunt-contrib-connect',

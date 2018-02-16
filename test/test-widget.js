@@ -1131,7 +1131,7 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
         features: [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ],
       }).withLocalConfig({
         useSass: false,
-        jsVersion: 'ES2015TypeScript'
+        jsVersion: 'TypeScript'
       })
       .on('end', done);
     });
