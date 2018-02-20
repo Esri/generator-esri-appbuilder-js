@@ -41,14 +41,8 @@ module.exports = class extends Generator {
         }
       ],
       name: 'widgetsType',
-      message: 'Type of widget(s) to be generated:',
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      }
+      message: 'Type of widget(s) to be generated:'
     }, {
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      },
       name: 'wabRoot',
       message: 'Web AppBuilder install root:',
       'default': function(currentAnswers) {
@@ -71,9 +65,6 @@ module.exports = class extends Generator {
       }
     }, {
       when: function(currentAnswers) {
-        if (currentAnswers.abort) {
-          return false;
-        }
         try {
           var appsPath = path.join(currentAnswers.wabRoot, 'server', 'apps');
           var appsDirectories = getDirectories(appsPath);
@@ -130,9 +121,6 @@ module.exports = class extends Generator {
         return retArray;
       }
     }, {
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      },
       type: 'confirm',
       message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
@@ -144,7 +132,6 @@ module.exports = class extends Generator {
     }];
 
     this.prompt(prompts).then(function(props) {
-      this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
       this.useSass = props.useSass;
@@ -159,18 +146,14 @@ module.exports = class extends Generator {
   }
 
   writing() {
-      if (this.abort) {
-        return;
-      }
+
       mkdirp('widgets');
       this.config.set('widgetsType', this.widgetsType);
       this.config.set('useSass', this.useSass);
     this.config.set('jsVersion', this.jsVersion);
 
     // gruntConfig:
-      if (this.abort) {
-        return;
-      }
+
 
       // Setting up the stemappDir and appDir Gruntfile variables:
       var stemappDir;
@@ -319,9 +302,7 @@ module.exports = class extends Generator {
       this.gruntfile.registerTask('default', ['watch']);
   
     // projectFiles:
-      if (this.abort) {
-        return;
-      }
+
       this.fs.copyTpl(
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
@@ -356,7 +337,7 @@ module.exports = class extends Generator {
     }
 
   install() {
-    if (this.abort || this.options['skip-install']) {
+    if (this.options['skip-install']) {
       return;
     }
 
