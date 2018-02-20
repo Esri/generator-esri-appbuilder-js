@@ -47,6 +47,13 @@ describe('esri-appbuilder-js:app', function () {
     assert.fileContent('.yo-rc.json', /"useSass": true/);
   });
 
+  it('creates package.json', function(){
+    assert.file('package.json');
+  });
+  it('sets npm run build', function(){
+    assert.fileContent('package.json','"build": "esri-wab-build ');
+  });
+
   describe('when creating gruntfile', function() {
     it('sets stemappDir variable', function() {
       assert.fileContent('Gruntfile.js', new RegExp('var stemappDir = \'' + path.join(wabRoot, 'client', 'stemapp').replace(/\\/g, '/')));

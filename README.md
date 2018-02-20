@@ -33,9 +33,8 @@ The generators should be run in the root of a working folder for your project. T
 The app generator installs and configures the [grunt tasks](#running-the-grunt-tasks) and other project files and ensures that required subfolders (like widgets) exist.
 
 1. Navigate into the root folder of your project
-2. If you haven't already created a package.json file in this folder, run `npm init` (see NOTE below)
-3. Run the generator with `yo esri-appbuilder-js`
-4. Answer the man's questions!
+2. Run the generator with `yo esri-appbuilder-js`
+3. Answer the man's questions!
 
 |Prompt|Description|Default|
 |------|-----------|-------|
@@ -43,8 +42,6 @@ The app generator installs and configures the [grunt tasks](#running-the-grunt-t
 |Web AppBuilder install root|The root folder where you installed (unzipped) the Web AppBuilder Developer Edition|[USER_HOME_FOLDER]/arcgis-web-appbuilder-1.3|
 |Web AppBuilder application|The name of the application you would like the grunt task to sync your code with|None|
 |Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
-
-**NOTE** A package.json file is not *required* but it allows the generator to save your dependencies in case you or other developers need to (re)install them later without running the generator.
 
 
 #### Widget Generator
@@ -161,6 +158,16 @@ semistandard
 ```
 
 See the [semistandard docs][semistandard] for more information.
+
+## Building for Production
+
+When you're ready to publish your application in a user facing environment, improve performance by running: 
+
+````npm run build````
+
+The resulting package can be found in ````dist/buildOut/app.zip````
+
+This will repackage and compress your application with only the neccessary elements.  We have found this to result in massive performance improvements.
 
 ## Issues
 

@@ -18,13 +18,6 @@ function getDirectories(srcpath) {
 module.exports = Generator.extend({
   initializing: function() {
     this.gruntfile = new GruntfileEditor();
-    // check for existence of package.json
-    try {
-      fs.accessSync('./package.json', fs.F_OK);
-      this.hasPackageJson = true;
-    } catch (e) {
-      this.hasPackageJson = false;
-    }
   },
 
   prompting: function() {
@@ -36,14 +29,6 @@ module.exports = Generator.extend({
     this.log(chalk.yellow('These generators should be run in the root folder of your project.'));
 
     var prompts = [{
-      name: 'abort',
-      type: 'confirm',
-      default: true,
-      message: 'No package.json found. Would you like to abort and run npm init first?',
-      when: function() {
-        return !self.hasPackageJson;
-      }
-    }, {
       type: 'list',
       choices: [
         {
@@ -189,20 +174,20 @@ module.exports = Generator.extend({
       } else {
         stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
       }
-      var appDir = false;
+      this.appDir = false;
       if (this.appDirId) {
-        appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
+        this.appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
       }
       if (isWin) {
         // this hack is needed to ensure paths are not escaped when injected into Gruntfile
         stemappDir = stemappDir.replace(/\\/g, '/');
-        if (appDir) {
-          appDir = appDir.replace(/\\/g, '/');
+        if (this.appDir) {
+          this.appDir = this.appDir.replace(/\\/g, '/');
         }
       }
       this.gruntfile.insertVariable('stemappDir', '"' + stemappDir + '"');
-      if (appDir) {
-        this.gruntfile.insertVariable('appDir', '"' + appDir + '"');
+      if (this.appDir) {
+        this.gruntfile.insertVariable('appDir', '"' + this.appDir + '"');
       } else {
         this.gruntfile.insertVariable('appDir', '"TODO - AFTER CREATING AN APP, PLEASE PUT PATH HERE AND INSERT ENTRY IN SYNC.MAIN.FILES BELOW."');
       }
@@ -212,7 +197,7 @@ module.exports = Generator.extend({
       var syncConfig = '{ main: { verbose: true, files: [';
       var filesPrefix = '{cwd: \'dist/\', src: \'**\', dest: ';
       syncConfig = syncConfig + filesPrefix + 'stemappDir }';
-      if (appDir) {
+      if (this.appDir) {
         syncConfig = syncConfig + ',' + filesPrefix + 'appDir }';
       }
       syncConfig = syncConfig + ']';
@@ -262,11 +247,11 @@ module.exports = Generator.extend({
             'widgets/**/**.css',
             'widgets/**/images/**',
             'widgets/**/nls/**',
-			'themes/**/**.html',
-			'themes/**/**.json',
-			'themes/**/**.css',
-			'themes/**/images/**',
-			'themes/**/nls/**'
+            'themes/**/**.html',
+            'themes/**/**.json',
+            'themes/**/**.css',
+            'themes/**/images/**',
+            'themes/**/nls/**'
           ],
           dest: 'dist/',
           expand: true
@@ -324,6 +309,21 @@ module.exports = Generator.extend({
         this.templatePath('babelrc'),
         this.destinationPath('.babelrc')
       );
+
+      let buildString = 'esri-wab-build';
+      if (this.appDir){
+        buildString += ` ${this.appDir}`;
+      }
+
+      this.composeWith(require.resolve('generator-npm-init/app'),
+      {
+        'skip-test': true,
+        'skip-main': true,
+        scripts: {
+          build: buildString
+        }
+      });
+      
       fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
     }
   },
@@ -343,7 +343,8 @@ module.exports = Generator.extend({
       'babel-core',
       'grunt-contrib-clean',
       'grunt-contrib-copy',
-      'grunt-sass'
+      'grunt-sass',
+      'esri-wab-build'
     ], {
       'saveDev': true
     });
