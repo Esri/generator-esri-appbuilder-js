@@ -15,12 +15,12 @@ function getDirectories(srcpath) {
   });
 }
 
-module.exports = Generator.extend({
-  initializing: function() {
+module.exports = class extends Generator {
+  initializing() {
     this.gruntfile = new GruntfileEditor();
-  },
+  }
 
-  prompting: function() {
+  prompting() {
     var done = this.async();
     var self = this;
 
@@ -136,6 +136,11 @@ module.exports = Generator.extend({
       type: 'confirm',
       message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
+    }, {
+      name: 'jsVersion',
+      type: 'list',
+      message: 'Which JavaScript  syntax version would you like to develop in?',
+      choices: ['ES5', 'ES2015', 'TypeScript']
     }];
 
     this.prompt(prompts).then(function(props) {
@@ -143,6 +148,7 @@ module.exports = Generator.extend({
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
       this.useSass = props.useSass;
+      this.jsVersion = props.jsVersion;
       if (props.appDirId && props.appDirId !== 'None') {
         this.appDirId = props.appDirId;
       } else {
@@ -150,19 +156,18 @@ module.exports = Generator.extend({
       }
       done();
     }.bind(this));
-  },
+  }
 
-  writing: {
-    app: function() {
+  writing() {
       if (this.abort) {
         return;
       }
       mkdirp('widgets');
       this.config.set('widgetsType', this.widgetsType);
       this.config.set('useSass', this.useSass);
-    },
+    this.config.set('jsVersion', this.jsVersion);
 
-    gruntConfig: function() {
+    // gruntConfig:
       if (this.abort) {
         return;
       }
@@ -205,6 +210,17 @@ module.exports = Generator.extend({
 
       this.gruntfile.insertConfig('sync', syncConfig);
 
+    if(this.jsVersion === 'TypeScript') {
+      // TS CONFIG
+      var tsConfig = {
+        default: {
+          tsconfig: {
+            passThrough: true
+          }
+        }
+      };
+      this.gruntfile.insertConfig('ts', JSON.stringify(tsConfig));
+    } else {
       // BABEL CONFIG
       var babelConfig = {
         main: {
@@ -225,15 +241,17 @@ module.exports = Generator.extend({
         }
       };
       this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
+    }
 
       // WATCH CONFIG
       this.gruntfile.insertConfig('watch', `{
         main: {
           files: ['widgets/**', 'themes/**'],
-          tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}'babel', 'copy', 'sync'],
+        tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}${(this.jsVersion === 'TypeScript' ? '\'ts\', ' : '\'babel\', ')} 'copy', 'sync'],
           options: {
             spawn: false,
-            atBegin: true
+          atBegin: true,
+          livereload: true
           }
         }
       }`);
@@ -287,7 +305,11 @@ module.exports = Generator.extend({
 
 
       // load tasks
+    if(this.jsVersion === 'TypeScript') {
+      this.gruntfile.loadNpmTasks('grunt-ts');
+    } else {
       this.gruntfile.loadNpmTasks('grunt-babel');
+    }
       this.gruntfile.loadNpmTasks('grunt-contrib-clean');
       this.gruntfile.loadNpmTasks('grunt-contrib-copy');
       this.gruntfile.loadNpmTasks('grunt-contrib-watch');
@@ -295,9 +317,8 @@ module.exports = Generator.extend({
 
       // register tasks
       this.gruntfile.registerTask('default', ['watch']);
-    },
-
-    projectfiles: function() {
+  
+    // projectFiles:
       if (this.abort) {
         return;
       }
@@ -305,11 +326,18 @@ module.exports = Generator.extend({
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
       );
+    
+    if(this.jsVersion === 'TypeScript') {
+      this.fs.copyTpl(
+        this.templatePath('tsconfig'),
+        this.destinationPath('tsconfig.json')
+      );
+    } else {
       this.fs.copyTpl(
         this.templatePath('babelrc'),
         this.destinationPath('.babelrc')
       );
-
+    }
       let buildString = 'esri-wab-build';
       if (this.appDir){
         buildString += ` ${this.appDir}`;
@@ -326,27 +354,49 @@ module.exports = Generator.extend({
       
       fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
     }
-  },
 
-  install: function() {
+  install() {
     if (this.abort || this.options['skip-install']) {
       return;
     }
-    this.npmInstall([
-      'babel-plugin-transform-es2015-modules-simple-amd',
-      'babel-preset-es2015-without-strict',
-      'babel-preset-stage-0',
+
+    // we install different sets of packages depending on TypeScript or not:
+    var dependencies = [
       'grunt',
-      'grunt-contrib-watch',
-      'grunt-sync',
-      'grunt-babel',
-      'babel-core',
       'grunt-contrib-clean',
       'grunt-contrib-copy',
       'grunt-sass',
+      'grunt-sync',
+      'grunt-contrib-watch',
       'esri-wab-build'
-    ], {
+    ];
+
+    if(this.jsVersion === 'TypeScript') {
+      dependencies = dependencies.concat([
+        'dojo-typings',
+        'grunt-contrib-connect',
+        'grunt-ts',
+        ,
+        'typescript@2.6.2'
+      ]);
+      // 3D vs 2D we need to install a different declarations file:
+      if (this.widgetsType === 'is3d') {
+        dependencies.push('@types/arcgis-js-api@4.6.0');
+      } else {
+        dependencies.push('@types/arcgis-js-api@3.23.0');
+      }
+    } else {
+      dependencies = dependencies.concat([
+      'babel-plugin-transform-es2015-modules-simple-amd',
+      'babel-preset-es2015-without-strict',
+        'babel-preset-stage-0',
+        'grunt-babel',
+        'babel-core'
+      ]);
+    }
+
+    this.npmInstall(dependencies, {
       'saveDev': true
     });
   }
-});
+}
