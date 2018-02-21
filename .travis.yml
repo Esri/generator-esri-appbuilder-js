@@ -1,8 +1,6 @@
 sudo: false
 language: node_js
 node_js:
-  - 'stable'
-  - 'v7'
-  - 'v6'
-  - 'v5'
-  - 'v4'
+  - 'node'
+  - 'lts/carbon'
+  - 'lts/boron'
