@@ -319,19 +319,18 @@ module.exports = class extends Generator {
         this.destinationPath('.babelrc')
       );
     }
-      let buildString = 'esri-wab-build';
-      if (this.appDir){
-        buildString += ` ${this.appDir}`;
+      const buildObj = {
+        "skip-test": true,
+        "skip-main": true,
       }
 
-      this.composeWith(require.resolve('generator-npm-init/app'),
-      {
-        'skip-test': true,
-        'skip-main': true,
-        scripts: {
-          build: buildString
-        }
-      });
+      if (this.appDir && this.widgetsType !== 'is3d'){
+        buildObj.scripts = {
+          "build": `esri-wab-build ${this.appDir}`
+        };
+      }
+
+      this.composeWith(require.resolve('generator-npm-init/app'),buildObj);
       
       fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
     }
@@ -357,7 +356,6 @@ module.exports = class extends Generator {
         'dojo-typings',
         'grunt-contrib-connect',
         'grunt-ts',
-        ,
         'typescript@2.6.2'
       ]);
       // 3D vs 2D we need to install a different declarations file:
