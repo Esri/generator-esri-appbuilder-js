@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "chalk": "^2.3.0",
+    "generator-npm-init": "^1.4.0",
     "gruntfile-editor": "^1.2.1",
     "mkdirp": "^0.5.1",
     "underscore.string": "^3.2.3",

@@ -18,13 +18,6 @@ function getDirectories(srcpath) {
 module.exports = class extends Generator {
   initializing() {
     this.gruntfile = new GruntfileEditor();
-    // check for existence of package.json
-    try {
-      fs.accessSync('./package.json', fs.F_OK);
-      this.hasPackageJson = true;
-    } catch (e) {
-      this.hasPackageJson = false;
-    }
   }
 
   prompting() {
@@ -36,14 +29,6 @@ module.exports = class extends Generator {
     this.log(chalk.yellow('These generators should be run in the root folder of your project.'));
 
     var prompts = [{
-      name: 'abort',
-      type: 'confirm',
-      default: true,
-      message: 'No package.json found. Would you like to abort and run npm init first?',
-      when: function() {
-        return !self.hasPackageJson;
-      }
-    }, {
       type: 'list',
       choices: [
         {
@@ -56,14 +41,8 @@ module.exports = class extends Generator {
         }
       ],
       name: 'widgetsType',
-      message: 'Type of widget(s) to be generated:',
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      }
+      message: 'Type of widget(s) to be generated:'
     }, {
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      },
       name: 'wabRoot',
       message: 'Web AppBuilder install root:',
       'default': function(currentAnswers) {
@@ -86,9 +65,6 @@ module.exports = class extends Generator {
       }
     }, {
       when: function(currentAnswers) {
-        if (currentAnswers.abort) {
-          return false;
-        }
         try {
           var appsPath = path.join(currentAnswers.wabRoot, 'server', 'apps');
           var appsDirectories = getDirectories(appsPath);
@@ -145,9 +121,6 @@ module.exports = class extends Generator {
         return retArray;
       }
     }, {
-      when: function(currentAnswers) {
-        return !currentAnswers.abort;
-      },
       type: 'confirm',
       message: 'Would you like to use SASS for CSS preprocessing?',
       name: 'useSass'
@@ -159,7 +132,6 @@ module.exports = class extends Generator {
     }];
 
     this.prompt(prompts).then(function(props) {
-      this.abort = props.abort;
       this.wabRoot = props.wabRoot;
       this.widgetsType = props.widgetsType;
       this.useSass = props.useSass;
@@ -174,56 +146,52 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    if (this.abort) {
-      return;
-    }
-    mkdirp('widgets');
-    this.config.set('widgetsType', this.widgetsType);
-    this.config.set('useSass', this.useSass);
+
+      mkdirp('widgets');
+      this.config.set('widgetsType', this.widgetsType);
+      this.config.set('useSass', this.useSass);
     this.config.set('jsVersion', this.jsVersion);
 
     // gruntConfig:
-    if (this.abort) {
-      return;
-    }
 
-    // Setting up the stemappDir and appDir Gruntfile variables:
-    var stemappDir;
-    if (this.widgetsType === 'is3d') {
-      stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d');
-    } else {
-      stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
-    }
-    var appDir = false;
-    if (this.appDirId) {
-      appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
-    }
-    if (isWin) {
-      // this hack is needed to ensure paths are not escaped when injected into Gruntfile
-      stemappDir = stemappDir.replace(/\\/g, '/');
-      if (appDir) {
-        appDir = appDir.replace(/\\/g, '/');
+
+      // Setting up the stemappDir and appDir Gruntfile variables:
+      var stemappDir;
+      if (this.widgetsType === 'is3d') {
+        stemappDir = path.join(this.wabRoot, 'client', 'stemapp3d');
+      } else {
+        stemappDir = path.join(this.wabRoot, 'client', 'stemapp');
       }
-    }
-    this.gruntfile.insertVariable('stemappDir', '"' + stemappDir + '"');
-    if (appDir) {
-      this.gruntfile.insertVariable('appDir', '"' + appDir + '"');
-    } else {
-      this.gruntfile.insertVariable('appDir', '"TODO - AFTER CREATING AN APP, PLEASE PUT PATH HERE AND INSERT ENTRY IN SYNC.MAIN.FILES BELOW."');
-    }
+      this.appDir = false;
+      if (this.appDirId) {
+        this.appDir = path.join(this.wabRoot, 'server', 'apps', this.appDirId);
+      }
+      if (isWin) {
+        // this hack is needed to ensure paths are not escaped when injected into Gruntfile
+        stemappDir = stemappDir.replace(/\\/g, '/');
+        if (this.appDir) {
+          this.appDir = this.appDir.replace(/\\/g, '/');
+        }
+      }
+      this.gruntfile.insertVariable('stemappDir', '"' + stemappDir + '"');
+      if (this.appDir) {
+        this.gruntfile.insertVariable('appDir', '"' + this.appDir + '"');
+      } else {
+        this.gruntfile.insertVariable('appDir', '"TODO - AFTER CREATING AN APP, PLEASE PUT PATH HERE AND INSERT ENTRY IN SYNC.MAIN.FILES BELOW."');
+      }
 
 
-    // SYNC CONFIG
-    var syncConfig = '{ main: { verbose: true, files: [';
-    var filesPrefix = '{cwd: \'dist/\', src: \'**\', dest: ';
-    syncConfig = syncConfig + filesPrefix + 'stemappDir }';
-    if (appDir) {
-      syncConfig = syncConfig + ',' + filesPrefix + 'appDir }';
-    }
-    syncConfig = syncConfig + ']';
-    syncConfig = syncConfig + '} }';
+      // SYNC CONFIG
+      var syncConfig = '{ main: { verbose: true, files: [';
+      var filesPrefix = '{cwd: \'dist/\', src: \'**\', dest: ';
+      syncConfig = syncConfig + filesPrefix + 'stemappDir }';
+      if (this.appDir) {
+        syncConfig = syncConfig + ',' + filesPrefix + 'appDir }';
+      }
+      syncConfig = syncConfig + ']';
+      syncConfig = syncConfig + '} }';
 
-    this.gruntfile.insertConfig('sync', syncConfig);
+      this.gruntfile.insertConfig('sync', syncConfig);
 
     if(this.jsVersion === 'TypeScript') {
       // TS CONFIG
@@ -243,13 +211,13 @@ module.exports = class extends Generator {
             expand: true,
             src: [
                 'widgets/*.js',
-                'widgets/**/*.js',
-                'widgets/**/**/*.js',
-                'widgets/!**/**/nls/*.js',
-                'themes/*.js',
-                'themes/**/*.js',
-                'themes/**/**/*.js',
-                'themes/!**/**/nls/*.js'
+				'widgets/**/*.js',
+				'widgets/**/**/*.js',
+				'widgets/!**/**/nls/*.js',
+				'themes/*.js',
+				'themes/**/*.js',
+				'themes/**/**/*.js',
+				'themes/!**/**/nls/*.js'
             ],
             dest: 'dist/'
           }]
@@ -258,89 +226,87 @@ module.exports = class extends Generator {
       this.gruntfile.insertConfig('babel', JSON.stringify(babelConfig));
     }
 
-    // WATCH CONFIG
-    this.gruntfile.insertConfig('watch', `{
-      main: {
-        files: ['widgets/**', 'themes/**'],
+      // WATCH CONFIG
+      this.gruntfile.insertConfig('watch', `{
+        main: {
+          files: ['widgets/**', 'themes/**'],
         tasks: ['clean', ${(this.useSass ? '\'sass\', ' : '')}${(this.jsVersion === 'TypeScript' ? '\'ts\', ' : '\'babel\', ')} 'copy', 'sync'],
-        options: {
-          spawn: false,
+          options: {
+            spawn: false,
           atBegin: true,
           livereload: true
-        }
-      }
-    }`);
-
-    // COPY CONFIG
-    this.gruntfile.insertConfig('copy', JSON.stringify({
-      main: {
-        src: [
-          'widgets/**/**.html',
-          'widgets/**/**.json',
-          'widgets/**/**.css',
-          'widgets/**/images/**',
-          'widgets/**/nls/**',
-          'themes/**/**.html',
-          'themes/**/**.json',
-          'themes/**/**.css',
-          'themes/**/images/**',
-          'themes/**/nls/**'
-        ],
-        dest: 'dist/',
-        expand: true
-      }
-    }));
-
-    // CLEAN CONFIG
-    this.gruntfile.insertConfig('clean', JSON.stringify({
-      dist: {
-        src: 'dist/**'
-      }
-    }));
-
-    // SASS CONFIG
-    if(this.useSass) {
-      this.gruntfile.insertConfig('sass', `{
-        dist: {
-          options: {
-            sourceMap: true,
-          },
-
-          files: [{
-            expand: true,
-            src: ['widgets/**/*.scss'],
-            rename: function(dest, src) {
-              return src.replace('scss', 'css')
-            }
-          }]
+          }
         }
       }`);
-      this.gruntfile.loadNpmTasks('grunt-sass');
-    }
+
+      // COPY CONFIG
+      this.gruntfile.insertConfig('copy', JSON.stringify({
+        main: {
+          src: [
+            'widgets/**/**.html',
+            'widgets/**/**.json',
+            'widgets/**/**.css',
+            'widgets/**/images/**',
+            'widgets/**/nls/**',
+            'themes/**/**.html',
+            'themes/**/**.json',
+            'themes/**/**.css',
+            'themes/**/images/**',
+            'themes/**/nls/**'
+          ],
+          dest: 'dist/',
+          expand: true
+        }
+      }));
+
+      // CLEAN CONFIG
+      this.gruntfile.insertConfig('clean', JSON.stringify({
+        dist: {
+          src: 'dist/**'
+        }
+      }));
+
+      // SASS CONFIG
+      if(this.useSass) {
+        this.gruntfile.insertConfig('sass', `{
+          dist: {
+            options: {
+              sourceMap: true,
+            },
+
+            files: [{
+              expand: true,
+              src: ['widgets/**/*.scss'],
+              rename: function(dest, src) {
+                return src.replace('scss', 'css')
+              }
+            }]
+          }
+        }`);
+        this.gruntfile.loadNpmTasks('grunt-sass');
+      }
 
 
-    // load tasks
+      // load tasks
     if(this.jsVersion === 'TypeScript') {
       this.gruntfile.loadNpmTasks('grunt-ts');
     } else {
       this.gruntfile.loadNpmTasks('grunt-babel');
     }
-    this.gruntfile.loadNpmTasks('grunt-contrib-clean');
-    this.gruntfile.loadNpmTasks('grunt-contrib-copy');
-    this.gruntfile.loadNpmTasks('grunt-contrib-watch');
-    this.gruntfile.loadNpmTasks('grunt-sync');
+      this.gruntfile.loadNpmTasks('grunt-contrib-clean');
+      this.gruntfile.loadNpmTasks('grunt-contrib-copy');
+      this.gruntfile.loadNpmTasks('grunt-contrib-watch');
+      this.gruntfile.loadNpmTasks('grunt-sync');
 
-    // register tasks
-    this.gruntfile.registerTask('default', ['watch']);
+      // register tasks
+      this.gruntfile.registerTask('default', ['watch']);
   
     // projectFiles:
-    if (this.abort) {
-      return;
-    }
-    this.fs.copyTpl(
-      this.templatePath('editorconfig'),
-      this.destinationPath('.editorconfig')
-    );
+
+      this.fs.copyTpl(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
     
     if(this.jsVersion === 'TypeScript') {
       this.fs.copyTpl(
@@ -353,12 +319,25 @@ module.exports = class extends Generator {
         this.destinationPath('.babelrc')
       );
     }
-    
-    fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
-  }
+      let buildString = 'esri-wab-build';
+      if (this.appDir){
+        buildString += ` ${this.appDir}`;
+      }
+
+      this.composeWith(require.resolve('generator-npm-init/app'),
+      {
+        'skip-test': true,
+        'skip-main': true,
+        scripts: {
+          build: buildString
+        }
+      });
+      
+      fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
+    }
 
   install() {
-    if (this.abort || this.options['skip-install']) {
+    if (this.options['skip-install']) {
       return;
     }
 
@@ -370,6 +349,7 @@ module.exports = class extends Generator {
       'grunt-sass',
       'grunt-sync',
       'grunt-contrib-watch',
+      'esri-wab-build'
     ];
 
     if(this.jsVersion === 'TypeScript') {
@@ -388,8 +368,8 @@ module.exports = class extends Generator {
       }
     } else {
       dependencies = dependencies.concat([
-        'babel-plugin-transform-es2015-modules-simple-amd',
-        'babel-preset-es2015-without-strict',
+      'babel-plugin-transform-es2015-modules-simple-amd',
+      'babel-preset-es2015-without-strict',
         'babel-preset-stage-0',
         'grunt-babel',
         'babel-core'

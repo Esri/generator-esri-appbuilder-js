@@ -18,7 +18,6 @@ describe('esri-appbuilder-js:app', function () {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
         'useSass': true,
@@ -46,6 +45,13 @@ describe('esri-appbuilder-js:app', function () {
 
   it('the sass setting is stored in config', function() {
     assert.fileContent('.yo-rc.json', /"useSass": true/);
+  });
+
+  it('creates package.json', function(){
+    assert.file('package.json');
+  });
+  it('sets npm run build', function(){
+    assert.fileContent('package.json','"build": "esri-wab-build ');
   });
 
   describe('when creating gruntfile', function() {
@@ -92,7 +98,6 @@ describe('esri-appbuilder-js:app no sass', function () {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
         'useSass': false,
@@ -135,7 +140,6 @@ describe('esri-appbuilder-js generator - no app', function () {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': 'None'
       }).inTmpDir(function(/*dir*/) {
@@ -157,33 +161,11 @@ describe('esri-appbuilder-js generator - no app', function () {
   });
 });
 
-describe('esri-appbuilder-js abort', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .withOptions({ skipInstall: true })
-      .withPrompts({
-        'abort': true,
-        'wabRoot': wabRoot,
-        'appDirId': appDirId
-      })
-      .on('end', done);
-  });
-
-  it('does not create dotfiles or Gruntfile', function () {
-    var expected = [
-      '.editorconfig',
-      'Gruntfile.js'
-    ];
-    assert.noFile(expected);
-  });
-});
-
 describe('esri-appbuilder-js:3dapp', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
         'widgetsType': 'is3d',
@@ -242,7 +224,6 @@ describe('esri-appbuilder-js generator - 3d no app', function () {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': 'None',
         'widgetsType': 'is3d',
@@ -270,37 +251,12 @@ describe('esri-appbuilder-js generator - 3d no app', function () {
   });
 });
 
-describe('esri-appbuilder-js 3d abort', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .withOptions({ skipInstall: true })
-      .withPrompts({
-        'abort': true,
-        'wabRoot': wabRoot,
-        'appDirId': appDirId,
-        'widgetsType': 'is3d',
-        'jsVersion': 'ES2015'
-      })
-      .on('end', done);
-  });
-
-  it('does not create dotfiles or Gruntfile', function () {
-    var expected = [
-      '.editorconfig',
-      '.yo-rc.json',
-      'Gruntfile.js'
-    ];
-    assert.noFile(expected);
-  });
-});
-
 
 describe('esri-appbuilder-js:app - TypeScript', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .withOptions({ skipInstall: true })
       .withPrompts({
-        'abort': false,
         'wabRoot': wabRoot,
         'appDirId': appDirId,
         'useSass': true,
