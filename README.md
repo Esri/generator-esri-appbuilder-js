@@ -174,6 +174,8 @@ The resulting package can be found in ````dist/buildOut/app.zip````
 
 This will repackage and compress your application with only the neccessary elements.  We have found this to result in massive performance improvements.
 
+NOTE: This feature is only available for 2D applications with a chosen Web AppBuilder application.
+
 ## Issues
 
 Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/Esri/generator-esri-appbuilder-js/issues).
