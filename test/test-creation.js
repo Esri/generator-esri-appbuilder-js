@@ -152,6 +152,10 @@ describe('esri-appbuilder-js generator - no app', function () {
       .on('end', done);
   });
 
+  it('does not set a build script', function(){
+    assert.noFileContent('package.json','"build": "esri-wab-build');
+  });
+
   describe('when creating gruntfile', function() {
     it('appDir set to "todo"', function() {
       assert.fileContent('Gruntfile.js', new RegExp('var appDir = \'TODO(.*)'));
@@ -240,6 +244,10 @@ describe('esri-appbuilder-js generator - 3d no app', function () {
 
   it('the 3d choice is stored in config', function() {
     assert.fileContent('.yo-rc.json', /"widgetsType": "is3d"/);
+  });
+
+  it('does not set a build script', function(){
+    assert.noFileContent('package.json','"build": "esri-wab-build');
   });
 
   describe('when creating gruntfile', function() {
