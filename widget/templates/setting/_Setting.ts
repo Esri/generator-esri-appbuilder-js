@@ -6,9 +6,6 @@ declare var BaseWidgetSetting: any; // there is no ts definition of BaseWidgetSe
 // DeclareDecorator - to enable us to export this module with Dojo's "declare()" syntax so WAB can load it:
 import declare from "../support/declareDecorator";
 
-// Esri imports:
-import esri = require('esri');
-
 interface Config {
   serviceUrl: string
 }
