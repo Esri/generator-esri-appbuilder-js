@@ -262,7 +262,7 @@ module.exports = class extends Generator {
       // CLEAN CONFIG
       this.gruntfile.insertConfig('clean', JSON.stringify({
         dist: {
-          src: 'dist/**'
+          src: 'dist/*'
         }
       }));
 
