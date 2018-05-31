@@ -18,6 +18,7 @@
   },
   "files": [
     "app",
+    "themes",
     "widget"
   ],
   "keywords": [
