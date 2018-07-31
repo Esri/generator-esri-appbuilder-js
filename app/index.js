@@ -206,6 +206,9 @@ module.exports = class extends Generator {
     } else {
       // BABEL CONFIG
       var babelConfig = {
+        options: {
+          sourceMap: true
+        },
         main: {
           files: [{
             expand: true,
@@ -300,14 +303,14 @@ module.exports = class extends Generator {
 
       // register tasks
       this.gruntfile.registerTask('default', ['watch']);
-  
+
     // projectFiles:
 
       this.fs.copyTpl(
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
       );
-    
+
     if(this.jsVersion === 'TypeScript') {
       this.fs.copyTpl(
         this.templatePath('tsconfig'),
@@ -331,7 +334,7 @@ module.exports = class extends Generator {
       }
 
       this.composeWith(require.resolve('generator-npm-init/app'),buildObj);
-      
+
       fs.writeFileSync('Gruntfile.js', this.gruntfile.toString());
     }
 
