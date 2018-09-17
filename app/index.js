@@ -11,7 +11,7 @@ const GruntfileEditor = require('gruntfile-editor');
 
 function getDirectories(srcpath) {
   return fs.readdirSync(srcpath).filter(function(file) {
-    return fs.statSync(path.join(srcpath, file)).isDirectory();
+    return fs.statSync(path.join(srcpath, file)).isDirectory() && file !== 'zips';
   });
 }
 
@@ -271,9 +271,14 @@ module.exports = class extends Generator {
 
       // SASS CONFIG
       if(this.useSass) {
+
+        // must require in the "sass" variable so it can be used on the "implementation" line below:
+        this.gruntfile.prependJavaScript('const sass = require(\'node-sass\');');
+
         this.gruntfile.insertConfig('sass', `{
           dist: {
             options: {
+              implementation: sass,
               sourceMap: true,
             },
 
@@ -286,6 +291,7 @@ module.exports = class extends Generator {
             }]
           }
         }`);
+        this.gruntfile.loadNpmTasks('node-sass');
         this.gruntfile.loadNpmTasks('grunt-sass');
       }
 
@@ -348,7 +354,8 @@ module.exports = class extends Generator {
       'grunt',
       'grunt-contrib-clean',
       'grunt-contrib-copy',
-      'grunt-sass',
+      'node-sass',
+      'grunt-sass@3.0.1',
       'grunt-sync',
       'grunt-contrib-watch',
       'esri-wab-build@1.0.1'
