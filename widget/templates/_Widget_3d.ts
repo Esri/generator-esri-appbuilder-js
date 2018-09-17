@@ -1,35 +1,35 @@
-// JIMU (WAB) imports:
+// jIMU (WAB) imports:
 
 /// <amd-dependency path="jimu/BaseWidget" name="BaseWidget" />
 declare var BaseWidget: any; // there is no ts definition of BaseWidget (yet!)
 
-// DeclareDecorator - to enable us to export this module with Dojo's "declare()" syntax so WAB can load it:
+// declareDecorator - to enable us to export this module with Dojo's "declare()" syntax so WAB can load it:
 import declare from "./support/declareDecorator";
 
-// Esri imports:
-import SceneView = require('esri/views/SceneView');
+// esri imports:
+import SceneView = require("esri/views/SceneView");
 
-// Dojo imports: (example below)
-// import * as on from 'dojo/on'; 
+// dojo imports: (example below)
+// import * as on from 'dojo/on';
 
 interface Config {
-  serviceUrl: string
+  serviceUrl: string;
 }
 interface Widget {
-  config?: Config
+  config?: Config;
 }
 
 @declare(BaseWidget)
 class Widget {
-  baseClass = 'my-widget';
+  baseClass = "my-widget";
 
   sceneView: SceneView;
 
   postCreate(args: any) {
     let self: any = this;
     self.inherited(arguments);
-    console.log('<%= widgetName %>::postCreate');
-  };
+    console.log("<%= widgetName %>::postCreate");
+  }
   // startup() {
   //   let self: any = this;
   //   self.inherited(arguments);
@@ -59,7 +59,7 @@ class Widget {
   // resize(){
   //   console.log('<%= widgetName %>::resize');
   // };
-  
-};
+
+}
 
 export = Widget;
