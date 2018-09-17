@@ -13,20 +13,23 @@ import EsriMap = require("esri/map");
 // dojo imports: (example below)
 // import * as on from 'dojo/on';
 
-interface Config {
+interface IConfig {
   serviceUrl: string;
 }
-interface Widget {
-  config?: Config;
+interface IWidget {
+  config?: IConfig;
+  baseClass: String;
+  map: EsriMap;
+  postCreate: Function;
 }
 
 @declare(BaseWidget)
-class Widget {
+class Widget implements IWidget {
   baseClass = "<%= baseClass %>";
 
   map: EsriMap;
 
-  postCreate(args: any) {
+  postCreate(args: any): void {
     let self: any = this;
     self.inherited(arguments);
     console.log("<%= widgetName %>::postCreate");
