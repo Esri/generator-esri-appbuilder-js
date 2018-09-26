@@ -358,7 +358,7 @@ module.exports = class extends Generator {
       'grunt-sass@3.0.1',
       'grunt-sync@^0.8.0',
       'grunt-contrib-watch',
-      'esri-wab-build@1.0.1'
+      'esri-wab-build@^1.0.1'
     ];
 
     if(this.jsVersion === 'TypeScript') {
