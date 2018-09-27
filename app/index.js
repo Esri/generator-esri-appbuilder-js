@@ -356,7 +356,7 @@ module.exports = class extends Generator {
       'grunt-contrib-copy',
       'node-sass',
       'grunt-sass@3.0.1',
-      'grunt-sync',
+      'grunt-sync@^0.8.0',
       'grunt-contrib-watch',
       'esri-wab-build@^1.0.1'
     ];
@@ -366,13 +366,13 @@ module.exports = class extends Generator {
         'dojo-typings',
         'grunt-contrib-connect',
         'grunt-ts',
-        'typescript@2.6.2'
+        'typescript@3.0.3'
       ]);
       // 3D vs 2D we need to install a different declarations file:
       if (this.widgetsType === 'is3d') {
-        dependencies.push('@types/arcgis-js-api@4.6.0');
+        dependencies.push('@types/arcgis-js-api@4.8.0');
       } else {
-        dependencies.push('@types/arcgis-js-api@3.23.0');
+        dependencies.push('@types/arcgis-js-api@3.25.0');
       }
     } else {
       dependencies = dependencies.concat([

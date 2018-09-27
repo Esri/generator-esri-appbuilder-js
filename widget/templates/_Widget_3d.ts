@@ -12,20 +12,23 @@ import SceneView = require("esri/views/SceneView");
 // dojo imports: (example below)
 // import * as on from 'dojo/on';
 
-interface Config {
+interface IConfig {
   serviceUrl: string;
 }
-interface Widget {
-  config?: Config;
+interface IWidget {
+  config?: IConfig;
+  baseClass: String;
+  map: EsriMap;
+  postCreate: Function;
 }
 
 @declare(BaseWidget)
-class Widget {
+class Widget implements IWidget {
   baseClass = "<%= baseClass %>";
 
   sceneView: SceneView;
 
-  postCreate(args: any) {
+  postCreate(args: any): void {
     let self: any = this;
     self.inherited(arguments);
     console.log("<%= widgetName %>::postCreate");
