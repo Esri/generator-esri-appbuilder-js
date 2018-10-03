@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "amd",
     "moduleResolution": "classic",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "jsx": "react",
     "jsxFactory": "tsx",
     "target": "es5",
@@ -13,10 +13,11 @@
     "types": [ "arcgis-js-api", "dojo-typings"],
     "rootDir": "widgets",
     "outDir": "dist/Widgets",
-    "noImplicitUseStrict":true,
+    "noImplicitUseStrict": true,
     "lib": ["dom", "es5", "scripthost", "es2015.promise"],
     "inlineSources": true,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+    "esModuleInterop": true
   },
   
   "include": [
