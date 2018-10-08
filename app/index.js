@@ -322,6 +322,10 @@ module.exports = class extends Generator {
         this.templatePath('tsconfig'),
         this.destinationPath('tsconfig.json')
       );
+      this.fs.copyTpl(
+        this.templatePath('tslint'),
+        this.destinationPath('tslint.json')
+      );
     } else {
       this.fs.copyTpl(
         this.templatePath('babelrc'),
@@ -351,22 +355,22 @@ module.exports = class extends Generator {
 
     // we install different sets of packages depending on TypeScript or not:
     var dependencies = [
-      'grunt',
-      'grunt-contrib-clean',
-      'grunt-contrib-copy',
+      'grunt@^1.0.3',
+      'grunt-contrib-clean@^2.0.0',
+      'grunt-contrib-copy@^1.0.0',
       'node-sass',
-      'grunt-sass@3.0.1',
+      'grunt-sass@^3.0.1',
       'grunt-sync@^0.8.0',
-      'grunt-contrib-watch',
+      'grunt-contrib-watch@^1.1.0',
       'esri-wab-build@^1.0.1'
     ];
 
     if(this.jsVersion === 'TypeScript') {
       dependencies = dependencies.concat([
-        'dojo-typings',
+        'dojo-typings@^1.11.7',
         'grunt-contrib-connect',
-        'grunt-ts',
-        'typescript@3.0.3'
+        'grunt-ts@^6.0.0-beta.16',
+        'typescript@^3.1.1'
       ]);
       // 3D vs 2D we need to install a different declarations file:
       if (this.widgetsType === 'is3d') {

@@ -1,66 +1,62 @@
 // jIMU (WAB) imports:
-
 /// <amd-dependency path="jimu/BaseWidget" name="BaseWidget" />
 declare var BaseWidget: any; // there is no ts definition of BaseWidget (yet!)
-
 // declareDecorator - to enable us to export this module with Dojo's "declare()" syntax so WAB can load it:
-import declare from "./support/declareDecorator";
+import declare from './support/declareDecorator';
 
 // esri imports:
-import esri = require("esri");
-import EsriMap = require("esri/map");
+import EsriMap from 'esri/map';
 
-// dojo imports: (example below)
+// dojo imports:
 // import * as on from 'dojo/on';
 
 interface IConfig {
   serviceUrl: string;
 }
 interface IWidget {
+  baseClass: string;
   config?: IConfig;
-  baseClass: String;
-  map: EsriMap;
-  postCreate: Function;
 }
 
 @declare(BaseWidget)
 class Widget implements IWidget {
-  baseClass = "<%= baseClass %>";
+  public baseClass: string = '<%= baseClass %>';
+  public config: IConfig;
 
-  map: EsriMap;
+  private map: EsriMap;
 
-  postCreate(args: any): void {
-    let self: any = this;
+  private postCreate(args: any): void {
+    const self: any = this;
     self.inherited(arguments);
-    console.log("<%= widgetName %>::postCreate");
+    console.log('<%= widgetName %>::postCreate');
   }
-  // startup() {
+  // private startup(): void {
   //   let self: any = this;
   //   self.inherited(arguments);
   //   console.log('<%= widgetName %>::startup');
   // };
-  // onOpen() {
+  // private onOpen(): void {
   //   console.log('<%= widgetName %>::onOpen');
   // };
-  // onClose(){
+  // private onClose(): void {
   //   console.log('<%= widgetName %>::onClose');
   // };
-  // onMinimize(){
+  // private onMinimize(): void {
   //   console.log('<%= widgetName %>::onMinimize');
   // };
-  // onMaximize(){
+  // private onMaximize(): void {
   //   console.log('<%= widgetName %>::onMaximize');
   // };
-  // onSignIn(credential){
+  // private onSignIn(credential): void {
   //   console.log('<%= widgetName %>::onSignIn', credential);
   // };
-  // onSignOut(){
+  // private onSignOut(): void {
   //   console.log('<%= widgetName %>::onSignOut');
   // };
-  // onPositionChange(){
+  // private onPositionChange(): void {
   //   console.log('<%= widgetName %>::onPositionChange');
   // };
-  // resize(){
+  // private resize(): void {
   //   console.log('<%= widgetName %>::resize');
   // };
 }

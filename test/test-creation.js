@@ -285,6 +285,7 @@ describe('esri-appbuilder-js:app - TypeScript', function () {
     var expected = [
       '.editorconfig',
       'tsconfig.json',
+      'tslint.json',
       '.yo-rc.json'
     ];
     assert.file(expected);
