@@ -12,13 +12,19 @@ This generator scaffolds out the boilerplate files that are needed when you are 
 
 ### Installation
 
-To install Yeoman from npm (if not already), run:
+The first prerequisite is to have the [grunt-cli](https://gruntjs.com/getting-started) installed. To install this, run:
+
+```bash
+npm install -g grunt-cli
+```
+
+Next you must install [Yeoman](http://yeoman.io/):
 
 ```bash
 $ npm install -g yo
 ```
 
-To install generator-esri-appbuilder-js from npm, run:
+Finally install generator-esri-appbuilder-js from npm:
 
 ```bash
 $ npm install -g generator-esri-appbuilder-js
