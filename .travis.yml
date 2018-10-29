@@ -1,5 +1,9 @@
 sudo: false
 language: node_js
+os:
+  - windows
+  - linux
+  - mac
 node_js:
   - 'node'
   - 'lts/carbon'
