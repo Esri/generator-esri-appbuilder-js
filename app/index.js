@@ -383,9 +383,9 @@ module.exports = class extends Generator {
       dependencies = dependencies.concat([
       'babel-plugin-transform-es2015-modules-simple-amd',
       'babel-preset-es2015-without-strict',
-        'babel-preset-stage-0',
-        'grunt-babel',
-        'babel-core'
+      'babel-preset-stage-0',
+      'grunt-babel@~7.0.0',
+      'babel-core@~6.26.3'
       ]);
     }
 
