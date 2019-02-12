@@ -12,9 +12,8 @@ import SceneView from 'esri/views/SceneView';
 // dojo imports: (example below)
 // import * as on from 'dojo/on';
 
-interface IConfig {
-  serviceUrl: string;
-}
+import IConfig from './config';
+
 interface IWidget {
   baseClass: string;
   config?: IConfig;

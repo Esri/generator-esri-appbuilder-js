@@ -1142,6 +1142,9 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     it('creates expected support/declareDecorator.ts file', function (/*done*/) {
       assert.file('widgets/TestWidget/support/declareDecorator.ts');
     });
+    it('creates expected config.ts file', function (/*done*/) {
+      assert.file('widgets/TestWidget/config.ts');
+    });
     it('does not create widget.js file', function (/*done*/) {
       assert.noFile('widgets/TestWidget/Widget.js');
     });
@@ -1150,6 +1153,10 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
     });
     it('does not create setting/setting.js file', function (/*done*/) {
       assert.noFile('widgets/TestWidget/setting/Setting.js');
+    });
+
+    it('imports the config', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/Widget.ts', /import IConfig from '.\/config';/);
     });
   });
 
