@@ -169,6 +169,12 @@ module.exports = class extends Generator {
         this
       );
 
+      this.fs.copyTpl(
+        this.templatePath('config.ts'),
+        this.destinationPath(path.join(basePath, 'config.ts')),
+        this
+      );
+
       // If we're using TypeScript, we also need the "declareDecorator" file.
       this.fs.copyTpl(
         this.templatePath('support/declareDecorator.ts'),
