@@ -131,7 +131,7 @@ module.exports = class extends Generator {
       this.jsVersion = this.config.get('jsVersion');
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
-      this.wabVersion = '2.9';
+      this.wabVersion = '2.11';
 
       if (this.is3d) {
         this.platform = 'HTML3D';
