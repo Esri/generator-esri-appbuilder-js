@@ -221,8 +221,7 @@ module.exports = class extends Generator {
 				'themes/*.js',
 				'themes/**/*.js',
 				'themes/**/**/*.js',
-				'themes/!**/**/nls/*.js',
-                                'themes/!**/**/layouts/**/*.png'
+				'themes/!**/**/nls/*.js'
             ],
             dest: 'dist/'
           }]
@@ -257,7 +256,8 @@ module.exports = class extends Generator {
             'themes/**/**.json',
             'themes/**/**.css',
             'themes/**/images/**',
-            'themes/**/nls/**'
+            'themes/**/nls/**',
+            'themes/**/layouts/**/*.png'
           ],
           dest: 'dist/',
           expand: true
