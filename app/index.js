@@ -257,7 +257,7 @@ module.exports = class extends Generator {
             'themes/**/**.css',
             'themes/**/images/**',
             'themes/**/nls/**',
-            'themes/**/layouts/**/*.png'
+            'themes/**/layouts/**/*.*'
           ],
           dest: 'dist/',
           expand: true
