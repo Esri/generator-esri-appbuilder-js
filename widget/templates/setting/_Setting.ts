@@ -19,17 +19,17 @@ class Setting implements ISetting {
 
   private textNode: HTMLInputElement;
 
-  private postCreate(args: any): void {
+  public postCreate(args: any): void {
     const self: any = this;
     self.inherited(arguments);
     this.setConfig(this.config);
   }
 
-  private setConfig(config: IConfig): void {
+  public setConfig(config: IConfig): void {
     this.textNode.value = config.serviceUrl;
   }
 
-  private getConfig(): object {
+  public getConfig(): IConfig {
     // WAB will get config object through this method
     return {
       serviceUrl: this.textNode.value,
