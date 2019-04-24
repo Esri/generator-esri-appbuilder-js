@@ -968,8 +968,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.11', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.11",/);
+    it('has wabVersion set to 2.12', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.12",/);
     });
 
     it('has platform set to HTML', function (/*done*/) {
@@ -1005,8 +1005,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.11', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.11"/);
+    it('has wabVersion set to 2.12', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.12"/);
     });
 
     it('has platform set to HTML', function (/*done*/) {
@@ -1041,8 +1041,8 @@ describe('esri-appbuilder-js:widget subgenerator', function () {
       .on('end', done);
     });
 
-    it('has wabVersion set to 2.11', function (/*done*/) {
-      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.11"/);
+    it('has wabVersion set to 2.12', function (/*done*/) {
+      assert.fileContent('widgets/TestWidget/manifest.json', /"wabVersion": "2.12"/);
     });
 
     it('has platform set to HTML3D', function (/*done*/) {
