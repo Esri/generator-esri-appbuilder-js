@@ -8,7 +8,7 @@ import declare from './support/declareDecorator';
 import EsriMap from 'esri/map';
 
 // dojo imports:
-// import * as on from 'dojo/on';
+// import on from 'dojo/on';
 
 import IConfig from './config';
 

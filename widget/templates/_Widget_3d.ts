@@ -10,7 +10,7 @@ import declare from './support/declareDecorator';
 import SceneView from 'esri/views/SceneView';
 
 // dojo imports: (example below)
-// import * as on from 'dojo/on';
+// import on from 'dojo/on';
 
 import IConfig from './config';
 
