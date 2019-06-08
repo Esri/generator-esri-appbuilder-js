@@ -1,0 +1,31 @@
+.jimu-dockable-panel{
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: visible;
+}
+.jimu-dockable-panel>.jimu-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.jimu-dockable-panel>.bar{
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.jimu-dockable-panel>.bar.max{
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.jimu-dockable-panel>.bar.min{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.jimu-dockable-panel>.bar.min:hover{
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.jimu-dockable-panel>.nav{
+  width: 25px;
+  height: 25px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
