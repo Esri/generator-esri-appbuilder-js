@@ -222,7 +222,7 @@ module.exports = class extends Generator {
     if (fs.existsSync("./.yo-rc")){
       var basePath = path.join('widgets', this.widgetName);
     } else {
-      var basePath = this.widgetPath;
+      var basePath = path.join(this.widgetPath, this.widgetName);
     }
 
     if (this.jsVersion === 'TypeScript') {
