@@ -18,7 +18,7 @@ module.exports = class extends Generator {
       name:"widgetPath",
       message: "Choose your widget directory: ",
       when: function (response) {
-        return !fs.existsSync("./.yo-rc")
+        return !fs.existsSync("./.yo-rc.json")
       },
       validate(answer) {
         if (!fs.existsSync(answer)){
@@ -43,7 +43,7 @@ module.exports = class extends Generator {
       message: 'Type of widget(s) to be generated:',
       when: function (response) {
         // only show if we dont have a config to work from'
-        return !fs.existsSync("./.yo-rc")
+        return !fs.existsSync("./.yo-rc.json")
       }
     },{
       type: 'confirm',
@@ -51,7 +51,7 @@ module.exports = class extends Generator {
       name: 'useSass',
       when: function (response) {
         // only show if we dont have a config to work from'
-        return !fs.existsSync("./.yo-rc")
+        return !fs.existsSync("./.yo-rc.json")
       }
     }, {
       name: 'jsVersion',
@@ -60,7 +60,7 @@ module.exports = class extends Generator {
       choices: ['ES5', 'ES2015', 'TypeScript'],
       when: function (response) {
         // only show if we dont have a config to work from'
-        return !fs.existsSync("./.yo-rc")
+        return !fs.existsSync("./.yo-rc.json")
       }
     },{
       name: 'widgetName',
@@ -179,7 +179,7 @@ module.exports = class extends Generator {
       this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
 
       // set if config exists - if not use options presented.
-      if (fs.existsSync("./.yo-rc")){
+      if (fs.existsSync("./.yo-rc.json")){
         this.widgetsType = this.config.get('widgetsType');
         this.useSass = this.config.get('useSass');
         this.jsVersion = this.config.get('jsVersion');
@@ -219,7 +219,7 @@ module.exports = class extends Generator {
   writing() {
 
     // use default app path if config exists. Otherwise use option chosen by user
-    if (fs.existsSync("./.yo-rc")){
+    if (fs.existsSync("./.yo-rc.json")){
       var basePath = path.join('widgets', this.widgetName);
     } else {
       var basePath = path.join(this.widgetPath, this.widgetName);
