@@ -5,6 +5,8 @@ const chalk = require('chalk');
 const dasherize = require('underscore.string/dasherize');
 const utils = require('./utils');
 
+const fs = require("fs")
+
 module.exports = class extends Generator {
   prompting() {
     var done = this.async();
@@ -12,11 +14,60 @@ module.exports = class extends Generator {
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
 
     var prompts = [{
+     
+      name:"widgetPath",
+      message: "Choose your widget directory: ",
+      when: function (response) {
+        return !fs.existsSync("./.yo-rc")
+      },
+      validate(answer) {
+        if (!fs.existsSync(answer)){
+          return 'Invalid path. Please ensure this is a valid path to your widget source folder.';
+        } else {
+          return true;
+        }
+      }
+    },{
+      type: 'list',
+      choices: [
+        {
+        value: 'is2d',
+        name: '2D'
+        },
+        {
+        value: 'is3d',
+        name: '3D'
+        }
+      ],
+      name: 'widgetsType',
+      message: 'Type of widget(s) to be generated:',
+      when: function (response) {
+        // only show if we dont have a config to work from'
+        return !fs.existsSync("./.yo-rc")
+      }
+    },{
+      type: 'confirm',
+      message: 'Would you like to use SASS for CSS preprocessing?',
+      name: 'useSass',
+      when: function (response) {
+        // only show if we dont have a config to work from'
+        return !fs.existsSync("./.yo-rc")
+      }
+    }, {
+      name: 'jsVersion',
+      type: 'list',
+      message: 'Which JavaScript  syntax version would you like to develop in?',
+      choices: ['ES5', 'ES2015', 'TypeScript'],
+      when: function (response) {
+        // only show if we dont have a config to work from'
+        return !fs.existsSync("./.yo-rc")
+      }
+    },{
       name: 'widgetName',
       message: 'Widget Name:',
       'default': 'MyWidget',
       // test for valid folder name
-      validate: function(answer) {
+      validate: function (answer) {
         var validFolderNameRegExp = /^[^\\/?%*"":|<>\.\s]+$/;
         return validFolderNameRegExp.test(answer);
       }
@@ -25,10 +76,10 @@ module.exports = class extends Generator {
       message: 'Widget Title:',
       // default to widget name split on caplital letters
       // Ex: MyWidget => My Widget
-      'default': function(answers) {
+      'default': function (answers) {
         var title;
         if (answers && answers.widgetName && answers.widgetName.match) {
-          title = answers.widgetName.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1).join(' ');
+          title = answers.widgetName.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1).join(' ');
         } else {
           title = 'My Widget';
         }
@@ -44,10 +95,10 @@ module.exports = class extends Generator {
       message: 'Base Class:',
       // default to dasherized widget name
       // Ex: MyWidget => my-widget
-      'default': function(answers) {
+      'default': function (answers) {
         var baseClass;
         if (answers && answers.widgetName) {
-          baseClass = dasherize(answers.widgetName).replace(/^-/,'');
+          baseClass = dasherize(answers.widgetName).replace(/^-/, '');
         } else {
           baseClass = 'my-widget';
         }
@@ -81,7 +132,7 @@ module.exports = class extends Generator {
           name: 'Template (HTML) file'
         }
       ],
-      'default': [ 'inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile' ]
+      'default': ['inPanel', 'hasLocale', 'hasStyle', 'hasConfig', 'hasUIFile']
     },
     {
       when: function (response) {
@@ -114,21 +165,30 @@ module.exports = class extends Generator {
           name: 'Settings style (CSS) file'
         }
       ],
-      'default': [ 'hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle' ]
+      'default': ['hasSettingUIFile', 'hasSettingLocale', 'hasSettingStyle']
     }];
 
     this.prompt(prompts).then(function (props) {
       this.widgetName = props.widgetName;
       this.widgetTitle = props.widgetTitle;
       this.description = props.description;
+      this.widgetPath = props.widgetPath;
 
       // properties that we need to get from the package json, if it exists:
       this.author = utils.authorToString(utils.getPackageInfo('author'));
       this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
 
-      this.widgetsType = this.config.get('widgetsType');
-      this.useSass = this.config.get('useSass');
-      this.jsVersion = this.config.get('jsVersion');
+      // set if config exists - if not use options presented.
+      if (fs.existsSync("./.yo-rc")){
+        this.widgetsType = this.config.get('widgetsType');
+        this.useSass = this.config.get('useSass');
+        this.jsVersion = this.config.get('jsVersion');
+      } else {
+        this.jsVersion = props.jsVersion
+        this.useSass = props.useSass
+        this.widgetsType = props.widgetsType
+      }
+
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
       this.wabVersion = '2.12';
@@ -157,14 +217,21 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    var basePath = path.join('widgets', this.widgetName);
-    if(this.jsVersion === 'TypeScript') {
+
+    // use default app path if config exists. Otherwise use option chosen by user
+    if (fs.existsSync("./.yo-rc")){
+      var basePath = path.join('widgets', this.widgetName);
+    } else {
+      var basePath = this.widgetPath;
+    }
+
+    if (this.jsVersion === 'TypeScript') {
       var templatePath = '_Widget_2d.ts';
-      if(this.is3d) {
+      if (this.is3d) {
         templatePath = '_Widget_3d.ts';
       }
       this.fs.copyTpl(
-        this.templatePath(templatePath), 
+        this.templatePath(templatePath),
         this.destinationPath(path.join(basePath, 'Widget.ts')),
         this
       );
@@ -188,7 +255,7 @@ module.exports = class extends Generator {
         this
       );
     }
-    
+
     if (this.hasUIFile) {
       this.fs.copyTpl(
         this.templatePath('_Widget.html'),
@@ -204,7 +271,7 @@ module.exports = class extends Generator {
       );
     }
     if (this.hasStyle) {
-      if(this.useSass) {
+      if (this.useSass) {
         this.fs.copyTpl(
           this.templatePath('css/_style.scss'),
           this.destinationPath(path.join(basePath, 'css/style.scss')),
@@ -238,8 +305,8 @@ module.exports = class extends Generator {
     );
 
     // Settings:
-    if(this.hasSettingPage) {
-      if(this.jsVersion === 'TypeScript') {
+    if (this.hasSettingPage) {
+      if (this.jsVersion === 'TypeScript') {
         this.fs.copyTpl(
           this.templatePath('setting/_Setting.ts'),
           this.destinationPath(path.join(basePath, 'setting/Setting.ts')),
@@ -267,7 +334,7 @@ module.exports = class extends Generator {
         );
       }
       if (this.hasSettingStyle) {
-        if(this.useSass) {
+        if (this.useSass) {
           this.fs.copyTpl(
             this.templatePath('setting/css/_style.scss'),
             this.destinationPath(path.join(basePath, 'setting/css/style.scss')),
