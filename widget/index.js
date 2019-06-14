@@ -16,9 +16,9 @@ module.exports = class extends Generator {
     var prompts = [{
       name:"widgetPath",
       message: "Choose your widget directory: ",
-      // when: function (response) {
-      //   return !fs.existsSync("./.yo-rc.json")
-      // },
+      when: function (response) {
+        return !fs.existsSync("./.yo-rc.json")
+      },
       validate(answer) {
         if (!fs.existsSync(answer)){
           return 'Invalid path. Please ensure this is a valid path to your widget source folder.';
