@@ -14,12 +14,11 @@ module.exports = class extends Generator {
     console.log(chalk.green('Welcome to the ArcGIS Web AppBuilder widget generator!'));
 
     var prompts = [{
-     
       name:"widgetPath",
       message: "Choose your widget directory: ",
-      when: function (response) {
-        return !fs.existsSync("./.yo-rc.json")
-      },
+      // when: function (response) {
+      //   return !fs.existsSync("./.yo-rc.json")
+      // },
       validate(answer) {
         if (!fs.existsSync(answer)){
           return 'Invalid path. Please ensure this is a valid path to your widget source folder.';
@@ -178,16 +177,16 @@ module.exports = class extends Generator {
       this.author = utils.authorToString(utils.getPackageInfo('author'));
       this.license = (utils.getPackageInfo('license') !== false ? utils.getPackageInfo('license') : '');
 
-      // set if config exists - if not use options presented.
-      if (fs.existsSync("./.yo-rc.json")){
-        this.widgetsType = this.config.get('widgetsType');
-        this.useSass = this.config.get('useSass');
-        this.jsVersion = this.config.get('jsVersion');
-      } else {
+      // if new path is used pull details from user input, else use config.
+      if (this.widgetPath) {
         this.jsVersion = props.jsVersion
         this.useSass = props.useSass
         this.widgetsType = props.widgetsType
-      }
+    } else {
+        this.widgetsType = this.config.get('widgetsType');
+        this.useSass = this.config.get('useSass');
+        this.jsVersion = this.config.get('jsVersion');
+    }
 
       this.is2d = (this.widgetsType === 'is2d');
       this.is3d = (this.widgetsType === 'is3d');
@@ -218,11 +217,10 @@ module.exports = class extends Generator {
 
   writing() {
 
-    // use default app path if config exists. Otherwise use option chosen by user
-    if (fs.existsSync("./.yo-rc.json")){
-      var basePath = path.join('widgets', this.widgetName);
-    } else {
-      var basePath = path.join(this.widgetPath, this.widgetName);
+    // if a new path has been chosen by user, reset the basePath
+    let basePath = path.join('widgets', this.widgetName);
+    if (this.widgetPath !== undefined) {
+        basePath = path.join(this.widgetPath, this.widgetName);
     }
 
     if (this.jsVersion === 'TypeScript') {
