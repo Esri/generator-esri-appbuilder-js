@@ -106,7 +106,7 @@ After you [copy the widget files to the Web AppBuilder's stemapp](#copying-widge
 
 ![Widget in the Builder](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
 
-##### --- Optional Settings ---
+##### Optional Settings
 Users are also able to scaffold out widgets without creating an application base. When running `yo esri-appbuilder-js:widget` from a root without an existing .yo-rc.json file, these additional questions will be asked prior to the questions above.
 
 |Prompt|Description|Default|
