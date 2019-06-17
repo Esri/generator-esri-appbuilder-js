@@ -14,7 +14,7 @@
     "rootDir": "./",
     "outDir": "dist",
     "noImplicitUseStrict": true,
-    "lib": ["dom", "es5", "scripthost", "es2015.promise"],
+    "lib": ["dom", "es5", "scripthost", "es2015.promise", "es2015.iterable"],
     "inlineSources": true,
     "inlineSourceMap": true,
     "esModuleInterop": true

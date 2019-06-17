@@ -372,7 +372,7 @@ module.exports = class extends Generator {
         'dojo-typings@^1.11.9',
         'grunt-contrib-connect',
         'grunt-ts@^6.0.0-beta.22',
-        'typescript@^3.4.5'
+        'typescript@^3.5.2'
       ]);
       // 3D vs 2D we need to install a different declarations file:
       if (this.widgetsType === 'is3d') {
