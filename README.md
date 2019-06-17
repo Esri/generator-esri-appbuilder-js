@@ -75,7 +75,6 @@ Scaffolds out the files needed to create a new custom widget.
 |Settings locale (i18n) file|Will your settings page require a locale file?|Yes|
 |Settings style (CSS) file|Will your settings page require a style file?|Yes|
 
-
 Taking the default values for the prompts will generate the following output under the `widgets` folder (note: if you choose TypeScript style, there will be `.ts` files instead of JS):
 
 ```
@@ -106,6 +105,17 @@ MyWidget
 After you [copy the widget files to the Web AppBuilder's stemapp](#copying-widget-files), the next time you run the Web AppBuilder, you will see something like the following on the widgets panel:
 
 ![Widget in the Builder](https://raw.githubusercontent.com/Esri/generator-esri-appbuilder-js/master/docs/images/widget-in-builder.png)
+
+##### Optional Settings
+Users are also able to scaffold out widgets without creating an application base. When running `yo esri-appbuilder-js:widget` from a root without an existing .yo-rc.json file, these additional questions will be asked prior to the questions above.
+
+|Prompt|Description|Default|
+|------|-----------|-------|
+|Choose your widget directory| The location you want your widgt to be built. E.g `./` for root| None|
+|Type of widget(s) to be generated|Whether you want to build 2D or 3D widgets|2D|
+|Would you like to use SASS for CSS preprocessing?|If you choose yes, you can utilize features from [SASS](http://sass-lang.com/) like nesting, variables, etc.|Yes|
+|Which JavaScript syntax version would you like to develop in?|Will widget and settings JavaScript files use ES5, [ES2015](https://babeljs.io/learn-es2015/), or [TypeScript](https://www.typescriptlang.org/)?|ES5|
+
 
 ## Copying Widget Files
 
