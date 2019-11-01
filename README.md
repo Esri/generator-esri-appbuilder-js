@@ -192,6 +192,10 @@ This will repackage and compress your application with only the neccessary eleme
 
 NOTE: This feature is only available for 2D applications with a chosen Web AppBuilder application.
 
+## System Requirements
+
+We aim to support LTS versions of Node.js. Right now that means Node.js v8.0 and heigher.
+
 ## Issues
 
 Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/Esri/generator-esri-appbuilder-js/issues).
