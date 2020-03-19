@@ -180,6 +180,29 @@ semistandard
 
 See the [semistandard docs][semistandard] for more information.
 
+### TypeScript
+
+If you choose `TypeScript` as the answer to the `Which JavaScript syntax version would you like to develop in?`, the TypeScript compiler will be used to build your Widget TypeScript file into an AMD Widget JS file that Web AppBuilder is expecting. There are a few considerations to understand when doing this.
+
+#### Widgets in Template
+
+If you add templated widgets to your html (ex: `<div data-dojo-type="dijit/layout/AccordionPane" title="pane #1">accordion pane #1</div>`), you both need to mix in the template:
+
+```
+@declare(BaseWidget, _WidgetsInTemplateMixin)
+class Widget implements IWidget {
+```
+
+AND call the startup of _WidgetsInTemplateMixin
+
+```
+ public startup(args: any): void {
+    BaseWidget.prototype.startup.call(this, args);
+    _WidgetsInTemplateMixin.prototype.startup.call(this, args);
+```
+
+See [here](https://github.com/Esri/generator-esri-appbuilder-js/issues/154) for more information on this pattern.
+
 ## Building for Production
 
 When you're ready to publish your application in a user facing environment, improve performance by running: 
