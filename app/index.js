@@ -372,13 +372,13 @@ module.exports = class extends Generator {
         'dojo-typings@^1.11.9',
         'grunt-contrib-connect',
         'grunt-ts@^6.0.0-beta.22',
-        'typescript@^3.5.2'
+        'typescript@^3.8.3'
       ]);
       // 3D vs 2D we need to install a different declarations file:
       if (this.widgetsType === 'is3d') {
-        dependencies.push('@types/arcgis-js-api@4.11.0');
+        dependencies.push('@types/arcgis-js-api@4.14.0');
       } else {
-        dependencies.push('@types/arcgis-js-api@3.28.0');
+        dependencies.push('@types/arcgis-js-api@3.31.0');
       }
     } else {
       dependencies = dependencies.concat([
