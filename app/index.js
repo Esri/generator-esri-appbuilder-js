@@ -376,9 +376,9 @@ module.exports = class extends Generator {
       ]);
       // 3D vs 2D we need to install a different declarations file:
       if (this.widgetsType === 'is3d') {
-        dependencies.push('@types/arcgis-js-api@4.14.0');
+        dependencies.push('@types/arcgis-js-api@4.16.0');
       } else {
-        dependencies.push('@types/arcgis-js-api@3.31.0');
+        dependencies.push('@types/arcgis-js-api@3.33.0');
       }
     } else {
       dependencies = dependencies.concat([
