@@ -28,17 +28,17 @@
     "AppBuilder"
   ],
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "generator-npm-init": "^1.5.1",
     "gruntfile-editor": "^1.2.1",
-    "mkdirp": "^0.5.3",
+    "mkdirp": "^1.0.4",
     "underscore.string": "^3.3.5",
-    "yeoman-generator": "^4.7.2",
+    "yeoman-generator": "^4.11.0",
     "yosay": "^2.0.2"
   },
   "devDependencies": {
     "mocha": "*",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^2.3.0"
+    "yeoman-test": "^3.0.0"
   }
 }

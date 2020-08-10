@@ -24,7 +24,7 @@ describe('esri-appbuilder-js:app', function () {
         'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
@@ -104,7 +104,7 @@ describe('esri-appbuilder-js:app no sass', function () {
         'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
@@ -144,7 +144,7 @@ describe('esri-appbuilder-js generator - no app', function () {
         'appDirId': 'None'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
@@ -176,7 +176,7 @@ describe('esri-appbuilder-js:3dapp', function () {
         'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
@@ -234,7 +234,7 @@ describe('esri-appbuilder-js generator - 3d no app', function () {
         'jsVersion': 'ES2015'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
@@ -271,7 +271,7 @@ describe('esri-appbuilder-js:app - TypeScript', function () {
         'jsVersion': 'TypeScript'
       }).inTmpDir(function(/*dir*/) {
         var done = this.async();
-        mkdirp(appDirPath, function () {
+        mkdirp(appDirPath).then(() => {
           fs.writeFileSync(configFilePath, configFileContents);
           done();
         });
