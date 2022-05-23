@@ -1,3 +1,5 @@
+**Archived**: this project has been archived. For help getting started building Web AppBuilder widgets, see [Widget Development](https://developers.arcgis.com/web-appbuilder/guide/get-started.htm) and [Theme Development](https://developers.arcgis.com/web-appbuilder/guide/concepts.htm) on the [official documentation site](https://developers.arcgis.com/web-appbuilder/).
+
 # generator-esri-appbuilder-js [![Build Status](https://secure.travis-ci.org/Esri/generator-esri-appbuilder-js.png?branch=master)](https://travis-ci.org/Esri/generator-esri-appbuilder-js)
 
 > [Yeoman](http://yeoman.io) generator to help customize [the ArcGIS Web AppBuilder](https://developers.arcgis.com/web-appbuilder/).
